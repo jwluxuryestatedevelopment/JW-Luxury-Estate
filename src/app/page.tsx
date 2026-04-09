@@ -1,5 +1,6 @@
 import Image from "next/image";
 import BrandLockup from "./components/brand-lockup";
+import ContactForm from "./components/contact-form";
 import Reveal from "./components/reveal";
 import SiteHeader from "./components/site-header";
 
@@ -32,10 +33,65 @@ const experienceBlocks = [
   },
 ];
 
+const serviceBenefits = [
+  {
+    eyebrow: "Furnished",
+    title: "Ready-to-Live Spaces",
+    detail: "Professionally prepared residences designed to feel clean, functional, and comfortable from day one.",
+  },
+  {
+    eyebrow: "Flexible",
+    title: "Stay-Length Range",
+    detail: "Short-term, mid-term, and corporate-stay options aligned to the needs of each guest or assignment.",
+  },
+  {
+    eyebrow: "Responsive",
+    title: "Clear Communication",
+    detail: "Fast coordination and dependable support before arrival, during the stay, and when needs change.",
+  },
+  {
+    eyebrow: "Operational",
+    title: "Smooth Check-Ins",
+    detail: "Arrival details, access, and stay logistics handled with structure and attention to detail.",
+  },
+  {
+    eyebrow: "Standards",
+    title: "Consistent Care",
+    detail: "Presentation, cleanliness, and property oversight maintained with repeatable standards.",
+  },
+];
+
 const audienceTabs = [
   { label: "Property Owners" },
   { label: "Corporate Clients" },
   { label: "Guests & Travelers" },
+];
+
+const clientTypes = [
+  {
+    eyebrow: "Corporate",
+    title: "Corporate Teams",
+    description:
+      "Housing solutions for companies coordinating furnished stays for multiple travelers, supervisors, or project-based assignments.",
+  },
+  {
+    eyebrow: "Professional",
+    title: "Traveling Professionals",
+    description:
+      "Comfortable, well-managed stays for professionals who need a reliable home base while working away from home.",
+  },
+  {
+    eyebrow: "Project-Based",
+    title: "Work Crews",
+    description:
+      "Organized accommodations that support crews with practical housing, clean spaces, and dependable communication.",
+  },
+  {
+    eyebrow: "Mid-Term",
+    title: "Extended-Stay Guests",
+    description:
+      "Flexible accommodations for guests who need more than a weekend without committing to a permanent lease.",
+  },
 ];
 
 const aboutParagraphs = [
@@ -94,14 +150,14 @@ const services = [
     title: "Corporate Housing Solutions",
     description:
       "We provide fully furnished housing solutions for traveling professionals, work crews, and corporate stays that require comfort, flexibility, and dependable coordination. Our spaces are designed to support both short assignments and extended stays.",
-    image: "/dest-artisan.svg",
+    image: "/service-corporate-housing.jpg",
   },
   {
     chip: "Rental Management",
     title: "Short-Term Rental Management",
     description:
       "We manage short-term rental properties with a focus on presentation, occupancy, guest communication, cleaning coordination, and overall property performance. Every detail is handled with structure and consistency to protect the property and strengthen the guest experience.",
-    image: "/dest-highland.svg",
+    image: "/service-rental-management.jpg",
     offset: true,
   },
   {
@@ -109,7 +165,7 @@ const services = [
     title: "Mid-Term Rental Stays",
     description:
       "For guests who need more than a weekend but less than a permanent lease, we offer well-managed mid-term accommodations that provide flexibility without sacrificing comfort or quality.",
-    image: "/dest-loft.svg",
+    image: "/service-midterm-stays.jpg",
   },
 ];
 
@@ -130,29 +186,6 @@ const corporateHighlights = [
   {
     value: "Responsive Support",
     label: "Smooth check-ins and clear communication from day one.",
-  },
-];
-
-const inquiryFields = [
-  {
-    label: "Full Name",
-    placeholder: "Enter full name",
-    span: "half",
-  },
-  {
-    label: "Company Name",
-    placeholder: "Enter company name",
-    span: "half",
-  },
-  {
-    label: "Email Address",
-    placeholder: "Enter email address",
-    span: "full",
-  },
-  {
-    label: "Tell Us What You Need",
-    placeholder: "Property owner, corporate client, or prospective partner...",
-    span: "full",
   },
 ];
 
@@ -189,6 +222,37 @@ const trustPillars = [
   "Service",
   "Standards",
 ];
+
+const footerNavigationItems = [
+  { label: "Properties", href: "#services" },
+  { label: "For Guests", href: "#contact" },
+  { label: "Corporate", href: "#contact" },
+  { label: "Owners", href: "#owners" },
+];
+
+const footerLegalItems = [
+  "Privacy Policy",
+  "Terms of Service",
+  "Fair Housing",
+];
+
+const footerContactActions = [
+  {
+    label: "Email JW Luxury Estate",
+    href: "mailto:stays@jwluxuryestate.com",
+    icon: "mail",
+  },
+  {
+    label: "Request a callback",
+    href: "#contact",
+    icon: "phone",
+  },
+  {
+    label: "Visit the contact section",
+    href: "#contact",
+    icon: "location",
+  },
+] as const;
 
 const comparisonRows = [
   {
@@ -229,6 +293,48 @@ const comparisonRows = [
   },
 ];
 
+function FooterActionIcon({
+  icon,
+}: {
+  icon: (typeof footerContactActions)[number]["icon"];
+}) {
+  if (icon === "mail") {
+    return (
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        className="h-[0.95rem] w-[0.95rem] fill-none stroke-current stroke-[1.75]"
+      >
+        <path d="M4 7.5h16v9H4z" />
+        <path d="m5 8 7 5 7-5" />
+      </svg>
+    );
+  }
+
+  if (icon === "phone") {
+    return (
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        className="h-[0.95rem] w-[0.95rem] fill-none stroke-current stroke-[1.75]"
+      >
+        <path d="M8.6 4.5h2.2l1.1 4-1.7 1.7a13.5 13.5 0 0 0 3.6 3.6l1.7-1.7 4 1.1v2.2a1.5 1.5 0 0 1-1.7 1.5 15.8 15.8 0 0 1-10.7-10.7A1.5 1.5 0 0 1 8.6 4.5Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-[0.95rem] w-[0.95rem] fill-none stroke-current stroke-[1.75]"
+    >
+      <path d="M12 20s5.5-5.2 5.5-9a5.5 5.5 0 1 0-11 0c0 3.8 5.5 9 5.5 9Z" />
+      <circle cx="12" cy="11" r="1.8" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <main className="bg-background text-foreground">
@@ -236,13 +342,13 @@ export default function Home() {
 
       <section className="w-full">
         <div className="grid w-full overflow-hidden lg:grid-cols-[minmax(420px,0.45fr)_minmax(0,0.55fr)]">
-          <div className="flex min-h-[520px] flex-col justify-center bg-dark px-8 py-14 text-white sm:px-12 sm:py-16 lg:min-h-[calc(100vh-82px)] lg:px-[4.75rem] lg:py-20">
+          <div className="flex min-h-[470px] flex-col justify-center bg-dark px-6 py-12 text-white sm:min-h-[520px] sm:px-12 sm:py-16 lg:min-h-[calc(100vh-82px)] lg:px-[4.75rem] lg:py-20">
             <div className="reveal-up max-w-[31rem] space-y-8">
               <p className="text-[10px] uppercase tracking-[0.42em] text-accent">
                 Premium Housing Solutions
               </p>
               <div className="space-y-6">
-                <h1 className="max-w-[26rem] font-display text-[4.1rem] leading-[0.84] tracking-[-0.055em] sm:text-[5rem] lg:text-[5.45rem]">
+                <h1 className="max-w-[26rem] font-display text-[3.25rem] leading-[0.86] tracking-[-0.05em] sm:text-[5rem] lg:text-[5.45rem]">
                   Premium Housing Solutions With Business-Level Execution
                 </h1>
                 <p className="max-w-[23rem] text-[13px] leading-7 text-white/72 sm:max-w-[24rem]">
@@ -250,16 +356,16 @@ export default function Home() {
                   and rental management with the professionalism, structure, and
                   care that modern property partners expect.
                 </p>
-                <div className="reveal-up reveal-delay-1 mt-12 flex flex-wrap gap-3">
+                <div className="reveal-up reveal-delay-1 mt-10 flex flex-col gap-3 sm:mt-12 sm:flex-row sm:flex-wrap">
                   <a
                     href="#services"
-                    className="button-sheen inline-flex h-12 items-center justify-center bg-accent px-6 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition-transform duration-150 ease-out hover:bg-accent-strong active:scale-[0.98]"
+                    className="button-sheen inline-flex h-12 w-full items-center justify-center bg-accent px-6 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition-transform duration-150 ease-out hover:bg-accent-strong active:scale-[0.98] sm:w-auto"
                   >
                     Explore Our Solutions
                   </a>
                   <a
                     href="#owners"
-                    className="button-sheen inline-flex h-12 items-center justify-center border border-white/18 px-6 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition-colors duration-200 hover:border-white/28 hover:bg-white/5 active:scale-[0.98]"
+                    className="button-sheen inline-flex h-12 w-full items-center justify-center border border-white/18 px-6 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition-colors duration-200 hover:border-white/28 hover:bg-white/5 active:scale-[0.98] sm:w-auto"
                   >
                     Partner With Us
                   </a>
@@ -268,9 +374,9 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="hero-media-shell relative min-h-[360px] bg-[#7eb2d5] sm:min-h-[500px] lg:min-h-[calc(100vh-82px)]">
+          <div className="hero-media-shell relative min-h-[320px] bg-[#7eb2d5] sm:min-h-[500px] lg:min-h-[calc(100vh-82px)]">
             <Image
-              src="/herojwlux.png"
+              src="/herojwlux1.png"
               alt="JW Luxury Estate luxury residence"
               fill
               priority
@@ -326,17 +432,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        id="about"
-        className="w-full px-8 py-24 sm:px-10 lg:px-16 lg:py-28"
-      >
+      <section id="about" className="w-full px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
         <div className="grid items-start gap-12 lg:grid-cols-[minmax(280px,0.32fr)_minmax(0,0.68fr)] lg:gap-16">
           <Reveal className="max-w-[25rem] space-y-10">
             <div className="space-y-5">
               <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-accent">
                 About
               </p>
-              <h2 className="max-w-[12rem] font-display text-[3.9rem] leading-[0.9] tracking-[-0.045em] text-foreground sm:text-[4.3rem]">
+              <h2 className="max-w-[10rem] font-display text-[3.05rem] leading-[0.92] tracking-[-0.04em] text-foreground sm:max-w-[12rem] sm:text-[4.3rem]">
                 Who We Are.
               </h2>
             </div>
@@ -376,13 +479,13 @@ export default function Home() {
       </section>
 
       <section className="border-y border-border-subtle bg-surface-strong">
-        <div className="w-full px-8 py-20 sm:px-10 lg:px-16 lg:py-24">
+        <div className="w-full px-6 py-18 sm:px-10 lg:px-16 lg:py-24">
           <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,0.36fr)_minmax(0,0.64fr)] lg:gap-16">
             <Reveal className="space-y-5">
               <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-accent">
                 Brand Philosophy
               </p>
-              <h2 className="max-w-[16rem] font-display text-[3.45rem] leading-[0.92] tracking-[-0.045em] text-foreground sm:text-[4rem]">
+              <h2 className="max-w-[14rem] font-display text-[2.95rem] leading-[0.94] tracking-[-0.04em] text-foreground sm:max-w-[16rem] sm:text-[4rem]">
                 Built for Performance, Not Just Appearance
               </h2>
             </Reveal>
@@ -408,12 +511,12 @@ export default function Home() {
       </section>
 
       <section className="bg-background">
-        <div className="w-full px-8 py-[5.75rem] sm:px-10 lg:px-16 lg:py-[6.75rem]">
+        <div className="w-full px-6 py-[5rem] sm:px-10 lg:px-16 lg:py-[6.75rem]">
           <Reveal className="mx-auto max-w-4xl text-center">
             <p className="text-[11px] font-semibold uppercase tracking-[0.36em] text-accent">
               Operational Advantage
             </p>
-            <h2 className="mt-4 font-display text-[3.6rem] leading-[0.92] tracking-[-0.045em] text-foreground sm:text-[4.4rem]">
+            <h2 className="mt-4 font-display text-[3rem] leading-[0.95] tracking-[-0.04em] text-foreground sm:text-[4.4rem]">
               Why JW Luxury Estate
             </h2>
             <p className="mx-auto mt-6 max-w-3xl text-[1rem] leading-8 text-muted">
@@ -485,6 +588,7 @@ export default function Home() {
                   src={service.image}
                   alt={service.title}
                   fill
+                  sizes="(min-width: 1280px) 28vw, (min-width: 768px) 32vw, 100vw"
                   className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
                 />
                 <div className="absolute left-3 top-3 bg-surface px-4 py-2 text-[9px] font-semibold uppercase tracking-[0.28em] text-foreground shadow-[0_1px_0_rgba(0,0,0,0.06)]">
@@ -502,6 +606,40 @@ export default function Home() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal
+          delay={95}
+          className="premium-surface-dark mt-8 overflow-hidden border border-white/8 bg-[#11161d] text-white shadow-[0_18px_40px_rgba(0,0,0,0.16)]"
+        >
+          <div className="border-b border-white/8 px-6 py-5 sm:px-8">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-accent">
+                Included Standards
+              </p>
+              <p className="max-w-[32rem] text-sm leading-7 text-white/56">
+                The essentials that shape every JW Luxury Estate stay.
+              </p>
+            </div>
+          </div>
+          <div className="grid gap-px bg-white/8 md:grid-cols-2 xl:grid-cols-5">
+            {serviceBenefits.map((benefit) => (
+              <div
+                key={benefit.title}
+                className="bg-[#11161d] px-6 py-6 sm:px-7 sm:py-7"
+              >
+                <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-accent/84">
+                  {benefit.eyebrow}
+                </p>
+                <h3 className="mt-3 font-display text-[1.45rem] leading-[0.94] tracking-[-0.03em] text-white">
+                  {benefit.title}
+                </h3>
+                <p className="mt-3 text-[0.92rem] leading-7 text-white/58">
+                  {benefit.detail}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
 
         <Reveal
           as="article"
@@ -547,7 +685,7 @@ export default function Home() {
             <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
               Owner Solutions
             </p>
-            <h2 className="mt-3 font-display text-[2.75rem] leading-[0.96] tracking-[-0.04em] text-foreground sm:text-[3.2rem]">
+            <h2 className="mt-3 font-display text-[2.45rem] leading-[0.98] tracking-[-0.035em] text-foreground sm:text-[3.2rem]">
               For Property Owners
             </h2>
             <p className="mx-auto mt-5 max-w-3xl text-[0.98rem] leading-8 text-muted">
@@ -654,13 +792,52 @@ export default function Home() {
       </section>
 
       <section id="contact" className="bg-dark text-white">
-        <div className="grid w-full items-start gap-14 px-8 py-[5.75rem] sm:px-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(420px,0.84fr)] lg:px-16 lg:py-[6.5rem]">
+        <div className="w-full border-b border-white/6 px-6 py-[4.8rem] sm:px-10 lg:px-16 lg:py-[5.8rem]">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.34fr)_minmax(0,0.66fr)] lg:gap-12">
+            <Reveal className="max-w-[22rem] space-y-5">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
+                Who We Serve
+              </p>
+              <h2 className="font-display text-[3rem] leading-[0.92] tracking-[-0.04em] text-white sm:text-[3.55rem]">
+                Housing built for real-world stays.
+              </h2>
+              <p className="text-[1rem] leading-8 text-white/58">
+                JW Luxury Estate supports companies, traveling professionals,
+                and extended-stay guests who need furnished housing with
+                comfort, flexibility, and organized support.
+              </p>
+            </Reveal>
+
+            <div className="grid gap-px overflow-hidden border border-white/8 bg-white/8 sm:grid-cols-2">
+              {clientTypes.map((client, index) => (
+                <Reveal
+                  as="article"
+                  key={client.title}
+                  delay={index * 55}
+                  className="grid-panel bg-dark-soft px-7 py-8 sm:px-9 sm:py-10"
+                >
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-accent/88">
+                    {client.eyebrow}
+                  </p>
+                  <h3 className="mt-5 max-w-[13rem] font-display text-[1.9rem] leading-[0.95] tracking-[-0.04em] text-white">
+                    {client.title}
+                  </h3>
+                  <p className="mt-4 max-w-[20rem] text-[0.98rem] leading-8 text-white/58">
+                    {client.description}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid w-full items-start gap-12 px-6 py-[5rem] sm:px-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(420px,0.84fr)] lg:px-16 lg:py-[6.5rem]">
           <Reveal className="max-w-[36rem] space-y-9">
             <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
               For Companies
             </p>
             <div className="space-y-6">
-              <h2 className="max-w-[33rem] font-display text-[3.8rem] leading-[0.9] tracking-[-0.05em] text-white sm:text-[4.4rem]">
+              <h2 className="max-w-[22rem] font-display text-[3rem] leading-[0.92] tracking-[-0.04em] text-white sm:max-w-[33rem] sm:text-[4.4rem]">
                 For Companies and Traveling Professionals.
               </h2>
               <p className="max-w-[28rem] text-[1.02rem] leading-9 text-white/62">
@@ -674,10 +851,10 @@ export default function Home() {
                 communication, and a comfortable living experience from day one.
               </p>
             </div>
-            <div className="flex flex-wrap gap-14 pt-4">
+            <div className="flex flex-wrap gap-x-10 gap-y-7 pt-2 sm:gap-14 sm:pt-4">
               {corporateHighlights.map((item) => (
                 <div key={item.label} className="space-y-1">
-                  <p className="font-display text-[2.3rem] leading-none text-white">
+                  <p className="font-display text-[2rem] leading-none text-white sm:text-[2.3rem]">
                     {item.value}
                   </p>
                   <p className="max-w-[10rem] text-[10px] font-semibold uppercase tracking-[0.28em] text-white/38">
@@ -690,7 +867,7 @@ export default function Home() {
 
           <Reveal
             delay={110}
-            className="premium-surface-dark border border-white/8 bg-dark-soft px-8 py-9 shadow-[0_18px_40px_rgba(0,0,0,0.16)] sm:px-10 sm:py-10 lg:mx-auto lg:w-full lg:max-w-[25rem]"
+            className="premium-surface-dark border border-white/8 bg-dark-soft px-6 py-8 shadow-[0_18px_40px_rgba(0,0,0,0.16)] sm:px-10 sm:py-10 lg:mx-auto lg:w-full lg:max-w-[25rem]"
           >
             <div className="space-y-7">
               <div className="space-y-3">
@@ -703,37 +880,7 @@ export default function Home() {
                   explore the right housing solution.
                 </p>
               </div>
-              <div className="grid gap-6 sm:grid-cols-2">
-                {inquiryFields.map((field) => (
-                  <label
-                    key={field.label}
-                    className={[
-                      "form-field block border-b border-white/12 pb-3",
-                      field.span === "full" ? "sm:col-span-2" : "",
-                    ].join(" ")}
-                  >
-                    <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.26em] text-white/26">
-                      {field.label}
-                    </span>
-                    {field.label === "Tell Us What You Need" ? (
-                      <textarea
-                        rows={2}
-                        placeholder={field.placeholder}
-                        className="w-full resize-none bg-transparent text-sm leading-7 text-white/80 outline-none placeholder:text-white/24"
-                      />
-                    ) : (
-                      <input
-                        type="text"
-                        placeholder={field.placeholder}
-                        className="w-full bg-transparent text-sm leading-7 text-white/80 outline-none placeholder:text-white/24"
-                      />
-                    )}
-                  </label>
-                ))}
-              </div>
-              <button className="button-sheen inline-flex h-[46px] w-full items-center justify-center bg-accent px-5 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition-transform duration-150 ease-out hover:bg-accent-strong active:scale-[0.98]">
-                Contact Us
-              </button>
+              <ContactForm />
             </div>
           </Reveal>
         </div>
@@ -772,12 +919,12 @@ export default function Home() {
       </section>
 
       <section className="border-t border-border-subtle bg-surface">
-        <div className="w-full px-8 py-20 sm:px-10 lg:px-16 lg:py-24">
+        <div className="w-full px-6 py-18 sm:px-10 lg:px-16 lg:py-24">
           <Reveal className="mx-auto max-w-4xl text-center">
             <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
               Trust & Standards
             </p>
-            <h2 className="mt-4 font-display text-[2.85rem] leading-[0.96] tracking-[-0.045em] text-foreground sm:text-[3.3rem]">
+            <h2 className="mt-4 font-display text-[2.45rem] leading-[0.98] tracking-[-0.035em] text-foreground sm:text-[3.3rem]">
               Built on Trust, Service, and Standards
             </h2>
             <p className="mx-auto mt-6 max-w-3xl text-[1rem] leading-8 text-muted">
@@ -800,51 +947,80 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="bg-dark text-white">
-        <div className="grid w-full gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.35fr_repeat(3,minmax(0,1fr))] lg:px-8 lg:py-16">
-          <div className="space-y-4">
-            <BrandLockup variant="footer" />
-            <p className="max-w-sm text-sm leading-7 text-white/65">
-              JW Luxury Estate is a premium housing and property solutions
-              company focused on corporate stays, short-term rentals, and
-              professionally managed living experiences.
-            </p>
-          </div>
-          <div className="space-y-3">
-            <p className="text-[10px] uppercase tracking-[0.35em] text-accent">
-              Solutions
-            </p>
-            <div className="space-y-2 text-sm text-white/70">
-              <p>Corporate Housing Solutions</p>
-              <p>Short-Term Rental Management</p>
-              <p>Mid-Term Rental Stays</p>
-              <p>Property Partnership Opportunities</p>
+      <footer className="border-t border-white/6 bg-dark text-white">
+        <div className="w-full px-6 py-[4rem] sm:px-10 lg:px-14 lg:py-[5.2rem]">
+          <div className="grid gap-10 border-b border-white/6 pb-10 md:grid-cols-2 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,0.9fr)_minmax(0,0.9fr)_minmax(0,1.05fr)] lg:gap-10">
+            <div className="max-w-[19rem] space-y-5">
+              <BrandLockup variant="footer" />
+              <p className="text-[1.02rem] leading-[1.75] text-white/58">
+                Elevating the intersection of professional real estate
+                operations and luxury hospitality for global fleets and guests.
+              </p>
+            </div>
+
+            <div className="space-y-5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-accent/82">
+                Navigation
+              </p>
+              <nav aria-label="Footer navigation">
+                <ul className="space-y-4 text-[1rem] leading-none text-white/64 sm:text-[1.06rem]">
+                  {footerNavigationItems.map((item) => (
+                    <li key={item.label}>
+                      <a
+                        href={item.href}
+                        className="inline-flex transition-colors duration-200 hover:text-white"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+
+            <div className="space-y-5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-accent/82">
+                Legal
+              </p>
+              <ul className="space-y-4 text-[1rem] leading-none text-white/64 sm:text-[1.06rem]">
+                {footerLegalItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="space-y-5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-accent/82">
+                Contact
+              </p>
+              <div className="space-y-4 text-[1rem] leading-[1.7] text-white/64 sm:text-[1.06rem]">
+                <p>
+                  Inquiries:{" "}
+                  <a
+                    href="mailto:stays@jwluxuryestate.com"
+                    className="transition-colors duration-200 hover:text-white"
+                  >
+                    stays@jwluxuryestate.com
+                  </a>
+                </p>
+                <p>Headquarters: Scottsdale, Arizona</p>
+              </div>
+              <div className="flex items-center gap-3 pt-1">
+                {footerContactActions.map((action) => (
+                  <a
+                    key={action.label}
+                    href={action.href}
+                    aria-label={action.label}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-white/56 transition-colors duration-200 hover:border-white/20 hover:text-white active:scale-[0.97]"
+                  >
+                    <FooterActionIcon icon={action.icon} />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="space-y-3">
-            <p className="text-[10px] uppercase tracking-[0.35em] text-accent">
-              Company
-            </p>
-            <div className="space-y-2 text-sm text-white/70">
-              <p>Who We Are</p>
-              <p>Built for Performance</p>
-              <p>Why JW Luxury Estate</p>
-              <p>Our Process</p>
-            </div>
-          </div>
-          <div className="space-y-3">
-            <p className="text-[10px] uppercase tracking-[0.35em] text-accent">
-              Contact
-            </p>
-            <div className="space-y-2 text-sm text-white/70">
-              <p>inquiry@jwluxuryestate.com</p>
-              <p>Property owners, corporate clients, and partners</p>
-              <p>Premium housing solutions with business-level execution</p>
-            </div>
-          </div>
-        </div>
-        <div className="border-t border-white-subtle">
-          <div className="flex w-full flex-col gap-3 px-4 py-5 text-[10px] uppercase tracking-[0.28em] text-white/45 sm:px-6 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+
+          <div className="flex flex-col gap-3 pt-5 text-[10px] uppercase tracking-[0.24em] text-white/32 sm:flex-row sm:items-center sm:justify-between">
             <p>Copyright 2026 JW Luxury Estate. All rights reserved.</p>
             <p>Professional housing solutions backed by structure and standards.</p>
           </div>

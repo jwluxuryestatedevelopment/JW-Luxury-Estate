@@ -23,14 +23,41 @@ export default function Reveal({
   delay = 0,
 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isPending, setIsPending] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
+    let frame = 0;
 
     if (!node) {
       return;
     }
+
+    if (typeof IntersectionObserver === "undefined") {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (mediaQuery.matches) {
+      return;
+    }
+
+    const rect = node.getBoundingClientRect();
+    const viewportHeight =
+      window.innerHeight || document.documentElement.clientHeight;
+    const isInInitialView =
+      rect.top <= viewportHeight * 0.9 && rect.bottom >= 0;
+
+    if (isInInitialView) {
+      return;
+    }
+
+    frame = window.requestAnimationFrame(() => {
+      setIsVisible(false);
+      setIsPending(true);
+    });
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -39,6 +66,7 @@ export default function Reveal({
         }
 
         setIsVisible(true);
+        setIsPending(false);
         observer.unobserve(node);
       },
       {
@@ -49,13 +77,21 @@ export default function Reveal({
 
     observer.observe(node);
 
-    return () => observer.disconnect();
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
   }, []);
 
   return (
     <Tag
       ref={ref as never}
-      className={["reveal-block", isVisible ? "is-visible" : "", className]
+      className={[
+        "reveal-block",
+        isPending ? "is-pending" : "",
+        isVisible ? "is-visible" : "",
+        className,
+      ]
         .filter(Boolean)
         .join(" ")}
       style={

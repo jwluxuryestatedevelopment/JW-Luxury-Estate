@@ -17,18 +17,9 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
     () => navigation.map((item) => item.href.replace("#", "")),
     [navigation],
   );
-  const [activeHref, setActiveHref] = useState(navigation[0]?.href ?? "#");
+  const [activeHref, setActiveHref] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
-
-  useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
-      setHasMounted(true);
-    });
-
-    return () => window.cancelAnimationFrame(frame);
-  }, []);
 
   useEffect(() => {
     const handleScrollState = () => {
@@ -125,12 +116,12 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
           : "border-border-subtle bg-surface/95 backdrop-blur-md",
       ].join(" ")}
     >
-      <div className="flex w-full items-center justify-between gap-6 px-6 py-5 lg:px-7">
+      <div className="flex w-full items-center justify-between gap-4 px-4 py-4 sm:px-6 sm:py-5 lg:px-7">
         <BrandLockup />
 
         <nav className="hidden items-center gap-8 text-[10px] font-semibold uppercase tracking-[0.32em] text-muted md:flex">
           {navigation.map((item) => {
-            const isActive = hasMounted && activeHref === item.href;
+            const isActive = activeHref === item.href;
 
             return (
               <a
@@ -154,7 +145,7 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
           })}
         </nav>
 
-        <div className="flex items-center gap-3 md:hidden">
+        <div className="flex items-center gap-2 md:hidden">
           <button
             type="button"
             aria-expanded={isMenuOpen}
@@ -197,7 +188,7 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
 
       <div
         className={[
-          "fixed inset-0 top-[77px] bg-[rgba(17,12,9,0.14)] backdrop-blur-[2px] transition-opacity duration-200 ease-out md:hidden",
+          "fixed inset-0 top-[72px] bg-[rgba(17,12,9,0.14)] backdrop-blur-[2px] transition-opacity duration-200 ease-out sm:top-[77px] md:hidden",
           isMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
         ].join(" ")}
         onClick={() => setIsMenuOpen(false)}
@@ -218,7 +209,7 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
         >
           <div className="space-y-1">
             {navigation.map((item) => {
-              const isActive = hasMounted && activeHref === item.href;
+              const isActive = activeHref === item.href;
 
               return (
                 <a
