@@ -1,0 +1,22 @@
+<svg width="900" height="1200" viewBox="0 0 900 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="1200" fill="url(#paint0_linear_0_1)"/>
+  <rect x="58" y="58" width="220" height="32" fill="#E8E5DB"/>
+  <text x="83" y="81" fill="#245889" font-size="13" font-family="Georgia, serif" letter-spacing="4">DESIGNER LOFT</text>
+  <rect x="130" y="250" width="640" height="520" fill="#E9E4D7"/>
+  <rect x="160" y="282" width="150" height="458" fill="#F5F0E7"/>
+  <rect x="190" y="500" width="90" height="210" fill="#C59C5B"/>
+  <rect x="360" y="360" width="330" height="380" fill="#D7E0E0"/>
+  <rect x="390" y="392" width="120" height="138" fill="#9CC6E4"/>
+  <rect x="536" y="392" width="124" height="138" fill="#A7D6D6"/>
+  <rect x="390" y="556" width="120" height="154" fill="#EAD18A"/>
+  <rect x="536" y="556" width="124" height="154" fill="#9BC5EA"/>
+  <circle cx="592" cy="318" r="54" fill="#86B56A"/>
+  <rect x="585" y="370" width="14" height="50" fill="#6F9B55"/>
+  <path d="M130 770H770V884C770 908 751 928 727 928H173C149 928 130 908 130 884V770Z" fill="#EDE7DB"/>
+  <defs>
+    <linearGradient id="paint0_linear_0_1" x1="450" y1="0" x2="450" y2="1200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F5A96"/>
+      <stop offset="1" stop-color="#7FC2EA"/>
+    </linearGradient>
+  </defs>
+</svg>

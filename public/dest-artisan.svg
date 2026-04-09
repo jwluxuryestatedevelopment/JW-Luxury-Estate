@@ -1,0 +1,14 @@
+<svg width="900" height="1200" viewBox="0 0 900 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="1200" fill="#111111"/>
+  <rect x="58" y="58" width="250" height="32" fill="#F3E7C8"/>
+  <text x="82" y="81" fill="#111111" font-size="13" font-family="Georgia, serif" letter-spacing="4">SIGNATURE SUITE</text>
+  <path d="M175 280C245 190 355 136 450 136C545 136 655 190 725 280" stroke="#B48B43" stroke-width="4"/>
+  <path d="M175 870C245 960 355 1014 450 1014C545 1014 655 960 725 870" stroke="#B48B43" stroke-width="4"/>
+  <path d="M208 316H692V826H208V316Z" stroke="#B48B43" stroke-width="4"/>
+  <path d="M260 372C312 316 378 286 450 286C522 286 588 316 640 372" stroke="#B48B43" stroke-width="4"/>
+  <path d="M260 772C312 828 378 858 450 858C522 858 588 828 640 772" stroke="#B48B43" stroke-width="4"/>
+  <text x="450" y="486" fill="#B48B43" font-size="38" font-family="Georgia, serif" text-anchor="middle" letter-spacing="4">THE</text>
+  <text x="450" y="570" fill="#B48B43" font-size="82" font-family="Georgia, serif" text-anchor="middle" letter-spacing="3">ARTISAN</text>
+  <text x="450" y="650" fill="#B48B43" font-size="66" font-family="Georgia, serif" text-anchor="middle" letter-spacing="6">SUITE</text>
+  <circle cx="450" cy="710" r="8" fill="#B48B43"/>
+</svg>

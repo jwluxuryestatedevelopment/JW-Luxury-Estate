@@ -1,0 +1,21 @@
+<svg width="900" height="1200" viewBox="0 0 900 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="1200" fill="#17312F"/>
+  <rect x="58" y="58" width="250" height="32" fill="#E9E2D7"/>
+  <text x="84" y="81" fill="#17312F" font-size="13" font-family="Georgia, serif" letter-spacing="4">ESTATE RESIDENCE</text>
+  <rect x="140" y="150" width="620" height="910" fill="url(#paint0_linear_0_1)"/>
+  <path d="M280 978H620" stroke="#90A6A0" stroke-width="3"/>
+  <path d="M296 912C296 637 344 450 450 332C556 450 604 637 604 912" stroke="#A9BDB4" stroke-width="5"/>
+  <path d="M348 912V534C348 510 364 488 388 482C412 476 432 487 450 512C468 487 488 476 512 482C536 488 552 510 552 534V912" stroke="#CAD7D2" stroke-width="7"/>
+  <path d="M348 912H552" stroke="#CAD7D2" stroke-width="7"/>
+  <path d="M390 548H510" stroke="#8DA7A0" stroke-width="3"/>
+  <path d="M390 612H510" stroke="#8DA7A0" stroke-width="3"/>
+  <path d="M390 676H510" stroke="#8DA7A0" stroke-width="3"/>
+  <path d="M390 740H510" stroke="#8DA7A0" stroke-width="3"/>
+  <path d="M390 804H510" stroke="#8DA7A0" stroke-width="3"/>
+  <defs>
+    <linearGradient id="paint0_linear_0_1" x1="450" y1="150" x2="450" y2="1060" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#536D68"/>
+      <stop offset="1" stop-color="#203634"/>
+    </linearGradient>
+  </defs>
+</svg>
