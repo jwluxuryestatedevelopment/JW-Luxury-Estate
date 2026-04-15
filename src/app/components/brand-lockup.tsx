@@ -27,16 +27,16 @@ export default function BrandLockup({
     >
       {!isFooter ? (
         <>
-          <span className="brand-plaque relative h-[4.1rem] w-[4.1rem] shrink-0 sm:h-[4.85rem] sm:w-[4.85rem]">
+          <span className="brand-plaque relative h-[3.2rem] w-[3.2rem] shrink-0 sm:h-[3.75rem] sm:w-[3.75rem]">
             <Image
               src="/logo-jw-transparent-clean-v2.png"
               alt=""
               fill
-              sizes="(max-width: 640px) 66px, 78px"
+              sizes="(max-width: 640px) 52px, 60px"
               className="object-contain drop-shadow-[0_12px_22px_rgba(17,12,9,0.18)]"
             />
           </span>
-          <span className="brand-wordmark min-w-0 font-display text-[12px] tracking-[0.08em] text-foreground sm:text-[15px] sm:tracking-[0.12em]">
+          <span className="brand-wordmark min-w-0 font-display text-[11px] tracking-[0.08em] text-foreground sm:text-[13px] sm:tracking-[0.11em]">
             JW LUXURY ESTATE.
           </span>
         </>

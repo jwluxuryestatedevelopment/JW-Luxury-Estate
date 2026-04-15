@@ -15,6 +15,7 @@
   --white-subtle: rgba(255, 255, 255, 0.08);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --header-offset: 5.25rem;
 }
 
 @theme inline {
@@ -42,7 +43,7 @@
 html {
   background: var(--background);
   scroll-behavior: smooth;
-  scroll-padding-top: 7rem;
+  scroll-padding-top: calc(var(--header-offset) + 0.35rem);
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -70,7 +71,7 @@ a {
 }
 
 [id] {
-  scroll-margin-top: 7rem;
+  scroll-margin-top: calc(var(--header-offset) + 0.35rem);
 }
 
 img {
@@ -310,6 +311,12 @@ img {
 
   .premium-table tbody tr:hover {
     background: rgba(157, 119, 56, 0.06);
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --header-offset: 5.85rem;
   }
 }
 

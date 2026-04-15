@@ -1,233 +1,193 @@
 import Image from "next/image";
+import {
+  propertyShowcase,
+  propertyShowcaseUsesRemoteMedia,
+} from "./data/property-showcase";
 import BrandLockup from "./components/brand-lockup";
 import ContactForm from "./components/contact-form";
+import PropertyImageCarousel from "./components/property-image-carousel";
 import Reveal from "./components/reveal";
 import SiteHeader from "./components/site-header";
 
 const navigation = [
   { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Owners", href: "#owners" },
+  { label: "Properties", href: "#properties" },
+  { label: "Nationwide", href: "#nationwide" },
   { label: "Contact", href: "#contact" },
 ];
 
 const experienceBlocks = [
   {
-    title: "Comfort",
-    subtitle: "Spaces that feel clean, functional, and welcoming.",
-    accent: true,
-  },
-  {
-    title: "Responsiveness",
-    subtitle: "Fast communication and clear support throughout the stay.",
-  },
-  {
-    title: "Consistency",
+    title: "30+ Day Stays",
     subtitle:
-      "Standards that are maintained across operations, not improvised as problems appear.",
+      "Built for stability with flexible weekly or monthly payments and no rigid long-term lease.",
   },
   {
-    title: "Care",
+    title: "Team-Based Living",
     subtitle:
-      "A serious commitment to both guest experience and property condition.",
+      "Stay with coworkers and project teammates instead of unknown roommates.",
+  },
+  {
+    title: "Smart Security",
+    subtitle:
+      "Smart locks and controlled access create safer, more private living.",
+  },
+  {
+    title: "Move-In Ready",
+    subtitle:
+      "Furnished bedrooms, kitchens, shared areas, and parking ready from day one.",
   },
 ];
 
-const serviceBenefits = [
-  {
-    eyebrow: "Furnished",
-    title: "Ready-to-Live Spaces",
-    detail: "Professionally prepared residences designed to feel clean, functional, and comfortable from day one.",
-  },
-  {
-    eyebrow: "Flexible",
-    title: "Stay-Length Range",
-    detail: "Short-term, mid-term, and corporate-stay options aligned to the needs of each guest or assignment.",
-  },
-  {
-    eyebrow: "Responsive",
-    title: "Clear Communication",
-    detail: "Fast coordination and dependable support before arrival, during the stay, and when needs change.",
-  },
-  {
-    eyebrow: "Operational",
-    title: "Smooth Check-Ins",
-    detail: "Arrival details, access, and stay logistics handled with structure and attention to detail.",
-  },
-  {
-    eyebrow: "Standards",
-    title: "Consistent Care",
-    detail: "Presentation, cleanliness, and property oversight maintained with repeatable standards.",
-  },
+const minimumStayChecks = [
+  "Flexible payment options: weekly or monthly",
+  "No long-term lease obligations",
+  "No penalties if your project ends or plans change",
 ];
 
 const audienceTabs = [
-  { label: "Property Owners" },
-  { label: "Corporate Clients" },
-  { label: "Guests & Travelers" },
+  { label: "Individual Professionals" },
+  { label: "Companies & Teams" },
+  { label: "Project-Based Stays" },
 ];
 
 const clientTypes = [
   {
-    eyebrow: "Corporate",
-    title: "Corporate Teams",
+    eyebrow: "Individuals",
+    title: "For Individual Professionals",
     description:
-      "Housing solutions for companies coordinating furnished stays for multiple travelers, supervisors, or project-based assignments.",
+      "Flexible, comfortable, and fully equipped living with no long-term contracts, ideal for project-based or temporary stays.",
   },
   {
-    eyebrow: "Professional",
-    title: "Traveling Professionals",
+    eyebrow: "Companies",
+    title: "For Companies & Teams",
     description:
-      "Comfortable, well-managed stays for professionals who need a reliable home base while working away from home.",
+      "Scalable housing solutions for multiple employees with consistent standards, simplified logistics, and centralized management.",
   },
   {
-    eyebrow: "Project-Based",
-    title: "Work Crews",
+    eyebrow: "Scale",
+    title: "Projects of Any Size",
     description:
-      "Organized accommodations that support crews with practical housing, clean spaces, and dependable communication.",
+      "We support relocations, workforce assignments, and long-duration work travel with the same operational consistency across markets.",
   },
   {
-    eyebrow: "Mid-Term",
-    title: "Extended-Stay Guests",
+    eyebrow: "Partner",
+    title: "Reliable Housing Partner",
     description:
-      "Flexible accommodations for guests who need more than a weekend without committing to a permanent lease.",
+      "We position ourselves as a primary housing provider for companies, capable of supporting projects of any size.",
   },
 ];
 
 const aboutParagraphs = [
-  "JW Luxury Estate is a housing and property operations company focused on delivering premium short-term, mid-term, and corporate rental solutions. We work with a strong emphasis on presentation, guest experience, operational control, and reliable property oversight.",
-  "Our model is designed to serve both sides of the market: property owners who want dependable management and occupancy, and guests or corporate clients who need comfortable, professionally maintained accommodations.",
+  "At JW Luxury Estate LLC, we redefine modern housing by offering fully managed, flexible living solutions designed for both individual professionals and companies at scale.",
+  "Whether you're relocating for work or managing an entire team, we provide a secure, comfortable, and turnkey housing experience tailored to your needs.",
 ];
 
 const philosophyParagraphs = [
-  "At JW Luxury Estate, we believe great properties require more than furniture and nice photos. They require systems, standards, responsiveness, and accountability.",
-  "We approach every property with a business mindset and a hospitality standard. That means cleaner operations, stronger communication, better guest experiences, and more consistent outcomes for owners and partners.",
-  "Our goal is simple: create stays that feel elevated, operations that feel organized, and partnerships that feel dependable.",
+  "Our stays are designed for 30 days or longer, giving you stability without long-term commitments.",
+  "Flexible payment options are available weekly or monthly, making it easier to align housing with the rhythm of a project or relocation.",
+  "There are no long-term lease obligations and no penalties if your project ends or plans change.",
 ];
 
 const whyCards = [
   {
     number: "01",
-    title: "Premium Property Presentation",
+    title: "Live With Your Team - Not With Strangers",
     description:
-      "Every residence is positioned to feel polished, elevated, and professionally prepared.",
+      "We do not offer random shared housing. Our homes are designed so occupants belong to the same company or project.",
   },
   {
     number: "02",
-    title: "Professional Guest and Client Communication",
+    title: "Smart Security & Controlled Access",
     description:
-      "Communication is handled with clarity, speed, and a business-minded level of care.",
+      "Smart locks on the main entrance and each individual bedroom create secure, controlled access with no physical keys.",
   },
   {
     number: "03",
-    title: "Structured Cleaning and Turnover Systems",
+    title: "Strategic Locations That Work for You",
     description:
-      "Turnovers follow repeatable standards that protect both presentation and performance.",
+      "Properties are selected to support daily operations with access to major job sites, main roads, and essential services.",
   },
   {
     number: "04",
-    title: "Reliable Operational Oversight",
+    title: "Fully Furnished & Move-In Ready",
     description:
-      "Day-to-day execution is organized to protect the property and support dependable results.",
+      "Private bedrooms, a fully equipped kitchen, shared living areas, entertainment spaces, outdoor areas, and parking are ready from day one.",
   },
   {
     number: "05",
-    title: "Flexible Rental Strategies",
+    title: "Professional Cleaning & Ongoing Maintenance",
     description:
-      "Short-term, mid-term, and corporate housing approaches are aligned to the right use case.",
+      "Bi-weekly professional cleaning of common areas, continuous maintenance, and dedicated management keep everything operational.",
   },
   {
     number: "06",
-    title: "Business-Minded Property Management",
+    title: "Laundry Included - No Extra Cost",
     description:
-      "Housing is treated like an operation, with structure, accountability, and operational control.",
+      "In-unit or on-site laundry is included with no additional fees and no extra travel or hassle.",
   },
 ];
 
-const services = [
-  {
-    chip: "Corporate Housing",
-    title: "Corporate Housing Solutions",
-    description:
-      "We provide fully furnished housing solutions for traveling professionals, work crews, and corporate stays that require comfort, flexibility, and dependable coordination. Our spaces are designed to support both short assignments and extended stays.",
-    image: "/service-corporate-housing.jpg",
-  },
-  {
-    chip: "Rental Management",
-    title: "Short-Term Rental Management",
-    description:
-      "We manage short-term rental properties with a focus on presentation, occupancy, guest communication, cleaning coordination, and overall property performance. Every detail is handled with structure and consistency to protect the property and strengthen the guest experience.",
-    image: "/service-rental-management.jpg",
-    offset: true,
-  },
-  {
-    chip: "Flexible Living",
-    title: "Mid-Term Rental Stays",
-    description:
-      "For guests who need more than a weekend but less than a permanent lease, we offer well-managed mid-term accommodations that provide flexibility without sacrificing comfort or quality.",
-    image: "/service-midterm-stays.jpg",
-  },
-];
 
-const partnerService = {
-  chip: "Owner Partnerships",
-  title: "Property Partnership Opportunities",
+
+export const partnerService = {
+  chip: "Team-Oriented Living",
+  title: "Live With Your Team — Not With Strangers",
   description:
-    "We work with owners and partners who want a more professional approach to rental income and property utilization. Our model is built around responsible occupancy, operational oversight, and maintaining the property at a high standard.",
-  cta: "Let's Discuss Your Property",
+    "Our homes are strategically designed so occupants belong to the same company or project. That means a more comfortable, familiar, and professional environment with stronger team dynamics and a better overall living experience.",
+  cta: "Talk to Our Team",
 };
 
 const corporateHighlights = [
   {
-    value: "Reliable Stays",
-    label:
-      "Housing solutions that do not sacrifice comfort, cleanliness, or convenience.",
+    value: "30+ Day Stays",
+    label: "Stable housing without long-term commitments.",
   },
   {
-    value: "Responsive Support",
-    label: "Smooth check-ins and clear communication from day one.",
+    value: "Weekly or Monthly",
+    label: "Flexible payment options built around project timing.",
   },
 ];
 
 const processSteps = [
   {
     number: "1",
-    title: "Property Evaluation",
+    title: "Flexible Terms",
     description:
-      "We assess the property, the use case, and the best rental strategy based on location, condition, and operational fit.",
+      "Choose a 30+ day stay with weekly or monthly payment options and no rigid long-term lease commitment.",
   },
   {
     number: "2",
-    title: "Setup & Positioning",
+    title: "Ready From Day One",
     description:
-      "We prepare the space, align presentation standards, and structure the operational workflow behind the scenes.",
+      "Arrive to furnished bedrooms, equipped kitchens, shared living areas, and the essentials already in place.",
   },
   {
     number: "3",
-    title: "Active Management",
+    title: "Secure Access & Support",
     description:
-      "From guest communication to cleaning coordination and property oversight, we manage the day-to-day with consistency and control.",
+      "Smart locks, controlled access, cleaning, maintenance, and dedicated management support daily operations.",
   },
   {
     number: "4",
-    title: "Ongoing Optimization",
+    title: "Scale or Exit With Ease",
     description:
-      "We continuously refine operations and property performance to maintain standards and improve results over time.",
+      "Extend, rotate teams, or wrap up a project without the penalties and friction of traditional housing structures.",
   },
 ];
 
 const trustPillars = [
-  "Responsiveness",
-  "Presentation",
-  "Service",
-  "Standards",
+  "Secure",
+  "Flexible",
+  "Scalable",
+  "Fully Managed",
 ];
 
 const footerNavigationItems = [
-  { label: "Properties", href: "#services" },
-  { label: "For Guests", href: "#contact" },
-  { label: "Corporate", href: "#contact" },
-  { label: "Owners", href: "#owners" },
+  { label: "About", href: "#about" },
+  { label: "Properties", href: "#properties" },
+  { label: "Nationwide", href: "#nationwide" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const footerLegalItems = [
@@ -239,7 +199,7 @@ const footerLegalItems = [
 const footerContactActions = [
   {
     label: "Email JW Luxury Estate",
-    href: "mailto:stays@jwluxuryestate.com",
+    href: "mailto:juanlondono@jwluxuryestate.com",
     icon: "mail",
   },
   {
@@ -256,40 +216,87 @@ const footerContactActions = [
 
 const comparisonRows = [
   {
-    feature: "Rental Strategy",
-    jw: "Structured short-, mid-, and corporate-stay model",
-    longTerm: "Fixed long-term use",
-    shortTerm: "Mostly nightly demand",
+    feature: "More space, comfort, and privacy",
+    jw: "A complete living environment designed for long stays",
+    longTerm: "Hotels usually offer less space and daily-living comfort",
+    shortTerm: "Shared homes can feel crowded or inconsistent",
   },
   {
-    feature: "Property Oversight",
-    jw: "Professional day-to-day oversight",
-    longTerm: "Limited landlord visibility",
-    shortTerm: "Operator dependent",
+    feature: "Full kitchens and shared living areas",
+    jw: "Included as part of a move-in ready stay",
+    longTerm: "Hotels rarely provide the same day-to-day setup",
+    shortTerm: "Depends on the home and shared-house arrangement",
   },
   {
-    feature: "Communication",
-    jw: "Organized guest and owner communication",
-    longTerm: "Minimal ongoing touchpoints",
-    shortTerm: "Varies by manager",
+    feature: "Better suited for long stays",
+    jw: "30+ day stays built around project timelines and flexibility",
+    longTerm: "Hotels can become expensive and repetitive over time",
+    shortTerm: "Traditional rentals can be rigid or unstable for changing projects",
   },
   {
-    feature: "Presentation",
-    jw: "Premium presentation standards",
-    longTerm: "Lease-ready basics",
-    shortTerm: "Marketing-first staging",
+    feature: "No unknown roommates",
+    jw: "Team-oriented living built around the same company or project",
+    longTerm: "Hotels are private, but not designed for team-based living",
+    shortTerm: "Shared houses often place you with people you do not know",
   },
   {
-    feature: "Occupancy Approach",
-    jw: "Responsible occupancy with flexibility",
-    longTerm: "Single long-term tenant",
-    shortTerm: "High seasonality swings",
+    feature: "No complicated lease structures",
+    jw: "Flexible payment terms and straightforward housing coordination",
+    longTerm: "Hotels are simple, but not built for workforce housing at scale",
+    shortTerm: "Traditional rentals often come with lease complexity and house rules",
   },
   {
-    feature: "Execution",
-    jw: "Structured systems and standards",
-    longTerm: "Traditional leasing workflow",
-    shortTerm: "Reactive, platform-driven operations",
+    feature: "No penalties or rigid commitments",
+    jw: "Extend or wrap up housing as project needs change",
+    longTerm: "Hotels are flexible, but inefficient for long workforce stays",
+    shortTerm: "Traditional rentals can create penalties and rigid commitments",
+  },
+];
+
+const scaleGroups = [
+  {
+    eyebrow: "For Individual Professionals",
+    points: [
+      "Flexible, comfortable, and fully equipped living",
+      "No long-term contracts",
+      "Ideal for project-based or temporary stays",
+    ],
+  },
+  {
+    eyebrow: "For Companies & Teams",
+    points: [
+      "Scalable housing solutions for multiple employees",
+      "Consistent standards across all properties",
+      "Simplified logistics and centralized management",
+      "A reliable long-term housing partner",
+    ],
+  },
+];
+
+const nationwideSupportCards = [
+  {
+    eyebrow: "Warehouses",
+    title: "Warehouse Teams",
+    description:
+      "Flexible accommodations for warehouse launches, logistics crews, supervisors, and shift-based operations that need organized long-stay housing.",
+  },
+  {
+    eyebrow: "Offices",
+    title: "Office Staff & Relocations",
+    description:
+      "Housing support for office teams, corporate relocations, training groups, and temporary assignments in new markets.",
+  },
+  {
+    eyebrow: "Operations",
+    title: "Project-Based Workforce Support",
+    description:
+      "A reliable housing partner for operational projects that move across markets and need consistent standards from one location to the next.",
+  },
+  {
+    eyebrow: "Nationwide",
+    title: "Coverage Across the U.S.",
+    description:
+      "We support accommodations in any part of the United States, helping companies stay close to the work without rebuilding housing logistics every time.",
   },
 ];
 
@@ -345,29 +352,32 @@ export default function Home() {
           <div className="flex min-h-[470px] flex-col justify-center bg-dark px-6 py-12 text-white sm:min-h-[520px] sm:px-12 sm:py-16 lg:min-h-[calc(100vh-82px)] lg:px-[4.75rem] lg:py-20">
             <div className="reveal-up max-w-[31rem] space-y-8">
               <p className="text-[10px] uppercase tracking-[0.42em] text-accent">
-                Premium Housing Solutions
+                Smart, Flexible Living
               </p>
               <div className="space-y-6">
                 <h1 className="max-w-[26rem] font-display text-[3.25rem] leading-[0.86] tracking-[-0.05em] sm:text-[5rem] lg:text-[5.45rem]">
-                  Premium Housing Solutions With Business-Level Execution
+                  Smart, Flexible Living for Professionals & Companies
                 </h1>
                 <p className="max-w-[23rem] text-[13px] leading-7 text-white/72 sm:max-w-[24rem]">
-                  JW Luxury Estate delivers furnished stays, corporate housing,
-                  and rental management with the professionalism, structure, and
-                  care that modern property partners expect.
+                  At JW Luxury Estate LLC, we redefine modern housing by
+                  offering fully managed, flexible living solutions designed
+                  for both individual professionals and companies at scale.
+                  Whether you&apos;re relocating for work or managing an entire
+                  team, we provide a secure, comfortable, and turnkey housing
+                  experience tailored to your needs.
                 </p>
                 <div className="reveal-up reveal-delay-1 mt-10 flex flex-col gap-3 sm:mt-12 sm:flex-row sm:flex-wrap">
                   <a
-                    href="#services"
+                    href="#properties"
                     className="button-sheen inline-flex h-12 w-full items-center justify-center bg-accent px-6 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition-transform duration-150 ease-out hover:bg-accent-strong active:scale-[0.98] sm:w-auto"
                   >
-                    Explore Our Solutions
+                    See Our Properties
                   </a>
                   <a
                     href="#owners"
                     className="button-sheen inline-flex h-12 w-full items-center justify-center border border-white/18 px-6 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition-colors duration-200 hover:border-white/28 hover:bg-white/5 active:scale-[0.98] sm:w-auto"
                   >
-                    Partner With Us
+                    Talk to Our Team
                   </a>
                 </div>
               </div>
@@ -376,7 +386,7 @@ export default function Home() {
 
           <div className="hero-media-shell relative min-h-[320px] bg-[#7eb2d5] sm:min-h-[500px] lg:min-h-[calc(100vh-82px)]">
             <Image
-              src="/herojwlux1.png"
+              src="/hero-featured-property.jpg"
               alt="JW Luxury Estate luxury residence"
               fill
               priority
@@ -404,7 +414,7 @@ export default function Home() {
               key={block.title}
               delay={index * 60}
               className={[
-                "metric-panel flex min-h-[168px] flex-col justify-center gap-3 px-12 py-9 sm:px-14",
+                "metric-panel group flex min-h-[168px] flex-col justify-center gap-3 px-12 py-9 sm:px-14",
                 index < experienceBlocks.length - 1
                   ? "xl:border-r xl:border-border-subtle"
                   : "",
@@ -418,8 +428,8 @@ export default function Home() {
             >
               <p
                 className={[
-                  "font-display text-[2.2rem] leading-none tracking-[-0.045em] sm:text-[2.5rem]",
-                  block.accent ? "text-accent" : "text-foreground",
+                  "font-display text-[2.2rem] leading-none tracking-[-0.045em] transition-colors duration-200 group-hover:text-accent sm:text-[2.5rem]",
+                  "text-foreground",
                 ].join(" ")}
               >
                 {block.title}
@@ -432,8 +442,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="w-full px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
-        <div className="grid items-start gap-12 lg:grid-cols-[minmax(280px,0.32fr)_minmax(0,0.68fr)] lg:gap-16">
+      <section className="w-full px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
+        <div
+          id="about"
+          className="grid items-start gap-12 lg:grid-cols-[minmax(280px,0.32fr)_minmax(0,0.68fr)] lg:gap-16"
+        >
           <Reveal className="max-w-[25rem] space-y-10">
             <div className="space-y-5">
               <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-accent">
@@ -463,7 +476,7 @@ export default function Home() {
           >
             <div className="max-w-[46rem] space-y-6">
               <h3 className="font-display text-[3rem] leading-[0.95] tracking-[-0.045em] text-foreground">
-                A Professional Approach to Housing and Property Operations
+                Flexible Living Designed for Professionals and Companies
               </h3>
               {aboutParagraphs.map((paragraph) => (
                 <p
@@ -483,10 +496,10 @@ export default function Home() {
           <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,0.36fr)_minmax(0,0.64fr)] lg:gap-16">
             <Reveal className="space-y-5">
               <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-accent">
-                Brand Philosophy
+                Flexible Terms
               </p>
               <h2 className="max-w-[14rem] font-display text-[2.95rem] leading-[0.94] tracking-[-0.04em] text-foreground sm:max-w-[16rem] sm:text-[4rem]">
-                Built for Performance, Not Just Appearance
+                Minimum 30-Day Stays - Total Flexibility
               </h2>
             </Reveal>
 
@@ -504,6 +517,19 @@ export default function Home() {
                     {paragraph}
                   </p>
                 ))}
+                <div className="grid gap-3 pt-1 sm:grid-cols-2">
+                  {minimumStayChecks.map((item) => (
+                    <div key={item} className="flex gap-3">
+                      <span className="mt-[0.55rem] h-2 w-2 rounded-full bg-accent" />
+                      <p className="text-[0.97rem] leading-8 text-muted">
+                        {item}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-[1rem] font-medium leading-8 text-foreground/76">
+                  Stay as long as you need - without being tied down.
+                </p>
               </div>
             </Reveal>
           </div>
@@ -511,19 +537,18 @@ export default function Home() {
       </section>
 
       <section className="bg-background">
-        <div className="w-full px-6 py-[5rem] sm:px-10 lg:px-16 lg:py-[6.75rem]">
+        <div className="w-full px-6 pb-[3.25rem] pt-[5rem] sm:px-10 lg:px-16 lg:pb-[4.1rem] lg:pt-[6rem]">
           <Reveal className="mx-auto max-w-4xl text-center">
             <p className="text-[11px] font-semibold uppercase tracking-[0.36em] text-accent">
-              Operational Advantage
+              Stay Advantages
             </p>
             <h2 className="mt-4 font-display text-[3rem] leading-[0.95] tracking-[-0.04em] text-foreground sm:text-[4.4rem]">
-              Why JW Luxury Estate
+              Designed Around Real-World Work Stays
             </h2>
             <p className="mx-auto mt-6 max-w-3xl text-[1rem] leading-8 text-muted">
-              We do not treat housing like a side hustle. We treat it like an
-              operation. Our team focuses on consistency, speed, detail, and
-              standards that create better results for both guests and property
-              partners.
+              Every property is selected and operated to give professionals and
+              companies a more organized, secure, and comfortable way to live
+              while work keeps moving.
             </p>
           </Reveal>
 
@@ -553,166 +578,203 @@ export default function Home() {
       </section>
 
       <section
-        id="services"
-        className="w-full px-6 py-[5.5rem] sm:px-8 lg:px-10 lg:py-[6.5rem]"
+        id="properties"
+        className="border-y border-border-subtle bg-surface-strong"
       >
-        <Reveal className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div className="space-y-3">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
-              Services
-            </p>
-            <h2 className="font-display text-[3rem] leading-[0.92] tracking-[-0.045em] text-foreground sm:text-[3.4rem]">
-              What We Do
-            </h2>
-          </div>
-          <a
-            href="#owners"
-            className="w-fit border-b border-accent pb-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-accent transition-colors duration-200 hover:text-foreground"
-          >
-            For Owners & Partners
-          </a>
-        </Reveal>
-        <div className="mt-12 grid gap-6 md:grid-cols-3 xl:gap-7">
-          {services.map((service) => (
-            <Reveal
-              as="article"
-              key={service.title}
-              delay={service.offset ? 140 : service.title === "Corporate Housing Solutions" ? 0 : 70}
-              className={[
-                "service-card group space-y-4",
-                service.offset ? "md:pt-10" : "",
-              ].join(" ")}
-            >
-              <div className="service-media reveal-mask relative aspect-[0.78] overflow-hidden border border-border-subtle bg-[#181818] shadow-[0_14px_32px_rgba(17,12,9,0.04)]">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  sizes="(min-width: 1280px) 28vw, (min-width: 768px) 32vw, 100vw"
-                  className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
-                />
-                <div className="absolute left-3 top-3 bg-surface px-4 py-2 text-[9px] font-semibold uppercase tracking-[0.28em] text-foreground shadow-[0_1px_0_rgba(0,0,0,0.06)]">
-                  {service.chip}
-                </div>
-              </div>
-              <div className="space-y-3">
-                <h3 className="font-display text-[2.05rem] leading-none tracking-[-0.04em] text-foreground">
-                  {service.title}
-                </h3>
-                <p className="text-[0.92rem] leading-7 text-muted">
-                  {service.description}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal
-          delay={95}
-          className="premium-surface-dark mt-8 overflow-hidden border border-white/8 bg-[#11161d] text-white shadow-[0_18px_40px_rgba(0,0,0,0.16)]"
-        >
-          <div className="border-b border-white/8 px-6 py-5 sm:px-8">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-accent">
-                Included Standards
+        <div className="w-full px-6 py-[4.2rem] sm:px-10 lg:px-16 lg:py-[5rem]">
+          <Reveal className="grid gap-6 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,0.32fr)] lg:items-end">
+            <div className="max-w-[40rem] space-y-3">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
+                Our Properties
               </p>
-              <p className="max-w-[32rem] text-sm leading-7 text-white/56">
-                The essentials that shape every JW Luxury Estate stay.
+              <h2 className="font-display text-[2.95rem] leading-[0.92] tracking-[-0.045em] text-foreground sm:text-[3.45rem]">
+                The Homes, Rooms, and Shared Spaces We Manage
+              </h2>
+            </div>
+            <div className="space-y-3 lg:justify-self-end lg:text-right">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-foreground/42">
+                Selective Preview
+              </p>
+              <p className="max-w-[26rem] text-[0.96rem] leading-8 text-muted">
+                A concise look at the type of properties we prepare for
+                long-stay professionals, crews, and company teams.
               </p>
             </div>
-          </div>
-          <div className="grid gap-px bg-white/8 md:grid-cols-2 xl:grid-cols-5">
-            {serviceBenefits.map((benefit) => (
-              <div
-                key={benefit.title}
-                className="bg-[#11161d] px-6 py-6 sm:px-7 sm:py-7"
+          </Reveal>
+
+          <div className="mt-12 grid gap-px overflow-hidden border border-border-subtle bg-border-subtle lg:grid-cols-3">
+            {propertyShowcase.map((property, index) => (
+              <Reveal
+                as="article"
+                key={property.title}
+                delay={index * 60}
+                className="premium-surface group bg-surface"
               >
-                <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-accent/84">
-                  {benefit.eyebrow}
-                </p>
-                <h3 className="mt-3 font-display text-[1.45rem] leading-[0.94] tracking-[-0.03em] text-white">
-                  {benefit.title}
-                </h3>
-                <p className="mt-3 text-[0.92rem] leading-7 text-white/58">
-                  {benefit.detail}
-                </p>
-              </div>
+                <PropertyImageCarousel
+                  label={property.title}
+                  slides={property.slides}
+                  sizes="(min-width: 1280px) 29vw, (min-width: 1024px) 31vw, 100vw"
+                  intervalMs={4200 + index * 260}
+                  unoptimized={propertyShowcaseUsesRemoteMedia}
+                />
+                <div className="px-6 py-6 sm:px-7 sm:py-7">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-accent">
+                    {property.eyebrow}
+                  </p>
+                  <h3 className="mt-3 max-w-[16rem] font-display text-[1.9rem] leading-[0.95] tracking-[-0.04em] text-foreground">
+                    {property.title}
+                  </h3>
+                  <p className="mt-3 max-w-[21rem] text-[0.9rem] leading-7 text-muted">
+                    {property.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {property.highlights.map((point) => (
+                      <span
+                        key={point}
+                        className="inline-flex items-center border border-border-subtle bg-background px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-foreground/66"
+                      >
+                        {point}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
             ))}
           </div>
-        </Reveal>
 
-        <Reveal
-          as="article"
-          delay={120}
-          className="premium-surface mt-8 border border-border-subtle bg-surface px-8 py-9 shadow-[0_18px_36px_rgba(17,12,9,0.04)] sm:px-10 sm:py-10"
-        >
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)] lg:items-end">
-            <div className="space-y-4">
-              <p className="w-fit bg-background px-4 py-2 text-[9px] font-semibold uppercase tracking-[0.28em] text-foreground shadow-[0_1px_0_rgba(0,0,0,0.06)]">
-                {partnerService.chip}
-              </p>
-              <h3 className="max-w-[20rem] font-display text-[2.7rem] leading-[0.96] tracking-[-0.04em] text-foreground">
-                {partnerService.title}
-              </h3>
-            </div>
-            <div className="space-y-6">
-              <p className="max-w-[38rem] text-[1rem] leading-8 text-muted">
-                {partnerService.description}
-              </p>
-              <a
-                href="#owners"
-                className="button-sheen inline-flex h-11 items-center justify-center bg-[#11161d] px-6 text-[10px] font-bold uppercase tracking-[0.3em] !text-white transition-transform duration-150 ease-out hover:bg-[#1c242d] active:scale-[0.98]"
-              >
-                {partnerService.cta}
-              </a>
-            </div>
-          </div>
-        </Reveal>
+          <Reveal className="mt-7 flex flex-col gap-3 border-t border-border-subtle/80 pt-5 sm:flex-row sm:items-start sm:justify-between">
+            <p className="max-w-[31rem] text-[0.88rem] leading-7 text-muted">
+              This section is meant to show the standard and type of spaces we
+              manage, not to display every property in inventory.
+            </p>
+            <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-foreground/42 sm:pt-1 sm:text-right">
+              Curated For Landlord Review
+            </p>
+          </Reveal>
+        </div>
       </section>
 
       <section className="border-y border-border-subtle bg-surface">
-        <Reveal className="px-8 py-10 sm:px-10 lg:px-16 lg:py-12">
+        <Reveal className="px-8 py-8 sm:px-10 lg:px-16 lg:py-10">
           <p className="mx-auto max-w-4xl text-center font-display text-[2rem] leading-[1.02] tracking-[-0.03em] text-foreground sm:text-[2.35rem]">
-            Professional housing solutions backed by structure, standards, and
-            execution.
+            Secure, flexible, and team-oriented living for professionals and companies.
           </p>
         </Reveal>
       </section>
 
-      <section id="owners" className="bg-surface-strong">
+      <section className="bg-background">
+        <div className="w-full px-6 py-[4rem] sm:px-8 lg:px-10 lg:py-[4.75rem]">
+          <div
+            id="nationwide"
+            className="overflow-hidden border border-border-subtle bg-surface shadow-[0_20px_44px_rgba(17,12,9,0.04)]"
+          >
+            <div className="grid gap-px bg-border-subtle lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
+              <Reveal
+                as="article"
+                className="premium-surface-dark bg-dark px-8 py-10 text-white sm:px-10 sm:py-12 lg:px-12 lg:py-14"
+              >
+                <div className="max-w-[26rem] space-y-6">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
+                    Nationwide Support
+                  </p>
+                  <h2 className="font-display text-[2.8rem] leading-[0.92] tracking-[-0.04em] text-white sm:text-[3.5rem]">
+                    Nationwide Accommodations for Warehouses, Offices, and Operations Across the U.S.
+                  </h2>
+                  <p className="text-[1rem] leading-8 text-white/62">
+                    JW Luxury Estate supports companies that need housing in any
+                    part of the United States, whether the need is tied to
+                    warehouse activity, office teams, or operational projects on
+                    the move.
+                  </p>
+                  <p className="text-[1rem] leading-8 text-white/62">
+                    We coordinate flexible accommodations that stay consistent as
+                    your footprint grows, helping teams stay close to the work
+                    while simplifying housing logistics across markets.
+                  </p>
+                  <a
+                    href="#contact"
+                    className="button-sheen inline-flex h-11 items-center justify-center bg-accent px-6 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition-transform duration-150 ease-out hover:bg-accent-strong active:scale-[0.98]"
+                  >
+                    Discuss Nationwide Housing
+                  </a>
+                </div>
+              </Reveal>
+
+              <div className="grid gap-px bg-border-subtle sm:grid-cols-2">
+                {nationwideSupportCards.map((card, index) => (
+                  <Reveal
+                    as="article"
+                    key={card.title}
+                    delay={index * 50}
+                    className="grid-panel min-h-[210px] bg-surface px-7 py-9 sm:px-8 sm:py-10"
+                  >
+                    <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-accent/88">
+                      {card.eyebrow}
+                    </p>
+                    <h3 className="mt-4 max-w-[15rem] font-display text-[1.75rem] leading-[0.95] tracking-[-0.035em] text-foreground">
+                      {card.title}
+                    </h3>
+                    <p className="mt-4 max-w-[18rem] text-[0.95rem] leading-7 text-muted">
+                      {card.description}
+                    </p>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-surface-strong">
         <div className="w-full px-6 pb-20 pt-16 sm:px-8 lg:px-10 lg:pb-24 lg:pt-18">
-          <Reveal className="mx-auto max-w-4xl text-center">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
-              Owner Solutions
-            </p>
-            <h2 className="mt-3 font-display text-[2.45rem] leading-[0.98] tracking-[-0.035em] text-foreground sm:text-[3.2rem]">
-              For Property Owners
-            </h2>
-            <p className="mx-auto mt-5 max-w-3xl text-[0.98rem] leading-8 text-muted">
-              We help owners unlock more value from their properties through
-              structured rental strategies and professional day-to-day
-              oversight. Our approach prioritizes property condition,
-              responsible use, organized communication, and dependable
-              execution.
-            </p>
-            <p className="mx-auto mt-4 max-w-3xl text-[0.98rem] leading-8 text-muted">
-              Whether the goal is short-term performance, mid-term occupancy, or
-              a corporate housing strategy, we bring a polished and
-              operationally disciplined model to the table.
-            </p>
-            <a
-              href="#contact"
-              className="button-sheen mt-8 inline-flex h-11 items-center justify-center bg-[#11161d] px-6 text-[10px] font-bold uppercase tracking-[0.3em] !text-white transition-transform duration-150 ease-out hover:bg-[#1c242d] active:scale-[0.98]"
-            >
-              Let&apos;s Discuss Your Property
-            </a>
-          </Reveal>
+          <div id="owners">
+            <Reveal className="mx-auto max-w-4xl text-center">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
+                Built for Scale
+              </p>
+              <h2 className="mt-3 font-display text-[2.45rem] leading-[0.98] tracking-[-0.035em] text-foreground sm:text-[3.2rem]">
+                Built for Individuals & Companies at Scale
+              </h2>
+              <p className="mx-auto mt-5 max-w-3xl text-[0.98rem] leading-8 text-muted">
+                We position ourselves as a primary housing provider for
+                companies, capable of supporting projects of any size.
+              </p>
+              <div className="mt-10 grid gap-6 text-left md:grid-cols-2">
+                {scaleGroups.map((group) => (
+                  <div
+                    key={group.eyebrow}
+                    className="border border-border-subtle bg-surface px-6 py-6 shadow-[0_12px_28px_rgba(17,12,9,0.04)]"
+                  >
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-accent">
+                      {group.eyebrow}
+                    </p>
+                    <div className="mt-4 space-y-3">
+                      {group.points.map((point) => (
+                        <div key={point} className="flex gap-3">
+                          <span className="mt-[0.52rem] h-2 w-2 rounded-full bg-accent" />
+                          <p className="text-[0.95rem] leading-7 text-muted">
+                            {point}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <a
+                href="#contact"
+                className="button-sheen mt-8 inline-flex h-11 items-center justify-center bg-[#11161d] px-6 text-[10px] font-bold uppercase tracking-[0.3em] !text-white transition-transform duration-150 ease-out hover:bg-[#1c242d] active:scale-[0.98]"
+              >
+                Talk to Our Team
+              </a>
+            </Reveal>
+          </div>
           <Reveal delay={80} className="mx-auto mt-16 max-w-4xl text-center">
             <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
-              Market Analysis
+              Comparison
             </p>
             <h3 className="mt-3 font-display text-[2.55rem] leading-[0.96] tracking-[-0.04em] text-foreground sm:text-[3rem]">
-              The JW Performance Advantage
+              Why Choose JW Luxury Estate Over Hotels or Traditional Rentals?
             </h3>
           </Reveal>
           <Reveal delay={140} className="table-shell mx-auto mt-14 max-w-[910px]">
@@ -727,10 +789,10 @@ export default function Home() {
                       JW Luxury Estate
                     </th>
                     <th className="px-4 py-4 text-left text-[10px] font-semibold uppercase tracking-[0.14em] text-muted/80">
-                      Long-Term Lease
+                      Hotels
                     </th>
                     <th className="px-4 py-4 text-left text-[10px] font-semibold uppercase tracking-[0.14em] text-muted/80">
-                      Short-Term Rental
+                      Renting With Others
                     </th>
                   </tr>
                 </thead>
@@ -773,13 +835,13 @@ export default function Home() {
                     </p>
                     <p>
                       <span className="font-semibold text-muted">
-                        Long-Term Lease:{" "}
+                        Hotels:{" "}
                       </span>
                       <span className="text-muted">{row.longTerm}</span>
                     </p>
                     <p>
                       <span className="font-semibold text-muted">
-                        Short-Term Rental:{" "}
+                        Renting With Others:{" "}
                       </span>
                       <span className="text-muted">{row.shortTerm}</span>
                     </p>
@@ -791,7 +853,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="bg-dark text-white">
+      <section className="bg-dark text-white">
         <div className="w-full border-b border-white/6 px-6 py-[4.8rem] sm:px-10 lg:px-16 lg:py-[5.8rem]">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.34fr)_minmax(0,0.66fr)] lg:gap-12">
             <Reveal className="max-w-[22rem] space-y-5">
@@ -799,12 +861,12 @@ export default function Home() {
                 Who We Serve
               </p>
               <h2 className="font-display text-[3rem] leading-[0.92] tracking-[-0.04em] text-white sm:text-[3.55rem]">
-                Housing built for real-world stays.
+                Built for Individual Professionals and Company Teams.
               </h2>
               <p className="text-[1rem] leading-8 text-white/58">
-                JW Luxury Estate supports companies, traveling professionals,
-                and extended-stay guests who need furnished housing with
-                comfort, flexibility, and organized support.
+                Whether you&apos;re relocating for work or managing an entire
+                team, we provide a secure, comfortable, and turnkey housing
+                experience tailored to your needs.
               </p>
             </Reveal>
 
@@ -831,24 +893,27 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid w-full items-start gap-12 px-6 py-[5rem] sm:px-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(420px,0.84fr)] lg:px-16 lg:py-[6.5rem]">
+        <div
+          id="contact"
+          className="grid w-full items-start gap-12 px-6 py-[5rem] sm:px-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(420px,0.84fr)] lg:px-16 lg:py-[6.5rem]"
+        >
           <Reveal className="max-w-[36rem] space-y-9">
             <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
-              For Companies
+              Talk to Our Team
             </p>
             <div className="space-y-6">
               <h2 className="max-w-[22rem] font-display text-[3rem] leading-[0.92] tracking-[-0.04em] text-white sm:max-w-[33rem] sm:text-[4.4rem]">
-                For Companies and Traveling Professionals.
+                A Better Way to Stay & Operate.
               </h2>
               <p className="max-w-[28rem] text-[1.02rem] leading-9 text-white/62">
-                JW Luxury Estate offers furnished housing solutions for
-                professionals who need a reliable place to stay without
-                sacrificing comfort, cleanliness, or convenience.
+                At JW Luxury Estate, we don&apos;t just provide housing - we
+                deliver a secure, flexible, and team-oriented living
+                experience.
               </p>
               <p className="max-w-[28rem] text-[1.02rem] leading-9 text-white/62">
-                Our properties are selected and operated to support real-life
-                working stays, with an emphasis on smooth check-ins, responsive
-                communication, and a comfortable living experience from day one.
+                Whether you&apos;re an individual professional or a company
+                managing a workforce, we become your trusted housing solution -
+                scalable, reliable, and fully managed.
               </p>
             </div>
             <div className="flex flex-wrap gap-x-10 gap-y-7 pt-2 sm:gap-14 sm:pt-4">
@@ -889,10 +954,10 @@ export default function Home() {
       <section className="w-full px-6 py-[5.25rem] sm:px-8 lg:px-10 lg:py-[6rem]">
         <Reveal className="mx-auto max-w-5xl text-center">
           <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
-            Process
+            How It Works
           </p>
           <h2 className="mt-4 font-display text-[2.9rem] leading-[0.96] tracking-[-0.05em] text-foreground sm:text-[3.6rem]">
-            Our Process
+            From Move-In to Daily Operations
           </h2>
         </Reveal>
 
@@ -922,16 +987,15 @@ export default function Home() {
         <div className="w-full px-6 py-18 sm:px-10 lg:px-16 lg:py-24">
           <Reveal className="mx-auto max-w-4xl text-center">
             <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
-              Trust & Standards
+              Stay Confidence
             </p>
             <h2 className="mt-4 font-display text-[2.45rem] leading-[0.98] tracking-[-0.035em] text-foreground sm:text-[3.3rem]">
-              Built on Trust, Service, and Standards
+              Secure, Flexible, and Fully Managed
             </h2>
             <p className="mx-auto mt-6 max-w-3xl text-[1rem] leading-8 text-muted">
-              Our reputation is built through responsiveness, presentation, and
-              consistent execution. As we continue growing, our focus remains
-              the same: protect the property, serve the client well, and
-              operate at a higher standard.
+              We create housing that feels organized, secure, and operationally
+              strong for every stage of a project, relocation, or team-based
+              stay.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
               {trustPillars.map((pillar) => (
@@ -953,8 +1017,9 @@ export default function Home() {
             <div className="max-w-[19rem] space-y-5">
               <BrandLockup variant="footer" />
               <p className="text-[1.02rem] leading-[1.75] text-white/58">
-                Elevating the intersection of professional real estate
-                operations and luxury hospitality for global fleets and guests.
+                Smart, flexible living solutions for professionals and
+                companies that need secure, comfortable, and fully managed
+                housing.
               </p>
             </div>
 
@@ -995,15 +1060,24 @@ export default function Home() {
               </p>
               <div className="space-y-4 text-[1rem] leading-[1.7] text-white/64 sm:text-[1.06rem]">
                 <p>
-                  Inquiries:{" "}
+                  Contact:{" "}
                   <a
-                    href="mailto:stays@jwluxuryestate.com"
+                    href="mailto:juanlondono@jwluxuryestate.com"
                     className="transition-colors duration-200 hover:text-white"
                   >
-                    stays@jwluxuryestate.com
+                    juanlondono@jwluxuryestate.com
                   </a>
                 </p>
-                <p>Headquarters: Scottsdale, Arizona</p>
+                <p>
+                  Alternate:{" "}
+                  <a
+                    href="mailto:camilasolano@jwluxuryestate.com"
+                    className="transition-colors duration-200 hover:text-white"
+                  >
+                    camilasolano@jwluxuryestate.com
+                  </a>
+                </p>
+                <p>Headquarters: Carrollton, GA</p>
               </div>
               <div className="flex items-center gap-3 pt-1">
                 {footerContactActions.map((action) => (
@@ -1022,7 +1096,7 @@ export default function Home() {
 
           <div className="flex flex-col gap-3 pt-5 text-[10px] uppercase tracking-[0.24em] text-white/32 sm:flex-row sm:items-center sm:justify-between">
             <p>Copyright 2026 JW Luxury Estate. All rights reserved.</p>
-            <p>Professional housing solutions backed by structure and standards.</p>
+            <p>Secure, flexible living built for professionals and companies.</p>
           </div>
         </div>
       </footer>

@@ -116,10 +116,10 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
           : "border-border-subtle bg-surface/95 backdrop-blur-md",
       ].join(" ")}
     >
-      <div className="flex w-full items-center justify-between gap-4 px-4 py-4 sm:px-6 sm:py-5 lg:px-7">
+      <div className="flex w-full items-center justify-between gap-4 px-4 py-3 sm:px-5 sm:py-[0.95rem] lg:px-6">
         <BrandLockup />
 
-        <nav className="hidden items-center gap-8 text-[10px] font-semibold uppercase tracking-[0.32em] text-muted md:flex">
+        <nav className="hidden items-center gap-7 text-[10px] font-semibold uppercase tracking-[0.32em] text-muted md:flex">
           {navigation.map((item) => {
             const isActive = activeHref === item.href;
 
@@ -152,7 +152,7 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
             aria-controls="mobile-navigation"
             aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             onClick={() => setIsMenuOpen((open) => !open)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border-subtle bg-surface text-foreground transition-[transform,border-color,background-color] duration-200 ease-out active:scale-[0.97]"
+            className="inline-flex h-[2.625rem] w-[2.625rem] items-center justify-center rounded-full border border-border-subtle bg-surface text-foreground transition-[transform,border-color,background-color] duration-200 ease-out active:scale-[0.97]"
           >
             <span className="relative block h-3.5 w-4">
               <span
@@ -180,7 +180,7 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
         <a
           href="#contact"
           onClick={() => setIsMenuOpen(false)}
-          className="button-sheen hidden h-11 min-w-[138px] items-center justify-center bg-[#17120f] px-5 text-[10px] font-bold uppercase tracking-[0.28em] !text-white transition-transform duration-150 ease-out hover:bg-[#27211d] active:scale-[0.98] md:inline-flex"
+          className="button-sheen hidden h-10 min-w-[128px] items-center justify-center bg-[#17120f] px-[1.15rem] text-[10px] font-bold uppercase tracking-[0.28em] !text-white transition-transform duration-150 ease-out hover:bg-[#27211d] active:scale-[0.98] md:inline-flex"
         >
           Inquire Now
         </a>
@@ -188,7 +188,7 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
 
       <div
         className={[
-          "fixed inset-0 top-[72px] bg-[rgba(17,12,9,0.14)] backdrop-blur-[2px] transition-opacity duration-200 ease-out sm:top-[77px] md:hidden",
+          "fixed inset-0 top-[64px] bg-[rgba(17,12,9,0.14)] backdrop-blur-[2px] transition-opacity duration-200 ease-out sm:top-[70px] md:hidden",
           isMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
         ].join(" ")}
         onClick={() => setIsMenuOpen(false)}
