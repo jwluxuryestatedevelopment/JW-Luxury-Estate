@@ -1,19 +1,10 @@
-const propertyMediaBaseUrl =
-  process.env.NEXT_PUBLIC_PROPERTY_MEDIA_BASE_URL?.trim().replace(/\/$/, "") ??
-  "";
+import { getSiteImageUrl } from "./site-images";
 
-export const propertyMediaUsesRemoteUrls =
-  propertyMediaBaseUrl.startsWith("http://") ||
-  propertyMediaBaseUrl.startsWith("https://");
+export const propertyMediaUsesRemoteUrls = true;
 
 export function resolvePropertyMediaSrc(path: string) {
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-
-  if (!propertyMediaBaseUrl) {
-    return normalizedPath;
-  }
-
-  return `${propertyMediaBaseUrl}${normalizedPath}`;
+  const normalizedPath = path.trim().replace(/^\/+/, "");
+  return getSiteImageUrl(normalizedPath);
 }
 
 export function createPropertySlide(

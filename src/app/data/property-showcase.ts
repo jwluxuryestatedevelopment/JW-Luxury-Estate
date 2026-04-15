@@ -26,23 +26,23 @@ export const propertyShowcase: PropertyShowcaseItem[] = [
     highlights: ["Furnished", "Team-Oriented", "30+ Day Stays"],
     slides: [
       createPropertySlide(
-        "/properties/shared-homes/shared-home-woodlawn-exterior-optimized.jpg",
+        "gallery/shared-home-woodlawn-exterior-optimized.jpg",
         "Exterior view of a larger furnished home prepared for team-based stays",
       ),
       createPropertySlide(
-        "/properties/shared-homes/shared-home-woodlawn-open-plan-optimized.jpg",
+        "gallery/shared-home-woodlawn-open-plan-optimized.jpg",
         "Open-plan living and kitchen area arranged for longer workforce stays",
       ),
       createPropertySlide(
-        "/properties/shared-homes/shared-home-omaha-dining-room.jpg",
+        "gallery/shared-home-omaha-dining-room.jpg",
         "Dining room inside a shared furnished home for project teams",
       ),
       createPropertySlide(
-        "/properties/shared-homes/shared-home-omaha-living-room.jpg",
+        "gallery/shared-home-omaha-living-room.jpg",
         "Shared living room with multiple seating areas in a furnished home",
       ),
       createPropertySlide(
-        "/properties/shared-homes/shared-home-woodlawn-deck-lounge-optimized.jpg",
+        "gallery/shared-home-woodlawn-deck-lounge-optimized.jpg",
         "Outdoor deck lounge that extends the shared living space",
       ),
     ],
@@ -55,23 +55,23 @@ export const propertyShowcase: PropertyShowcaseItem[] = [
     highlights: ["Private Rooms", "Move-In Ready", "Worker-Friendly"],
     slides: [
       createPropertySlide(
-        "/properties/private-bedrooms/private-bedroom-omaha-primary.jpg",
+        "gallery/private-bedroom-omaha-primary.jpg",
         "Large private bedroom with lounge seating prepared for a longer stay",
       ),
       createPropertySlide(
-        "/properties/private-bedrooms/private-bedroom-omaha-queen-room.jpg",
+        "gallery/private-bedroom-omaha-queen-room.jpg",
         "Clean queen bedroom in a worker-friendly furnished home",
       ),
       createPropertySlide(
-        "/properties/private-bedrooms/private-bedroom-woodlawn-double-room-optimized.jpg",
+        "gallery/private-bedroom-woodlawn-double-room-optimized.jpg",
         "Double-bed room prepared for team housing or paired stays",
       ),
       createPropertySlide(
-        "/properties/private-bedrooms/private-bedroom-woodlawn-standard-room-optimized.jpg",
+        "gallery/private-bedroom-woodlawn-standard-room-optimized.jpg",
         "Standard private bedroom with neutral furnishings for a longer assignment",
       ),
       createPropertySlide(
-        "/properties/private-bedrooms/private-bedroom-woodlawn-team-room-optimized.jpg",
+        "gallery/private-bedroom-woodlawn-team-room-optimized.jpg",
         "Team room with multiple beds for coordinated workforce stays",
       ),
     ],
@@ -84,23 +84,23 @@ export const propertyShowcase: PropertyShowcaseItem[] = [
     highlights: ["Equipped Kitchens", "Shared Spaces", "Everyday Use"],
     slides: [
       createPropertySlide(
-        "/properties/daily-living/daily-living-omaha-kitchen-island.jpg",
+        "gallery/daily-living-omaha-kitchen-island.jpg",
         "Bright kitchen with an island set up for everyday cooking",
       ),
       createPropertySlide(
-        "/properties/daily-living/daily-living-woodlawn-main-kitchen-optimized.jpg",
+        "gallery/daily-living-woodlawn-main-kitchen-optimized.jpg",
         "Main kitchen with generous prep space for shared living",
       ),
       createPropertySlide(
-        "/properties/daily-living/daily-living-laundry-room.jpg",
+        "gallery/daily-living-laundry-room.jpg",
         "In-home laundry room included for longer stays",
       ),
       createPropertySlide(
-        "/properties/daily-living/daily-living-glassware-cabinet-optimized.jpg",
+        "gallery/daily-living-glassware-cabinet-optimized.jpg",
         "Stocked glassware cabinet showing daily-living readiness",
       ),
       createPropertySlide(
-        "/properties/daily-living/daily-living-outdoor-dining-optimized.jpg",
+        "gallery/daily-living-outdoor-dining-optimized.jpg",
         "Outdoor dining setup that supports everyday shared routines",
       ),
     ],

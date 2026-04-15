@@ -238,7 +238,6 @@ export default function PropertyImageCarousel({
                 sizes={sizes}
                 className="object-cover"
                 draggable={false}
-                quality={92}
                 unoptimized={unoptimized}
                 style={
                   slide.position

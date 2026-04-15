@@ -3,6 +3,7 @@ import {
   propertyShowcase,
   propertyShowcaseUsesRemoteMedia,
 } from "./data/property-showcase";
+import { siteImageUrls } from "./data/site-images";
 import BrandLockup from "./components/brand-lockup";
 import ContactForm from "./components/contact-form";
 import PropertyImageCarousel from "./components/property-image-carousel";
@@ -386,11 +387,13 @@ export default function Home() {
 
           <div className="hero-media-shell relative min-h-[320px] bg-[#7eb2d5] sm:min-h-[500px] lg:min-h-[calc(100vh-82px)]">
             <Image
-              src="/hero-featured-property.jpg"
+              src={siteImageUrls.hero.featuredProperty}
               alt="JW Luxury Estate luxury residence"
               fill
               priority
               className="hero-media-image object-cover object-center"
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              unoptimized
             />
           </div>
         </div>

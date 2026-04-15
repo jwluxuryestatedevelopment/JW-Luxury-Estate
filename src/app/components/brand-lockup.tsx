@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { siteImageUrls } from "../data/site-images";
 
 type BrandLockupProps = {
   href?: string;
@@ -29,11 +30,12 @@ export default function BrandLockup({
         <>
           <span className="brand-plaque relative h-[3.2rem] w-[3.2rem] shrink-0 sm:h-[3.75rem] sm:w-[3.75rem]">
             <Image
-              src="/logo-jw-transparent-clean-v2.png"
+              src={siteImageUrls.logos.primary}
               alt=""
               fill
               sizes="(max-width: 640px) 52px, 60px"
               className="object-contain drop-shadow-[0_12px_22px_rgba(17,12,9,0.18)]"
+              unoptimized
             />
           </span>
           <span className="brand-wordmark min-w-0 font-display text-[11px] tracking-[0.08em] text-foreground sm:text-[13px] sm:tracking-[0.11em]">
@@ -44,11 +46,12 @@ export default function BrandLockup({
         <>
           <span className="brand-plaque relative h-[5.7rem] w-[5.7rem] shrink-0 sm:h-[7rem] sm:w-[7rem]">
             <Image
-              src="/logo-jw-transparent-clean-v2.png"
+              src={siteImageUrls.logos.primary}
               alt=""
               fill
               sizes="(max-width: 640px) 92px, 112px"
               className="object-contain drop-shadow-[0_18px_34px_rgba(0,0,0,0.26)]"
+              unoptimized
             />
           </span>
           <div className="space-y-1">
