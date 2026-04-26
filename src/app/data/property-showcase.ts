@@ -86,6 +86,7 @@ export const propertyShowcase: PropertyShowcaseItem[] = [
       createPropertySlide(
         "gallery/daily-living-omaha-kitchen-island.jpg",
         "Bright kitchen with an island set up for everyday cooking",
+        { query: "v=20260426" },
       ),
       createPropertySlide(
         "gallery/daily-living-woodlawn-main-kitchen-optimized.jpg",

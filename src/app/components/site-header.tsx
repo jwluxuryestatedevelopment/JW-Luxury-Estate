@@ -20,16 +20,33 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
   const [activeHref, setActiveHref] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    let frame = 0;
+
     const handleScrollState = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const scrollableHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const nextProgress =
+          scrollableHeight > 0
+            ? Math.min(1, Math.max(0, window.scrollY / scrollableHeight))
+            : 0;
+
+        setScrollProgress(nextProgress);
+      });
       setIsScrolled(window.scrollY > 10);
     };
 
     handleScrollState();
     window.addEventListener("scroll", handleScrollState, { passive: true });
 
-    return () => window.removeEventListener("scroll", handleScrollState);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", handleScrollState);
+    };
   }, []);
 
   useEffect(() => {
@@ -112,7 +129,7 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
       className={[
         "sticky top-0 z-50 border-b transition-[background-color,backdrop-filter,box-shadow,border-color] duration-300",
         isScrolled
-          ? "border-border-strong/80 bg-surface/88 shadow-[0_10px_30px_rgba(17,12,9,0.06)] backdrop-blur-xl"
+          ? "border-border-strong/80 bg-surface/90 shadow-[0_12px_34px_rgba(17,12,9,0.07)] backdrop-blur-xl"
           : "border-border-subtle bg-surface/95 backdrop-blur-md",
       ].join(" ")}
     >
@@ -133,10 +150,10 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
                   setIsMenuOpen(false);
                 }}
                 className={[
-                  "border-b pb-[0.35rem] transition-colors duration-200 hover:text-foreground",
+                  "site-nav-link relative pb-[0.35rem] transition-colors duration-200 [transition-timing-function:var(--ease-out)] hover:text-foreground",
                   isActive
-                    ? "border-accent text-foreground"
-                    : "border-transparent",
+                    ? "is-active text-foreground"
+                    : "text-muted",
                 ].join(" ")}
               >
                 {item.label}
@@ -199,8 +216,8 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
         className={[
           "absolute inset-x-0 top-full px-4 pt-3 transition-[opacity,transform] duration-200 ease-out md:hidden",
           isMenuOpen
-            ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-2 opacity-0",
+            ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
+            : "pointer-events-none -translate-y-2 scale-[0.985] opacity-0",
         ].join(" ")}
       >
         <div
@@ -247,6 +264,12 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
           </div>
         </div>
       </div>
+
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-[-1px] h-px origin-left bg-accent/70 transition-transform duration-150 [transition-timing-function:var(--ease-out)]"
+        style={{ transform: `scaleX(${scrollProgress})` }}
+      />
     </header>
   );
 }

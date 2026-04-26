@@ -10,10 +10,12 @@ export function resolvePropertyMediaSrc(path: string) {
 export function createPropertySlide(
   path: string,
   alt: string,
-  options?: { position?: string },
+  options?: { position?: string; query?: string },
 ) {
+  const resolvedSrc = resolvePropertyMediaSrc(path);
+
   return {
-    src: resolvePropertyMediaSrc(path),
+    src: options?.query ? `${resolvedSrc}?${options.query}` : resolvedSrc,
     alt,
     position: options?.position,
   };

@@ -133,7 +133,7 @@ export default function PropertyImageCarousel({
 
   return (
     <div
-      className="relative aspect-[1.22] overflow-hidden bg-[#181818] sm:aspect-[1.28]"
+      className="property-carousel relative aspect-[1.22] overflow-hidden bg-[#181818] sm:aspect-[1.28]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocusCapture={() => setIsFocusWithin(true)}
@@ -227,7 +227,10 @@ export default function PropertyImageCarousel({
           {slides.map((slide, index) => (
             <div
               key={`${slide.src}-${slide.position ?? "center"}-${index}`}
-              className="relative h-full shrink-0"
+              className={[
+                "property-carousel-slide relative h-full shrink-0",
+                index === activeIndex ? "is-active" : "",
+              ].join(" ")}
               style={{ width: `${slideWidthPercentage}%` }}
               aria-hidden={index !== activeIndex}
             >
@@ -271,7 +274,7 @@ export default function PropertyImageCarousel({
                     goToSlide(index);
                   }}
                   className={[
-                    "h-1 rounded-full transition-[width,background-color,transform,opacity] duration-200 ease-out active:scale-[0.97]",
+                    "carousel-dot h-1 rounded-full transition-[width,background-color,transform,opacity] duration-200 ease-out active:scale-[0.97]",
                     isActive
                       ? "w-8 bg-white/92"
                       : "w-4 bg-white/34 hover:bg-white/54",
