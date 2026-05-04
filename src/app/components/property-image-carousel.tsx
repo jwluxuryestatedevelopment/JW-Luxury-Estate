@@ -45,6 +45,7 @@ export default function PropertyImageCarousel({
   const [isHovered, setIsHovered] = useState(false);
   const [isFocusWithin, setIsFocusWithin] = useState(false);
   const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(0);
 
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const dragStateRef = useRef<DragState>({
@@ -57,6 +58,14 @@ export default function PropertyImageCarousel({
   const isPaused = isHovered || isFocusWithin || isDragging;
   const trackWidthPercentage = totalSlides * 100;
   const slideWidthPercentage = totalSlides > 0 ? 100 / totalSlides : 100;
+  const hasMeasuredViewport = viewportWidth > 0;
+  const measuredSlideWidth = hasMeasuredViewport ? viewportWidth + 4 : 0;
+  const trackWidth = hasMeasuredViewport
+    ? `${measuredSlideWidth * totalSlides}px`
+    : `${trackWidthPercentage}%`;
+  const slideWidth = hasMeasuredViewport
+    ? `${measuredSlideWidth}px`
+    : `${slideWidthPercentage}%`;
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -70,6 +79,25 @@ export default function PropertyImageCarousel({
     mediaQuery.addEventListener("change", syncPreference);
 
     return () => mediaQuery.removeEventListener("change", syncPreference);
+  }, []);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+
+    if (!viewport) {
+      return;
+    }
+
+    const syncViewportWidth = () => {
+      setViewportWidth(Math.ceil(viewport.getBoundingClientRect().width));
+    };
+
+    syncViewportWidth();
+
+    const resizeObserver = new ResizeObserver(syncViewportWidth);
+    resizeObserver.observe(viewport);
+
+    return () => resizeObserver.disconnect();
   }, []);
 
   const goToSlide = (nextIndex: number) => {
@@ -129,7 +157,9 @@ export default function PropertyImageCarousel({
   }, [canRotate, intervalMs, isPaused]);
 
   const slideLabel = `${String(activeIndex + 1).padStart(2, "0")} / ${String(totalSlides).padStart(2, "0")}`;
-  const trackTransform = `translate3d(calc(-${activeIndex * slideWidthPercentage}% + ${dragOffset}px), 0, 0)`;
+  const trackTransform = hasMeasuredViewport
+    ? `translate3d(${-(activeIndex * measuredSlideWidth) + dragOffset}px, 0, 0)`
+    : `translate3d(calc(-${activeIndex * slideWidthPercentage}% + ${dragOffset}px), 0, 0)`;
 
   return (
     <div
@@ -220,7 +250,7 @@ export default function PropertyImageCarousel({
               : "",
           ].join(" ")}
           style={{
-            width: `${trackWidthPercentage}%`,
+            width: trackWidth,
             transform: trackTransform,
           }}
         >
@@ -231,7 +261,7 @@ export default function PropertyImageCarousel({
                 "property-carousel-slide relative h-full shrink-0",
                 index === activeIndex ? "is-active" : "",
               ].join(" ")}
-              style={{ width: `${slideWidthPercentage}%` }}
+              style={{ width: slideWidth }}
               aria-hidden={index !== activeIndex}
             >
               <Image

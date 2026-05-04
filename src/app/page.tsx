@@ -1,14 +1,12 @@
-import Image from "next/image";
-import {
-  propertyShowcase,
-  propertyShowcaseUsesRemoteMedia,
-} from "./data/property-showcase";
-import { siteImageUrls } from "./data/site-images";
 import BrandLockup from "./components/brand-lockup";
 import ContactForm from "./components/contact-form";
+import HeroImageCarousel from "./components/hero-image-carousel";
 import PropertyImageCarousel from "./components/property-image-carousel";
 import Reveal from "./components/reveal";
 import SiteHeader from "./components/site-header";
+import { getHomepageContent } from "./data/homepage-content";
+
+export const dynamic = "force-dynamic";
 
 const navigation = [
   { label: "About", href: "#about" },
@@ -82,6 +80,21 @@ const clientTypes = [
 const aboutParagraphs = [
   "At JW Luxury Estate LLC, we redefine modern housing by offering fully managed, flexible living solutions designed for both individual professionals and companies at scale.",
   "Whether you're relocating for work or managing an entire team, we provide a secure, comfortable, and turnkey housing experience tailored to your needs.",
+];
+
+const aboutStats = [
+  {
+    value: "30+",
+    label: "day stays",
+  },
+  {
+    value: "Weekly",
+    label: "or monthly payments",
+  },
+  {
+    value: "Team",
+    label: "oriented living",
+  },
 ];
 
 const philosophyParagraphs = [
@@ -215,42 +228,116 @@ const footerContactActions = [
   },
 ] as const;
 
-const comparisonRows = [
+const hotelComparisonRows = [
   {
-    feature: "More space, comfort, and privacy",
-    jw: "A complete living environment designed for long stays",
-    longTerm: "Hotels usually offer less space and daily-living comfort",
-    shortTerm: "Shared homes can feel crowded or inconsistent",
+    feature: "Weekly cost",
+    hotel: "$525+",
+    jw: "$300-$400",
+    note: "Save $125-$225 every week compared with a hotel stay.",
   },
   {
-    feature: "Full kitchens and shared living areas",
-    jw: "Included as part of a move-in ready stay",
-    longTerm: "Hotels rarely provide the same day-to-day setup",
-    shortTerm: "Depends on the home and shared-house arrangement",
+    feature: "Kitchen access",
+    hotel: "None or paid extra",
+    jw: "Full kitchen",
+    note: "Cook real meals instead of relying on takeout or hotel add-ons.",
   },
   {
-    feature: "Better suited for long stays",
-    jw: "30+ day stays built around project timelines and flexibility",
-    longTerm: "Hotels can become expensive and repetitive over time",
-    shortTerm: "Traditional rentals can be rigid or unstable for changing projects",
+    feature: "Laundry",
+    hotel: "Paid vending",
+    jw: "In-unit, free",
+    note: "Laundry is part of the living setup, not a separate errand.",
   },
   {
-    feature: "No unknown roommates",
-    jw: "Team-oriented living built around the same company or project",
-    longTerm: "Hotels are private, but not designed for team-based living",
-    shortTerm: "Shared houses often place you with people you do not know",
+    feature: "Stay terms",
+    hotel: "Nightly rate",
+    jw: "Weekly pay, 1-month minimum",
+    note: "Built for project timelines without a rigid long-term lease.",
   },
   {
-    feature: "No complicated lease structures",
-    jw: "Flexible payment terms and straightforward housing coordination",
-    longTerm: "Hotels are simple, but not built for workforce housing at scale",
-    shortTerm: "Traditional rentals often come with lease complexity and house rules",
+    feature: "Community",
+    hotel: "Random guests",
+    jw: "Your coworkers",
+    note: "No strangers, no random shared-housing arrangement.",
+  },
+];
+
+const hotelValuePoints = [
+  {
+    label: "Private rooms",
+    copy: "Furnished spaces where professionals can unpack, sleep well, and keep a real weekly routine.",
   },
   {
-    feature: "No penalties or rigid commitments",
-    jw: "Extend or wrap up housing as project needs change",
-    longTerm: "Hotels are flexible, but inefficient for long workforce stays",
-    shortTerm: "Traditional rentals can create penalties and rigid commitments",
+    label: "Included amenities",
+    copy: "Kitchen access, in-unit laundry, WiFi, parking, work areas, and shared spaces are part of the stay.",
+  },
+  {
+    label: "Known community",
+    copy: "A housing setup built around co-workers and vetted guests instead of random hotel traffic.",
+  },
+];
+
+type HotelChartSeriesKey = "jw" | "lease" | "manager";
+
+const hotelChartSeries: {
+  key: HotelChartSeriesKey;
+  label: string;
+  color: string;
+}[] = [
+  {
+    key: "jw",
+    label: "JW Luxury Estate",
+    color: "#3bb9ed",
+  },
+  {
+    key: "lease",
+    label: "Long-Term Lease",
+    color: "#1700a8",
+  },
+  {
+    key: "manager",
+    label: "Short-Term Manager",
+    color: "#050505",
+  },
+];
+
+const hotelChartRows: Array<
+  { label: string } & Record<HotelChartSeriesKey, number>
+> = [
+  {
+    label: "Smart Monitoring",
+    jw: 10,
+    lease: 2,
+    manager: 5,
+  },
+  {
+    label: "Included Service",
+    jw: 10,
+    lease: 5,
+    manager: 10,
+  },
+  {
+    label: "Vacancy Risk",
+    jw: 2,
+    lease: 5,
+    manager: 8,
+  },
+  {
+    label: "Management Fees",
+    jw: 10,
+    lease: 5,
+    manager: 2,
+  },
+  {
+    label: "Revenue Potential",
+    jw: 10,
+    lease: 2,
+    manager: 8,
+  },
+  {
+    label: "Property Enhancements",
+    jw: 10,
+    lease: 2,
+    manager: 2,
   },
 ];
 
@@ -343,21 +430,30 @@ function FooterActionIcon({
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const {
+    heroSlides,
+    propertyShowcase,
+    propertyShowcaseUsesRemoteMedia,
+  } = await getHomepageContent();
+
   return (
     <main className="bg-background text-foreground">
       <SiteHeader navigation={navigation} />
 
       <section className="w-full">
-        <div className="grid w-full overflow-hidden lg:grid-cols-[minmax(420px,0.45fr)_minmax(0,0.55fr)]">
-          <div className="flex min-h-[470px] flex-col justify-center bg-dark px-6 py-12 text-white sm:min-h-[520px] sm:px-12 sm:py-16 lg:min-h-[calc(100vh-82px)] lg:px-[4.75rem] lg:py-20">
-            <div className="reveal-up max-w-[31rem] space-y-8">
+        <div className="hero-stage grid w-full overflow-hidden lg:grid-cols-[minmax(420px,0.45fr)_minmax(0,0.55fr)]">
+          <div className="hero-stage-panel flex min-h-[470px] flex-col justify-center bg-dark px-6 py-12 text-white sm:min-h-[520px] sm:px-12 sm:py-16 lg:px-[clamp(3.25rem,4vw,4.75rem)] lg:py-[clamp(2.5rem,6vh,5rem)]">
+            <div className="reveal-up max-w-[36rem] space-y-8">
               <p className="text-[10px] uppercase tracking-[0.42em] text-accent">
                 Smart, Flexible Living
               </p>
               <div className="space-y-6">
-                <h1 className="max-w-[26rem] font-display text-[3.25rem] leading-[0.86] tracking-[-0.05em] sm:text-[5rem] lg:text-[5.45rem]">
-                  Smart, Flexible Living for Professionals & Companies
+                <h1 className="max-w-full font-display text-[2.45rem] leading-[0.9] tracking-[-0.035em] min-[390px]:text-[2.75rem] sm:max-w-[32rem] sm:text-[4.2rem] xl:max-w-[35rem] xl:text-[clamp(3.85rem,4.85vw,5.45rem)]">
+                  <span className="block">Smart, Flexible</span>
+                  <span className="block">Living for</span>
+                  <span className="block">Professionals &</span>
+                  <span className="block">Companies</span>
                 </h1>
                 <p className="max-w-[23rem] text-[13px] leading-7 text-white/72 sm:max-w-[24rem]">
                   At JW Luxury Estate LLC, we redefine modern housing by
@@ -385,86 +481,202 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="hero-media-shell relative min-h-[320px] bg-[#7eb2d5] sm:min-h-[500px] lg:min-h-[calc(100vh-82px)]">
-            <Image
-              src={siteImageUrls.hero.featuredProperty}
-              alt="JW Luxury Estate luxury residence"
-              fill
-              priority
-              className="hero-media-image object-cover object-center"
-              sizes="(min-width: 1024px) 55vw, 100vw"
-              unoptimized
-            />
-          </div>
+          <HeroImageCarousel slides={heroSlides} />
         </div>
       </section>
 
-      <section className="w-full border-y border-border-subtle bg-surface">
-        <Reveal className="border-b border-border-subtle px-8 py-12 sm:px-10 lg:px-16">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
-              Experience
+      <section className="depth-section w-full border-y border-border-subtle bg-surface">
+        <div className="mx-auto w-full max-w-[1180px] px-6 py-12 sm:px-10 sm:py-14 lg:px-12">
+          <Reveal className="grid gap-5 border-b border-border-subtle pb-7 md:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)] md:items-end">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
+                Experience
+              </p>
+              <h2 className="mt-3 max-w-[24rem] font-display text-[2.55rem] leading-[0.96] tracking-[-0.045em] text-foreground sm:text-[3.25rem]">
+                What You Can Expect
+              </h2>
+            </div>
+            <p className="max-w-[34rem] text-[0.96rem] leading-8 text-muted md:justify-self-end">
+              A more complete stay than a hotel room: stable terms, controlled
+              access, furnished spaces, and a setup that works for real daily
+              routines.
             </p>
-            <h2 className="mt-4 font-display text-[2.6rem] leading-[0.96] tracking-[-0.045em] text-foreground sm:text-[3.2rem]">
-              What You Can Expect
-            </h2>
-          </div>
-        </Reveal>
-        <div className="grid w-full md:grid-cols-2 xl:grid-cols-4">
-          {experienceBlocks.map((block, index) => (
-            <Reveal
-              as="article"
-              key={block.title}
-              delay={index * 60}
-              className={[
-                "metric-panel group flex min-h-[168px] flex-col justify-center gap-3 px-12 py-9 sm:px-14",
-                index < experienceBlocks.length - 1
-                  ? "xl:border-r xl:border-border-subtle"
-                  : "",
-                index < 2
-                  ? "md:border-r md:border-border-subtle xl:border-r xl:border-border-subtle"
-                  : "",
-                index < 2
-                  ? "md:border-b md:border-border-subtle xl:border-b-0"
-                  : "",
-              ].join(" ")}
-            >
-              <p
+          </Reveal>
+
+          <div className="experience-bento mt-8">
+            {experienceBlocks.map((block, index) => (
+              <Reveal
+                as="article"
+                key={block.title}
+                delay={index * 45}
                 className={[
-                  "font-display text-[2.2rem] leading-none tracking-[-0.045em] transition-colors duration-200 group-hover:text-accent sm:text-[2.5rem]",
-                  "text-foreground",
+                  "experience-tile group",
+                  index === 0 ? "experience-tile-feature" : "",
                 ].join(" ")}
               >
-                {block.title}
-              </p>
-              <p className="max-w-[18rem] text-[0.82rem] leading-6 text-muted">
-                {block.subtitle}
-              </p>
-            </Reveal>
-          ))}
+                <span className="experience-tile-index">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p
+                  className={[
+                    "font-display text-[2rem] leading-none tracking-[-0.04em] transition-colors duration-200 group-hover:text-accent sm:text-[2.25rem]",
+                    index === 0 ? "text-white" : "text-foreground",
+                  ].join(" ")}
+                >
+                  {block.title}
+                </p>
+                <p
+                  className={[
+                    "mt-3 max-w-[21rem] text-[0.9rem] leading-7",
+                    index === 0 ? "text-white/66" : "text-muted",
+                  ].join(" ")}
+                >
+                  {block.subtitle}
+                </p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="w-full px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
+      <section
+        aria-labelledby="why-hotels-heading"
+        className="depth-section border-b border-border-subtle bg-[#f2ece4]"
+      >
+        <div className="w-full px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-[5.25rem]">
+          <div className="grid gap-10 xl:grid-cols-[minmax(280px,0.31fr)_minmax(0,0.69fr)] xl:items-start">
+            <Reveal className="space-y-8">
+              <div className="space-y-5">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-accent">
+                  Professional weekly housing
+                </p>
+                <h2
+                  id="why-hotels-heading"
+                  className="max-w-[15rem] font-display text-[3.25rem] leading-[0.92] text-foreground sm:max-w-[23rem] sm:text-[4.65rem] lg:text-[5.05rem]"
+                >
+                  Why Choose Us Over Hotels
+                </h2>
+                <p className="max-w-[31rem] text-[1rem] leading-8 text-muted">
+                  Hotels work for a night. JW Luxury Estate is made for
+                  professionals who need a private room, a real kitchen, laundry,
+                  parking, and a calmer weekly routine without signing a long
+                  lease.
+                </p>
+              </div>
+
+              <div className="grid gap-px overflow-hidden border border-border-subtle bg-border-subtle">
+                {hotelValuePoints.map((point) => (
+                  <div key={point.label} className="bg-surface px-6 py-5">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-accent">
+                      {point.label}
+                    </p>
+                    <p className="mt-3 max-w-[27rem] text-[0.95rem] leading-7 text-foreground/78">
+                      {point.copy}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 border-t border-border-subtle pt-6">
+                <p className="font-display text-[3rem] leading-none text-accent sm:text-[3.55rem]">
+                  $125-$225
+                </p>
+                <p className="self-end pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-muted">
+                  Estimated weekly savings vs. a hotel stay
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={110}>
+              <article className="hotel-comparison-card">
+                <div className="hotel-chart-topline">
+                  <p className="hotel-chart-brand">JW Luxury Estate</p>
+                  <div className="hotel-chart-legend" aria-label="Chart legend">
+                    {hotelChartSeries.map((series) => (
+                      <span key={series.key} className="hotel-chart-legend-item">
+                        <span
+                          className="hotel-chart-legend-dot"
+                          style={{ backgroundColor: series.color }}
+                        />
+                        {series.label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="hotel-chart-shell">
+                  <div className="hotel-chart-title-pane">
+                    <p>Cost-Benefit Comparison</p>
+                    <span>Weekly stays for professionals</span>
+                  </div>
+
+                  <div
+                    className="hotel-chart-plot"
+                    role="img"
+                    aria-label="Cost benefit comparison showing JW Luxury Estate against long-term leases and short-term managers across monitoring, included service, vacancy risk, management fees, revenue potential, and property enhancements."
+                  >
+                    <div className="hotel-chart-rows">
+                      {hotelChartRows.map((row) => (
+                        <div key={row.label} className="hotel-chart-row">
+                          <p className="hotel-chart-label">{row.label}</p>
+                          <div className="hotel-chart-bars">
+                            {hotelChartSeries.map((series) => (
+                              <span
+                                key={series.key}
+                                className="hotel-chart-bar"
+                                style={{
+                                  backgroundColor: series.color,
+                                  width: `${row[series.key] * 10}%`,
+                                }}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="hotel-chart-axis" aria-hidden="true">
+                      {[0, 2, 4, 6, 8, 10].map((tick) => (
+                        <span key={tick}>{tick}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="hotel-comparison-strip">
+                  {hotelComparisonRows.slice(0, 4).map((row) => (
+                    <div key={row.feature} className="hotel-comparison-proof">
+                      <p>{row.feature}</p>
+                      <strong>{row.jw}</strong>
+                      <span>Hotel: {row.hotel}</span>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="depth-section w-full px-6 py-14 sm:px-10 sm:py-16 lg:px-16 xl:py-24">
         <div
           id="about"
-          className="grid items-start gap-12 lg:grid-cols-[minmax(280px,0.32fr)_minmax(0,0.68fr)] lg:gap-16"
+          className="grid items-start gap-8 xl:grid-cols-[minmax(280px,0.31fr)_minmax(0,0.69fr)] xl:gap-14"
         >
-          <Reveal className="max-w-[25rem] space-y-10">
-            <div className="space-y-5">
+          <Reveal className="space-y-7">
+            <div className="space-y-5 xl:max-w-[25rem]">
               <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-accent">
                 About
               </p>
-              <h2 className="max-w-[10rem] font-display text-[3.05rem] leading-[0.92] tracking-[-0.04em] text-foreground sm:max-w-[12rem] sm:text-[4.3rem]">
+              <h2 className="max-w-[11rem] font-display text-[3.05rem] leading-[0.92] tracking-[-0.04em] text-foreground sm:max-w-[24rem] sm:text-[4.1rem] xl:max-w-[12rem] xl:text-[4.3rem]">
                 Who We Are.
               </h2>
             </div>
 
-            <div className="bg-surface px-0 py-2 shadow-[0_18px_30px_rgba(17,12,9,0.03)]">
+            <div className="about-tabs bg-surface px-0 py-2 shadow-[0_18px_30px_rgba(17,12,9,0.04)] sm:grid sm:grid-cols-[1.08fr_0.98fr_0.94fr] xl:block">
               {audienceTabs.map((tab) => (
                 <div
                   key={tab.label}
-                  className="relative cursor-pointer bg-transparent px-7 py-7 text-[1.1rem] leading-none font-medium text-muted transition-[background-color,color] duration-200 before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:bg-transparent hover:bg-surface hover:font-semibold hover:text-foreground hover:before:bg-accent"
+                  className="relative cursor-pointer bg-transparent px-5 py-5 text-[1rem] leading-snug font-medium text-muted transition-[background-color,color] duration-200 before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:bg-transparent hover:bg-background hover:font-semibold hover:text-foreground hover:before:bg-accent sm:px-6 sm:py-6 xl:px-7 xl:py-7"
                 >
                   {tab.label}
                 </div>
@@ -475,47 +687,67 @@ export default function Home() {
           <Reveal
             as="article"
             delay={90}
-            className="premium-surface border border-border-subtle bg-surface px-8 py-10 shadow-[0_26px_55px_rgba(17,12,9,0.05)] sm:px-12 sm:py-12 lg:px-[3.25rem] lg:py-[3.25rem]"
+            className="premium-surface about-story-card border border-border-subtle bg-surface px-6 py-8 shadow-[0_26px_55px_rgba(17,12,9,0.06)] sm:px-10 sm:py-10 xl:px-[3.25rem] xl:py-[3.25rem]"
           >
             <div className="max-w-[46rem] space-y-6">
-              <h3 className="font-display text-[3rem] leading-[0.95] tracking-[-0.045em] text-foreground">
+              <h3 className="font-display text-[2.35rem] leading-[0.95] tracking-[-0.045em] text-foreground sm:text-[3rem]">
                 Flexible Living Designed for Professionals and Companies
               </h3>
               {aboutParagraphs.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="max-w-[42rem] text-[1.05rem] leading-10 text-muted"
+                  className="max-w-[42rem] text-[0.98rem] leading-8 text-muted sm:text-[1.05rem] sm:leading-10"
                 >
                   {paragraph}
                 </p>
+              ))}
+            </div>
+            <div className="mt-8 grid gap-px border border-border-subtle bg-border-subtle sm:grid-cols-[1fr_0.86fr_1.12fr]">
+              {aboutStats.map((stat) => (
+                <div key={stat.label} className="bg-background px-5 py-5">
+                  <p className="font-display text-[2.1rem] leading-none text-accent">
+                    {stat.value}
+                  </p>
+                  <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.24em] text-muted">
+                    {stat.label}
+                  </p>
+                </div>
               ))}
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="border-y border-border-subtle bg-surface-strong">
-        <div className="w-full px-6 py-18 sm:px-10 lg:px-16 lg:py-24">
-          <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,0.36fr)_minmax(0,0.64fr)] lg:gap-16">
-            <Reveal className="space-y-5">
+      <section className="depth-section border-y border-border-subtle bg-surface-strong">
+        <div className="w-full px-6 py-14 sm:px-10 sm:py-16 lg:px-16 xl:py-[5.5rem]">
+          <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)] xl:gap-14">
+            <Reveal className="space-y-6">
               <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-accent">
                 Flexible Terms
               </p>
-              <h2 className="max-w-[14rem] font-display text-[2.95rem] leading-[0.94] tracking-[-0.04em] text-foreground sm:max-w-[16rem] sm:text-[4rem]">
+              <h2 className="max-w-[18rem] font-display text-[2.75rem] leading-[0.94] tracking-[-0.04em] text-foreground sm:max-w-[24rem] sm:text-[3.75rem] xl:max-w-[16rem] xl:text-[4rem]">
                 Minimum 30-Day Stays - Total Flexibility
               </h2>
+              <div className="inline-grid border border-border-subtle bg-background px-5 py-4 shadow-[0_14px_34px_rgba(17,12,9,0.05)]">
+                <span className="font-display text-[2.4rem] leading-none text-accent">
+                  30+
+                </span>
+                <span className="mt-2 text-[10px] font-bold uppercase tracking-[0.24em] text-muted">
+                  days minimum
+                </span>
+              </div>
             </Reveal>
 
             <Reveal
               as="article"
               delay={90}
-              className="premium-surface border border-border-subtle bg-surface px-8 py-10 shadow-[0_18px_40px_rgba(17,12,9,0.04)] sm:px-10 sm:py-11"
+              className="premium-surface border border-border-subtle bg-surface px-6 py-8 shadow-[0_18px_40px_rgba(17,12,9,0.05)] sm:px-10 sm:py-10"
             >
               <div className="max-w-[44rem] space-y-6">
                 {philosophyParagraphs.map((paragraph) => (
                   <p
                     key={paragraph}
-                    className="text-[1.02rem] leading-9 text-muted"
+                    className="text-[0.98rem] leading-8 text-muted sm:text-[1.02rem] sm:leading-9"
                   >
                     {paragraph}
                   </p>
@@ -539,38 +771,43 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-background">
-        <div className="w-full px-6 pb-[3.25rem] pt-[5rem] sm:px-10 lg:px-16 lg:pb-[4.1rem] lg:pt-[6rem]">
-          <Reveal className="mx-auto max-w-4xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.36em] text-accent">
-              Stay Advantages
-            </p>
-            <h2 className="mt-4 font-display text-[3rem] leading-[0.95] tracking-[-0.04em] text-foreground sm:text-[4.4rem]">
-              Designed Around Real-World Work Stays
-            </h2>
-            <p className="mx-auto mt-6 max-w-3xl text-[1rem] leading-8 text-muted">
+      <section className="depth-section bg-background">
+        <div className="mx-auto w-full max-w-[1180px] px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-[4.75rem]">
+          <Reveal className="grid gap-5 border-b border-border-subtle pb-7 md:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)] md:items-end">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.36em] text-accent">
+                Stay Advantages
+              </p>
+              <h2 className="mt-3 max-w-[24rem] font-display text-[2.45rem] leading-[0.96] tracking-[-0.04em] text-foreground sm:text-[3.35rem]">
+                Designed Around Real-World Work Stays
+              </h2>
+            </div>
+            <p className="max-w-[37rem] text-[0.98rem] leading-8 text-muted md:justify-self-end">
               Every property is selected and operated to give professionals and
               companies a more organized, secure, and comfortable way to live
               while work keeps moving.
             </p>
           </Reveal>
 
-          <div className="mt-16 grid gap-px overflow-hidden border border-border-subtle bg-border-subtle md:grid-cols-2 xl:grid-cols-3">
+          <div className="advantages-bento mt-8">
             {whyCards.map((card) => (
               <Reveal
                 as="article"
                 key={card.number}
-                delay={card.number === "01" ? 0 : Number(card.number) * 40}
-                className="grid-panel relative min-h-[205px] bg-surface px-7 py-10 sm:px-10 sm:py-11"
+                delay={Number(card.number) * 35}
+                className={[
+                  "advantage-card",
+                  card.number === "04" ? "advantage-card-dark" : "",
+                ].join(" ")}
               >
-                <span className="pointer-events-none absolute right-5 top-5 z-0 font-display text-[3.5rem] leading-none tracking-[-0.06em] text-[#ecdfc8] sm:right-8 sm:top-7 sm:text-[4.6rem]">
-                  {card.number}
-                </span>
-                <div className="relative z-10 max-w-[13rem] space-y-5 pr-4 sm:max-w-[18rem] sm:pr-0">
-                  <h3 className="font-display text-[1.9rem] leading-[0.95] tracking-[-0.04em] text-foreground sm:text-[2rem]">
+                <div className="relative z-10 max-w-[23rem]">
+                  <span className="advantage-number inline-flex font-display text-[2.35rem] leading-none sm:text-[2.75rem]">
+                    {card.number}
+                  </span>
+                  <h3 className="mt-5 font-display text-[1.75rem] leading-[0.98] tracking-[-0.04em] sm:text-[1.95rem]">
                     {card.title}
                   </h3>
-                  <p className="text-[1rem] leading-8 text-muted">
+                  <p className="mt-4 text-[0.95rem] leading-7">
                     {card.description}
                   </p>
                 </div>
@@ -582,19 +819,19 @@ export default function Home() {
 
       <section
         id="properties"
-        className="border-y border-border-subtle bg-surface-strong"
+        className="depth-section border-y border-border-subtle bg-surface-strong"
       >
-        <div className="w-full px-6 py-[4.2rem] sm:px-10 lg:px-16 lg:py-[5rem]">
-          <Reveal className="grid gap-6 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,0.32fr)] lg:items-end">
+        <div className="w-full px-6 py-11 sm:px-10 sm:py-16 lg:px-16 lg:py-[5rem]">
+          <Reveal className="grid gap-6 xl:grid-cols-[minmax(0,0.68fr)_minmax(0,0.32fr)] xl:items-end">
             <div className="max-w-[40rem] space-y-3">
               <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
                 Our Properties
               </p>
-              <h2 className="font-display text-[2.95rem] leading-[0.92] tracking-[-0.045em] text-foreground sm:text-[3.45rem]">
+              <h2 className="font-display text-[2.45rem] leading-[0.95] tracking-[-0.04em] text-foreground min-[390px]:text-[2.75rem] sm:text-[3.45rem]">
                 The Homes, Rooms, and Shared Spaces We Manage
               </h2>
             </div>
-            <div className="space-y-3 lg:justify-self-end lg:text-right">
+            <div className="space-y-3 xl:justify-self-end xl:text-right">
               <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-foreground/42">
                 Selective Preview
               </p>
@@ -605,18 +842,22 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="mt-12 grid gap-px overflow-hidden border border-border-subtle bg-border-subtle lg:grid-cols-3">
+          <div className="properties-bento mt-8 xl:mt-12">
             {propertyShowcase.map((property, index) => (
               <Reveal
                 as="article"
                 key={property.title}
                 delay={index * 60}
-                className="premium-surface group bg-surface"
+                className={[
+                  "property-showcase-card premium-surface group bg-surface",
+                  index === 0 ? "property-showcase-feature" : "",
+                  index === 1 ? "property-showcase-shift" : "",
+                ].join(" ")}
               >
                 <PropertyImageCarousel
                   label={property.title}
                   slides={property.slides}
-                  sizes="(min-width: 1280px) 29vw, (min-width: 1024px) 31vw, 100vw"
+                  sizes="(min-width: 1280px) 29vw, 100vw"
                   intervalMs={4200 + index * 260}
                   unoptimized={propertyShowcaseUsesRemoteMedia}
                 />
@@ -657,31 +898,33 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-y border-border-subtle bg-surface">
-        <Reveal className="px-8 py-8 sm:px-10 lg:px-16 lg:py-10">
-          <p className="mx-auto max-w-4xl text-center font-display text-[2rem] leading-[1.02] tracking-[-0.03em] text-foreground sm:text-[2.35rem]">
+      <section className="statement-band border-y border-white/8 bg-dark text-white">
+        <Reveal className="px-6 py-8 sm:px-10 lg:px-16 lg:py-10">
+          <p className="mx-auto max-w-4xl text-center font-display text-[1.85rem] leading-[1.05] tracking-[-0.03em] text-white sm:text-[2.35rem]">
             Secure, flexible, and team-oriented living for professionals and companies.
           </p>
         </Reveal>
       </section>
 
-      <section className="bg-background">
-        <div className="w-full px-6 py-[4rem] sm:px-8 lg:px-10 lg:py-[4.75rem]">
+      <section className="depth-section bg-background">
+        <div className="w-full px-6 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-[4.75rem]">
           <div
             id="nationwide"
             className="overflow-hidden border border-border-subtle bg-surface shadow-[0_20px_44px_rgba(17,12,9,0.04)]"
           >
-            <div className="grid gap-px bg-border-subtle lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
+            <div className="grid gap-px bg-border-subtle xl:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
               <Reveal
                 as="article"
-                className="premium-surface-dark bg-dark px-8 py-10 text-white sm:px-10 sm:py-12 lg:px-12 lg:py-14"
+                className="premium-surface-dark bg-dark px-6 py-9 text-white sm:px-10 sm:py-12 xl:px-12 xl:py-14"
               >
                 <div className="max-w-[26rem] space-y-6">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
                     Nationwide Support
                   </p>
-                  <h2 className="font-display text-[2.8rem] leading-[0.92] tracking-[-0.04em] text-white sm:text-[3.5rem]">
-                    Nationwide Accommodations for Warehouses, Offices, and Operations Across the U.S.
+                  <h2 className="font-display text-[2.28rem] leading-[0.95] tracking-[-0.035em] text-white min-[390px]:text-[2.5rem] sm:text-[3.5rem]">
+                    <span className="block">Nationwide Housing</span>
+                    <span className="block">for Warehouses, Offices, and Operations</span>
+                    <span className="block">Across the U.S.</span>
                   </h2>
                   <p className="text-[1rem] leading-8 text-white/62">
                     JW Luxury Estate supports companies that need housing in any
@@ -703,13 +946,13 @@ export default function Home() {
                 </div>
               </Reveal>
 
-              <div className="grid gap-px bg-border-subtle sm:grid-cols-2">
+              <div className="grid gap-px bg-border-subtle md:grid-cols-2">
                 {nationwideSupportCards.map((card, index) => (
                   <Reveal
                     as="article"
                     key={card.title}
                     delay={index * 50}
-                    className="grid-panel min-h-[210px] bg-surface px-7 py-9 sm:px-8 sm:py-10"
+                    className="grid-panel min-h-[184px] bg-surface px-6 py-8 sm:px-8 sm:py-9"
                   >
                     <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-accent/88">
                       {card.eyebrow}
@@ -728,8 +971,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-surface-strong">
-        <div className="w-full px-6 pb-20 pt-16 sm:px-8 lg:px-10 lg:pb-24 lg:pt-18">
+      <section className="depth-section bg-surface-strong">
+        <div className="w-full px-6 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-[5.25rem]">
           <div id="owners">
             <Reveal className="mx-auto max-w-4xl text-center">
               <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
@@ -742,11 +985,14 @@ export default function Home() {
                 We position ourselves as a primary housing provider for
                 companies, capable of supporting projects of any size.
               </p>
-              <div className="mt-10 grid gap-6 text-left md:grid-cols-2">
-                {scaleGroups.map((group) => (
+              <div className="scale-bento mt-10 text-left">
+                {scaleGroups.map((group, index) => (
                   <div
                     key={group.eyebrow}
-                    className="border border-border-subtle bg-surface px-6 py-6 shadow-[0_12px_28px_rgba(17,12,9,0.04)]"
+                    className={[
+                      "scale-panel",
+                      index === 0 ? "scale-panel-primary" : "",
+                    ].join(" ")}
                   >
                     <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-accent">
                       {group.eyebrow}
@@ -772,122 +1018,43 @@ export default function Home() {
               </a>
             </Reveal>
           </div>
-          <Reveal delay={80} className="mx-auto mt-16 max-w-4xl text-center">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
-              Comparison
-            </p>
-            <h3 className="mt-3 font-display text-[2.55rem] leading-[0.96] tracking-[-0.04em] text-foreground sm:text-[3rem]">
-              Why Choose JW Luxury Estate Over Hotels or Traditional Rentals?
-            </h3>
-          </Reveal>
-          <Reveal delay={140} className="table-shell mx-auto mt-14 max-w-[910px]">
-            <div className="hidden md:block">
-              <table className="premium-table w-full border-collapse">
-                <thead>
-                  <tr className="border-b border-border-subtle">
-                    <th className="px-4 py-4 text-left text-[10px] font-semibold uppercase tracking-[0.14em] text-muted/80">
-                      Feature
-                    </th>
-                    <th className="px-4 py-4 text-left text-[10px] font-semibold tracking-[0.01em] text-accent">
-                      JW Luxury Estate
-                    </th>
-                    <th className="px-4 py-4 text-left text-[10px] font-semibold uppercase tracking-[0.14em] text-muted/80">
-                      Hotels
-                    </th>
-                    <th className="px-4 py-4 text-left text-[10px] font-semibold uppercase tracking-[0.14em] text-muted/80">
-                      Renting With Others
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparisonRows.map((row) => (
-                    <tr key={row.feature} className="border-b border-border-subtle">
-                      <td className="px-4 py-5 text-[0.96rem] font-semibold text-foreground/78">
-                        {row.feature}
-                      </td>
-                      <td className="px-4 py-5 text-[0.96rem] font-semibold text-foreground">
-                        {row.jw}
-                      </td>
-                      <td className="px-4 py-5 text-[0.96rem] text-muted">
-                        {row.longTerm}
-                      </td>
-                      <td className="px-4 py-5 text-[0.96rem] text-muted">
-                        {row.shortTerm}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="space-y-4 md:hidden">
-              {comparisonRows.map((row) => (
-                <div
-                  key={row.feature}
-                  className="border-b border-border-subtle pb-4"
-                >
-                  <p className="mb-2 text-sm font-semibold text-foreground/82">
-                    {row.feature}
-                  </p>
-                  <div className="space-y-2 text-sm">
-                    <p>
-                      <span className="font-semibold text-accent">
-                        JW Luxury Estate:{" "}
-                      </span>
-                      <span className="text-foreground">{row.jw}</span>
-                    </p>
-                    <p>
-                      <span className="font-semibold text-muted">
-                        Hotels:{" "}
-                      </span>
-                      <span className="text-muted">{row.longTerm}</span>
-                    </p>
-                    <p>
-                      <span className="font-semibold text-muted">
-                        Renting With Others:{" "}
-                      </span>
-                      <span className="text-muted">{row.shortTerm}</span>
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
         </div>
       </section>
 
       <section className="bg-dark text-white">
-        <div className="w-full border-b border-white/6 px-6 py-[4.8rem] sm:px-10 lg:px-16 lg:py-[5.8rem]">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.34fr)_minmax(0,0.66fr)] lg:gap-12">
-            <Reveal className="max-w-[22rem] space-y-5">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
-                Who We Serve
-              </p>
-              <h2 className="font-display text-[3rem] leading-[0.92] tracking-[-0.04em] text-white sm:text-[3.55rem]">
-                Built for Individual Professionals and Company Teams.
-              </h2>
-              <p className="text-[1rem] leading-8 text-white/58">
+        <div className="w-full border-b border-white/6 px-6 py-12 sm:px-10 sm:py-14 lg:px-16 lg:py-[4.75rem]">
+          <div className="mx-auto max-w-[1180px]">
+            <Reveal className="grid gap-5 border-b border-white/8 pb-7 md:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] md:items-end">
+              <div className="space-y-4">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
+                  Who We Serve
+                </p>
+                <h2 className="max-w-[34rem] font-display text-[2.55rem] leading-[0.95] tracking-[-0.04em] text-white sm:text-[3.4rem]">
+                  Built for Individual Professionals and Company Teams.
+                </h2>
+              </div>
+              <p className="max-w-[35rem] text-[1rem] leading-8 text-white/58 md:justify-self-end">
                 Whether you&apos;re relocating for work or managing an entire
                 team, we provide a secure, comfortable, and turnkey housing
                 experience tailored to your needs.
               </p>
             </Reveal>
 
-            <div className="grid gap-px overflow-hidden border border-white/8 bg-white/8 sm:grid-cols-2">
+            <div className="serve-bento mt-8">
               {clientTypes.map((client, index) => (
                 <Reveal
                   as="article"
                   key={client.title}
-                  delay={index * 55}
-                  className="grid-panel bg-dark-soft px-7 py-8 sm:px-9 sm:py-10"
+                  delay={index * 45}
+                  className="serve-card grid-panel"
                 >
                   <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-accent/88">
                     {client.eyebrow}
                   </p>
-                  <h3 className="mt-5 max-w-[13rem] font-display text-[1.9rem] leading-[0.95] tracking-[-0.04em] text-white">
+                  <h3 className="mt-5 max-w-[15rem] font-display text-[1.85rem] leading-[0.98] tracking-[-0.04em] text-white">
                     {client.title}
                   </h3>
-                  <p className="mt-4 max-w-[20rem] text-[0.98rem] leading-8 text-white/58">
+                  <p className="mt-4 max-w-[22rem] text-[0.95rem] leading-7 text-white/58">
                     {client.description}
                   </p>
                 </Reveal>
@@ -898,7 +1065,7 @@ export default function Home() {
 
         <div
           id="contact"
-          className="grid w-full items-start gap-12 px-6 py-[5rem] sm:px-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(420px,0.84fr)] lg:px-16 lg:py-[6.5rem]"
+          className="grid w-full items-start gap-9 px-6 py-14 sm:px-10 sm:py-16 xl:grid-cols-[minmax(0,0.88fr)_minmax(420px,0.84fr)] xl:px-16 xl:py-[6rem]"
         >
           <Reveal className="max-w-[36rem] space-y-9">
             <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
@@ -935,7 +1102,7 @@ export default function Home() {
 
           <Reveal
             delay={110}
-            className="premium-surface-dark border border-white/8 bg-dark-soft px-6 py-8 shadow-[0_18px_40px_rgba(0,0,0,0.16)] sm:px-10 sm:py-10 lg:mx-auto lg:w-full lg:max-w-[25rem]"
+            className="premium-surface-dark border border-white/8 bg-dark-soft px-6 py-8 shadow-[0_18px_40px_rgba(0,0,0,0.16)] sm:px-10 sm:py-10 xl:mx-auto xl:w-full xl:max-w-[25rem]"
           >
             <div className="space-y-7">
               <div className="space-y-3">
@@ -954,7 +1121,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full px-6 py-[5.25rem] sm:px-8 lg:px-10 lg:py-[6rem]">
+      <section className="depth-section w-full px-6 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-[5.25rem]">
         <Reveal className="mx-auto max-w-5xl text-center">
           <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
             How It Works
@@ -964,21 +1131,21 @@ export default function Home() {
           </h2>
         </Reveal>
 
-        <div className="mx-auto mt-16 grid max-w-6xl gap-8 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">
+        <div className="process-rail mx-auto mt-10 max-w-6xl xl:mt-14">
           {processSteps.map((step) => (
             <Reveal
               as="article"
               key={step.number}
               delay={Number(step.number) * 50}
-              className="process-card text-center"
+              className="process-card process-rail-step"
             >
-              <div className="mx-auto mb-5 flex h-10 w-10 items-center justify-center bg-foreground text-sm font-bold text-surface">
+              <div className="process-rail-number mb-5 flex h-10 w-10 items-center justify-center bg-foreground text-sm font-bold text-surface">
                 {step.number}
               </div>
               <h3 className="font-display text-[1.55rem] leading-none tracking-[-0.035em] text-foreground">
                 {step.title}
               </h3>
-              <p className="mx-auto mt-3 max-w-[13rem] text-[0.84rem] leading-6 text-muted">
+              <p className="mt-3 max-w-[15rem] text-[0.84rem] leading-6 text-muted">
                 {step.description}
               </p>
             </Reveal>
@@ -986,8 +1153,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-border-subtle bg-surface">
-        <div className="w-full px-6 py-18 sm:px-10 lg:px-16 lg:py-24">
+      <section className="depth-section border-t border-border-subtle bg-surface">
+        <div className="w-full px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-[5.5rem]">
           <Reveal className="mx-auto max-w-4xl text-center">
             <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
               Stay Confidence

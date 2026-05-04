@@ -24,8 +24,18 @@
 .DS_Store
 *.pem
 .appdata/
+.appdata*/
 .localappdata/
+.localappdata*/
 .npm-cache/
+.tmp/
+.tmp-chrome/
+.playwright-mcp/
+current-page.html
+reference-page.html
+reference-extracted/
+playwright-*.png
+jw-premium-pass-*.png
 
 # debug
 *.log
@@ -36,6 +46,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
