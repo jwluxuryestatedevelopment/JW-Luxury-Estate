@@ -230,34 +230,40 @@ const footerContactActions = [
 
 const hotelComparisonRows = [
   {
-    feature: "Weekly cost",
-    hotel: "$525+",
-    jw: "$300-$400",
-    note: "Save $125-$225 every week compared with a hotel stay.",
+    feature: "More space, comfort, and privacy",
+    jw: "A complete living environment designed for long stays",
+    hotel: "Hotels usually offer less space and daily-living comfort",
+    renting: "Shared homes can feel crowded or inconsistent",
   },
   {
-    feature: "Kitchen access",
-    hotel: "None or paid extra",
-    jw: "Full kitchen",
-    note: "Cook real meals instead of relying on takeout or hotel add-ons.",
+    feature: "Full kitchens and shared living areas",
+    jw: "Included as part of a move-in ready stay",
+    hotel: "Hotels rarely provide the same day-to-day setup",
+    renting: "Depends on the home and shared-house arrangement",
   },
   {
-    feature: "Laundry",
-    hotel: "Paid vending",
-    jw: "In-unit, free",
-    note: "Laundry is part of the living setup, not a separate errand.",
+    feature: "Better suited for long stays",
+    jw: "30+ day stays built around project timelines and flexibility",
+    hotel: "Hotels can become expensive and repetitive over time",
+    renting: "Traditional rentals can be rigid or unstable for changing projects",
   },
   {
-    feature: "Stay terms",
-    hotel: "Nightly rate",
-    jw: "Weekly pay, 1-month minimum",
-    note: "Built for project timelines without a rigid long-term lease.",
+    feature: "No unknown roommates",
+    jw: "Team-oriented living built around the same company or project",
+    hotel: "Hotels are private, but not designed for team-based living",
+    renting: "Shared houses often place you with people you do not know",
   },
   {
-    feature: "Community",
-    hotel: "Random guests",
-    jw: "Your coworkers",
-    note: "No strangers, no random shared-housing arrangement.",
+    feature: "No complicated lease structures",
+    jw: "Flexible payment terms and straightforward housing coordination",
+    hotel: "Hotels are simple, but not built for workforce housing at scale",
+    renting: "Traditional rentals often come with lease complexity and house rules",
+  },
+  {
+    feature: "No penalties or rigid commitments",
+    jw: "Extend or wrap up housing as project needs change",
+    hotel: "Hotels are flexible, but inefficient for long workforce stays",
+    renting: "Traditional rentals can create penalties and rigid commitments",
   },
 ];
 
@@ -485,18 +491,20 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="depth-section w-full border-y border-border-subtle bg-surface">
-        <div className="mx-auto w-full max-w-[1180px] px-6 py-12 sm:px-10 sm:py-14 lg:px-12">
-          <Reveal className="grid gap-5 border-b border-border-subtle pb-7 md:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)] md:items-end">
+      <section className="experience-section depth-section w-full border-b border-border-subtle">
+        <div className="experience-shell mx-auto w-full max-w-[1180px] px-6 py-12 sm:px-10 sm:py-14 lg:px-12">
+          <Reveal className="experience-intro-grid grid gap-5 md:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)] md:items-end">
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
+              <p className="experience-kicker text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
                 Experience
               </p>
-              <h2 className="mt-3 max-w-[24rem] font-display text-[2.55rem] leading-[0.96] tracking-[-0.045em] text-foreground sm:text-[3.25rem]">
-                What You Can Expect
+              <h2 className="experience-heading mt-3 max-w-[24rem] font-display text-[2.55rem] leading-[0.96] tracking-[-0.045em] text-foreground sm:text-[3.25rem]">
+                <span>What You Can</span>
+                {" "}
+                <span>Expect</span>
               </h2>
             </div>
-            <p className="max-w-[34rem] text-[0.96rem] leading-8 text-muted md:justify-self-end">
+            <p className="experience-lede max-w-[34rem] text-[0.96rem] leading-8 text-muted md:justify-self-end">
               A more complete stay than a hotel room: stable terms, controlled
               access, furnished spaces, and a setup that works for real daily
               routines.
@@ -519,7 +527,7 @@ export default async function Home() {
                 </span>
                 <p
                   className={[
-                    "font-display text-[2rem] leading-none tracking-[-0.04em] transition-colors duration-200 group-hover:text-accent sm:text-[2.25rem]",
+                    "experience-tile-title font-display text-[2rem] leading-none tracking-[-0.04em] transition-colors duration-200 group-hover:text-accent sm:text-[2.25rem]",
                     index === 0 ? "text-white" : "text-foreground",
                   ].join(" ")}
                 >
@@ -527,7 +535,7 @@ export default async function Home() {
                 </p>
                 <p
                   className={[
-                    "mt-3 max-w-[21rem] text-[0.9rem] leading-7",
+                    "experience-tile-copy mt-3 max-w-[21rem] text-[0.9rem] leading-7",
                     index === 0 ? "text-white/66" : "text-muted",
                   ].join(" ")}
                 >
@@ -541,22 +549,24 @@ export default async function Home() {
 
       <section
         aria-labelledby="why-hotels-heading"
-        className="depth-section border-b border-border-subtle bg-[#f2ece4]"
+        className="hotels-section depth-section border-b border-border-subtle bg-[#f2ece4]"
       >
-        <div className="w-full px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-[5.25rem]">
-          <div className="grid gap-10 xl:grid-cols-[minmax(280px,0.31fr)_minmax(0,0.69fr)] xl:items-start">
-            <Reveal className="space-y-8">
+        <div className="hotels-shell mx-auto w-full max-w-[1280px] px-6 py-14 sm:px-10 sm:py-16 lg:px-12 lg:py-[5.25rem]">
+          <div className="hotels-layout grid gap-8 xl:grid-cols-[minmax(290px,0.34fr)_minmax(0,0.66fr)] xl:items-stretch">
+            <Reveal className="hotels-copy-panel">
               <div className="space-y-5">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-accent">
+                <p className="hotels-kicker text-[10px] font-semibold uppercase tracking-[0.32em] text-accent">
                   Professional weekly housing
                 </p>
                 <h2
                   id="why-hotels-heading"
-                  className="max-w-[15rem] font-display text-[3.25rem] leading-[0.92] text-foreground sm:max-w-[23rem] sm:text-[4.65rem] lg:text-[5.05rem]"
+                  className="hotels-heading font-display text-[3.25rem] leading-[0.92] text-foreground sm:text-[4.45rem] lg:text-[4.9rem]"
                 >
-                  Why Choose Us Over Hotels
+                  <span>Why Choose Us</span>
+                  {" "}
+                  <span>Over Hotels</span>
                 </h2>
-                <p className="max-w-[31rem] text-[1rem] leading-8 text-muted">
+                <p className="hotels-lede max-w-[31rem] text-[1rem] leading-8 text-muted">
                   Hotels work for a night. JW Luxury Estate is made for
                   professionals who need a private room, a real kitchen, laundry,
                   parking, and a calmer weekly routine without signing a long
@@ -564,24 +574,24 @@ export default async function Home() {
                 </p>
               </div>
 
-              <div className="grid gap-px overflow-hidden border border-border-subtle bg-border-subtle">
+              <div className="hotel-value-grid">
                 {hotelValuePoints.map((point) => (
-                  <div key={point.label} className="bg-surface px-6 py-5">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-accent">
+                  <div key={point.label} className="hotel-value-card">
+                    <p className="hotel-value-label text-[10px] font-bold uppercase tracking-[0.24em] text-accent">
                       {point.label}
                     </p>
-                    <p className="mt-3 max-w-[27rem] text-[0.95rem] leading-7 text-foreground/78">
+                    <p className="hotel-value-copy mt-3 max-w-[27rem] text-[0.95rem] leading-7 text-foreground/78">
                       {point.copy}
                     </p>
                   </div>
                 ))}
               </div>
 
-              <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 border-t border-border-subtle pt-6">
-                <p className="font-display text-[3rem] leading-none text-accent sm:text-[3.55rem]">
+              <div className="hotel-savings-band">
+                <p className="hotel-savings-value font-display text-[3rem] leading-none text-accent sm:text-[3.55rem]">
                   $125-$225
                 </p>
-                <p className="self-end pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-muted">
+                <p className="hotel-savings-label self-end pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-muted">
                   Estimated weekly savings vs. a hotel stay
                 </p>
               </div>
@@ -606,7 +616,11 @@ export default async function Home() {
 
                 <div className="hotel-chart-shell">
                   <div className="hotel-chart-title-pane">
-                    <p>Cost-Benefit Comparison</p>
+                    <p>
+                      <span>Cost-Benefit</span>
+                      {" "}
+                      <span>Comparison</span>
+                    </p>
                     <span>Weekly stays for professionals</span>
                   </div>
 
@@ -642,14 +656,61 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="hotel-comparison-strip">
-                  {hotelComparisonRows.slice(0, 4).map((row) => (
-                    <div key={row.feature} className="hotel-comparison-proof">
-                      <p>{row.feature}</p>
-                      <strong>{row.jw}</strong>
-                      <span>Hotel: {row.hotel}</span>
+                <div className="hotel-comparison-table-shell">
+                  <div className="hotel-table-heading">
+                    <div>
+                      <p className="hotel-table-kicker">JW vs. hotels</p>
+                      <h3>Why JW Luxury Estate works better</h3>
                     </div>
-                  ))}
+                    <p>
+                      The original comparison, brought back under the graph so
+                      clients can scan the practical differences between JW,
+                      hotels, and shared rental arrangements.
+                    </p>
+                  </div>
+
+                  <div className="hotel-table-desktop">
+                    <table className="hotel-comparison-table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Feature</th>
+                          <th scope="col">JW Luxury Estate</th>
+                          <th scope="col">Hotels</th>
+                          <th scope="col">Renting With Others</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {hotelComparisonRows.map((row) => (
+                          <tr key={row.feature}>
+                            <th scope="row">{row.feature}</th>
+                            <td className="hotel-table-jw">{row.jw}</td>
+                            <td>{row.hotel}</td>
+                            <td>{row.renting}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div className="hotel-table-mobile">
+                    {hotelComparisonRows.map((row) => (
+                      <article key={row.feature} className="hotel-mobile-row">
+                        <p className="hotel-mobile-feature">{row.feature}</p>
+                        <div>
+                          <span>JW Luxury Estate</span>
+                          <strong>{row.jw}</strong>
+                        </div>
+                        <div>
+                          <span>Hotels</span>
+                          <strong>{row.hotel}</strong>
+                        </div>
+                        <div>
+                          <span>Renting With Others</span>
+                          <strong>{row.renting}</strong>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
                 </div>
               </article>
             </Reveal>
@@ -718,21 +779,33 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="depth-section border-y border-border-subtle bg-surface-strong">
-        <div className="w-full px-6 py-14 sm:px-10 sm:py-16 lg:px-16 xl:py-[5.5rem]">
-          <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)] xl:gap-14">
-            <Reveal className="space-y-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-accent">
-                Flexible Terms
-              </p>
-              <h2 className="max-w-[18rem] font-display text-[2.75rem] leading-[0.94] tracking-[-0.04em] text-foreground sm:max-w-[24rem] sm:text-[3.75rem] xl:max-w-[16rem] xl:text-[4rem]">
-                Minimum 30-Day Stays - Total Flexibility
-              </h2>
-              <div className="inline-grid border border-border-subtle bg-background px-5 py-4 shadow-[0_14px_34px_rgba(17,12,9,0.05)]">
-                <span className="font-display text-[2.4rem] leading-none text-accent">
+      <section
+        aria-labelledby="flexible-terms-heading"
+        className="terms-section depth-section border-y border-border-subtle bg-surface-strong"
+      >
+        <div className="terms-shell mx-auto w-full max-w-[1180px] px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-[5.25rem]">
+          <div className="terms-layout grid items-stretch gap-5 xl:grid-cols-[minmax(280px,0.38fr)_minmax(0,0.62fr)]">
+            <Reveal className="terms-intro-panel">
+              <div>
+                <p className="terms-kicker text-[11px] font-semibold uppercase tracking-[0.34em] text-accent">
+                  Flexible Terms
+                </p>
+                <h2
+                  id="flexible-terms-heading"
+                  aria-label="Minimum 30-Day Stays - Total Flexibility"
+                  className="terms-heading mt-4 font-display text-[2.85rem] leading-[0.92] tracking-[-0.045em] text-foreground sm:text-[3.75rem] xl:text-[4.15rem]"
+                >
+                  <span>Minimum 30-Day Stays</span>
+                  <span aria-hidden="true" className="terms-heading-rule" />
+                  <span>Total Flexibility</span>
+                </h2>
+              </div>
+
+              <div className="terms-metric-card">
+                <span className="terms-metric-value font-display text-[3.25rem] leading-none text-accent">
                   30+
                 </span>
-                <span className="mt-2 text-[10px] font-bold uppercase tracking-[0.24em] text-muted">
+                <span className="terms-metric-label mt-2 text-[10px] font-bold uppercase tracking-[0.24em] text-muted">
                   days minimum
                 </span>
               </div>
@@ -741,52 +814,63 @@ export default async function Home() {
             <Reveal
               as="article"
               delay={90}
-              className="premium-surface border border-border-subtle bg-surface px-6 py-8 shadow-[0_18px_40px_rgba(17,12,9,0.05)] sm:px-10 sm:py-10"
+              className="terms-detail-panel"
             >
-              <div className="max-w-[44rem] space-y-6">
+              <div className="terms-copy-stack">
                 {philosophyParagraphs.map((paragraph) => (
-                  <p
-                    key={paragraph}
-                    className="text-[0.98rem] leading-8 text-muted sm:text-[1.02rem] sm:leading-9"
-                  >
-                    {paragraph}
-                  </p>
+                  <p key={paragraph}>{paragraph}</p>
                 ))}
-                <div className="grid gap-3 pt-1 sm:grid-cols-2">
-                  {minimumStayChecks.map((item) => (
-                    <div key={item} className="flex gap-3">
-                      <span className="mt-[0.55rem] h-2 w-2 rounded-full bg-accent" />
-                      <p className="text-[0.97rem] leading-8 text-muted">
-                        {item}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                <p className="text-[1rem] font-medium leading-8 text-foreground/76">
-                  Stay as long as you need - without being tied down.
-                </p>
               </div>
+
+              <div className="terms-check-rail">
+                {minimumStayChecks.map((item, index) => (
+                  <div key={item} className="terms-check-row">
+                    <span className="terms-check-index">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <p>{item}</p>
+                  </div>
+                ))}
+              </div>
+
+              <p className="terms-closing">
+                Stay as long as you need - without being tied down.
+              </p>
             </Reveal>
           </div>
         </div>
       </section>
 
-      <section className="depth-section bg-background">
-        <div className="mx-auto w-full max-w-[1180px] px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-[4.75rem]">
-          <Reveal className="grid gap-5 border-b border-border-subtle pb-7 md:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)] md:items-end">
+      <section
+        aria-labelledby="stay-advantages-heading"
+        className="advantages-section depth-section bg-background"
+      >
+        <div className="advantages-shell mx-auto w-full max-w-[1180px] px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-[4.75rem]">
+          <Reveal className="advantages-intro-panel grid gap-5 md:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)] md:items-end">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.36em] text-accent">
+              <p className="advantages-kicker text-[11px] font-semibold uppercase tracking-[0.36em] text-accent">
                 Stay Advantages
               </p>
-              <h2 className="mt-3 max-w-[24rem] font-display text-[2.45rem] leading-[0.96] tracking-[-0.04em] text-foreground sm:text-[3.35rem]">
-                Designed Around Real-World Work Stays
+              <h2
+                id="stay-advantages-heading"
+                className="advantages-heading mt-3 max-w-[32rem] font-display text-[2.45rem] leading-[0.96] tracking-[-0.04em] text-foreground sm:text-[3.35rem]"
+              >
+                <span>Designed Around</span>
+                {" "}
+                <span>Real-World Work Stays</span>
               </h2>
             </div>
-            <p className="max-w-[37rem] text-[0.98rem] leading-8 text-muted md:justify-self-end">
-              Every property is selected and operated to give professionals and
-              companies a more organized, secure, and comfortable way to live
-              while work keeps moving.
-            </p>
+            <div className="advantages-intro-copy md:justify-self-end">
+              <p>
+                Every property is selected and operated to give professionals and
+                companies a more organized, secure, and comfortable way to live
+                while work keeps moving.
+              </p>
+              <div className="advantages-proof-pill">
+                <span className="font-display">06</span>
+                <span>core stay standards</span>
+              </div>
+            </div>
           </Reveal>
 
           <div className="advantages-bento mt-8">
@@ -796,18 +880,22 @@ export default async function Home() {
                 key={card.number}
                 delay={Number(card.number) * 35}
                 className={[
-                  "advantage-card",
+                  "advantage-card group",
+                  card.number === "01" ? "advantage-card-feature" : "",
                   card.number === "04" ? "advantage-card-dark" : "",
                 ].join(" ")}
               >
-                <div className="relative z-10 max-w-[23rem]">
-                  <span className="advantage-number inline-flex font-display text-[2.35rem] leading-none sm:text-[2.75rem]">
-                    {card.number}
-                  </span>
-                  <h3 className="mt-5 font-display text-[1.75rem] leading-[0.98] tracking-[-0.04em] sm:text-[1.95rem]">
+                <div className="advantage-card-inner">
+                  <div className="advantage-card-topline">
+                    <span className="advantage-number inline-flex font-display text-[2.35rem] leading-none sm:text-[2.75rem]">
+                      {card.number}
+                    </span>
+                    <span className="advantage-card-label">Stay standard</span>
+                  </div>
+                  <h3 className="advantage-title mt-5 font-display text-[1.75rem] leading-[0.98] tracking-[-0.04em] sm:text-[1.95rem]">
                     {card.title}
                   </h3>
-                  <p className="mt-4 text-[0.95rem] leading-7">
+                  <p className="advantage-copy mt-4 text-[0.95rem] leading-7">
                     {card.description}
                   </p>
                 </div>
@@ -971,37 +1059,62 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="depth-section bg-surface-strong">
-        <div className="w-full px-6 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-[5.25rem]">
-          <div id="owners">
-            <Reveal className="mx-auto max-w-4xl text-center">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
+      <section
+        id="owners"
+        aria-labelledby="scale-heading"
+        className="scale-section depth-section bg-surface-strong"
+      >
+        <div className="scale-shell mx-auto w-full max-w-[1180px] px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-[5.25rem]">
+          <div className="scale-layout grid gap-5 xl:grid-cols-[minmax(280px,0.42fr)_minmax(0,0.58fr)] xl:items-stretch">
+            <Reveal className="scale-intro-panel">
+              <div>
+                <p className="scale-kicker text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
                 Built for Scale
-              </p>
-              <h2 className="mt-3 font-display text-[2.45rem] leading-[0.98] tracking-[-0.035em] text-foreground sm:text-[3.2rem]">
-                Built for Individuals & Companies at Scale
-              </h2>
-              <p className="mx-auto mt-5 max-w-3xl text-[0.98rem] leading-8 text-muted">
-                We position ourselves as a primary housing provider for
-                companies, capable of supporting projects of any size.
-              </p>
-              <div className="scale-bento mt-10 text-left">
+                </p>
+                <h2
+                  id="scale-heading"
+                  className="scale-heading mt-4 font-display text-[2.55rem] leading-[0.95] tracking-[-0.045em] text-foreground sm:text-[3.25rem]"
+                >
+                  <span>Built for Individuals</span>
+                  {" "}
+                  <span>& Companies at Scale</span>
+                </h2>
+                <p className="scale-lede mt-5 text-[0.98rem] leading-8 text-muted">
+                  We position ourselves as a primary housing provider for
+                  companies, capable of supporting projects of any size.
+                </p>
+              </div>
+
+              <div className="scale-proof-grid">
+                <div>
+                  <span className="font-display">2</span>
+                  <p>audiences supported</p>
+                </div>
+                <div>
+                  <span className="font-display">Any</span>
+                  <p>project size</p>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={90} className="scale-content-column">
+              <div className="scale-bento text-left">
                 {scaleGroups.map((group, index) => (
                   <div
                     key={group.eyebrow}
                     className={[
                       "scale-panel",
-                      index === 0 ? "scale-panel-primary" : "",
+                      index === scaleGroups.length - 1 ? "scale-panel-primary" : "",
                     ].join(" ")}
                   >
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-accent">
+                    <p className="scale-panel-eyebrow text-[10px] font-semibold uppercase tracking-[0.28em] text-accent">
                       {group.eyebrow}
                     </p>
-                    <div className="mt-4 space-y-3">
-                      {group.points.map((point) => (
-                        <div key={point} className="flex gap-3">
-                          <span className="mt-[0.52rem] h-2 w-2 rounded-full bg-accent" />
-                          <p className="text-[0.95rem] leading-7 text-muted">
+                    <div className="scale-point-list mt-4">
+                      {group.points.map((point, pointIndex) => (
+                        <div key={point} className="scale-point-row">
+                          <span>{String(pointIndex + 1).padStart(2, "0")}</span>
+                          <p>
                             {point}
                           </p>
                         </div>
@@ -1012,7 +1125,7 @@ export default async function Home() {
               </div>
               <a
                 href="#contact"
-                className="button-sheen mt-8 inline-flex h-11 items-center justify-center bg-[#11161d] px-6 text-[10px] font-bold uppercase tracking-[0.3em] !text-white transition-transform duration-150 ease-out hover:bg-[#1c242d] active:scale-[0.98]"
+                className="scale-cta button-sheen mt-5 inline-flex h-11 items-center justify-center bg-[#11161d] px-6 text-[10px] font-bold uppercase tracking-[0.3em] !text-white transition-transform duration-150 ease-out hover:bg-[#1c242d] active:scale-[0.98]"
               >
                 Talk to Our Team
               </a>
@@ -1065,34 +1178,38 @@ export default async function Home() {
 
         <div
           id="contact"
-          className="grid w-full items-start gap-9 px-6 py-14 sm:px-10 sm:py-16 xl:grid-cols-[minmax(0,0.88fr)_minmax(420px,0.84fr)] xl:px-16 xl:py-[6rem]"
+          aria-labelledby="contact-heading"
+          className="contact-section"
         >
-          <Reveal className="max-w-[36rem] space-y-9">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
+          <Reveal className="contact-copy">
+            <p className="contact-kicker text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
               Talk to Our Team
             </p>
-            <div className="space-y-6">
-              <h2 className="max-w-[22rem] font-display text-[3rem] leading-[0.92] tracking-[-0.04em] text-white sm:max-w-[33rem] sm:text-[4.4rem]">
+            <div className="contact-heading-stack">
+              <h2
+                id="contact-heading"
+                className="contact-title font-display text-white"
+              >
                 A Better Way to Stay & Operate.
               </h2>
-              <p className="max-w-[28rem] text-[1.02rem] leading-9 text-white/62">
+              <p className="contact-lede text-white/62">
                 At JW Luxury Estate, we don&apos;t just provide housing - we
                 deliver a secure, flexible, and team-oriented living
                 experience.
               </p>
-              <p className="max-w-[28rem] text-[1.02rem] leading-9 text-white/62">
+              <p className="contact-lede text-white/62">
                 Whether you&apos;re an individual professional or a company
                 managing a workforce, we become your trusted housing solution -
                 scalable, reliable, and fully managed.
               </p>
             </div>
-            <div className="flex flex-wrap gap-x-10 gap-y-7 pt-2 sm:gap-14 sm:pt-4">
+            <div className="contact-stat-grid">
               {corporateHighlights.map((item) => (
-                <div key={item.label} className="space-y-1">
-                  <p className="font-display text-[2rem] leading-none text-white sm:text-[2.3rem]">
+                <div key={item.label} className="contact-stat">
+                  <p className="font-display text-white">
                     {item.value}
                   </p>
-                  <p className="max-w-[10rem] text-[10px] font-semibold uppercase tracking-[0.28em] text-white/38">
+                  <p className="text-white/38">
                     {item.label}
                   </p>
                 </div>
@@ -1102,14 +1219,14 @@ export default async function Home() {
 
           <Reveal
             delay={110}
-            className="premium-surface-dark border border-white/8 bg-dark-soft px-6 py-8 shadow-[0_18px_40px_rgba(0,0,0,0.16)] sm:px-10 sm:py-10 xl:mx-auto xl:w-full xl:max-w-[25rem]"
+            className="contact-form-card premium-surface-dark"
           >
             <div className="space-y-7">
-              <div className="space-y-3">
-                <h3 className="font-display text-[2.15rem] leading-[0.96] tracking-[-0.04em] text-white">
+              <div className="contact-form-heading">
+                <h3 className="font-display text-white">
                   Let&apos;s Talk
                 </h3>
-                <p className="max-w-[20rem] text-sm leading-7 text-white/56">
+                <p className="text-white/56">
                   Whether you are a property owner, corporate client, or
                   prospective partner, JW Luxury Estate is ready to help you
                   explore the right housing solution.
@@ -1121,63 +1238,113 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="depth-section w-full px-6 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-[5.25rem]">
-        <Reveal className="mx-auto max-w-5xl text-center">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
-            How It Works
-          </p>
-          <h2 className="mt-4 font-display text-[2.9rem] leading-[0.96] tracking-[-0.05em] text-foreground sm:text-[3.6rem]">
-            From Move-In to Daily Operations
-          </h2>
-        </Reveal>
-
-        <div className="process-rail mx-auto mt-10 max-w-6xl xl:mt-14">
-          {processSteps.map((step) => (
-            <Reveal
-              as="article"
-              key={step.number}
-              delay={Number(step.number) * 50}
-              className="process-card process-rail-step"
-            >
-              <div className="process-rail-number mb-5 flex h-10 w-10 items-center justify-center bg-foreground text-sm font-bold text-surface">
-                {step.number}
-              </div>
-              <h3 className="font-display text-[1.55rem] leading-none tracking-[-0.035em] text-foreground">
-                {step.title}
-              </h3>
-              <p className="mt-3 max-w-[15rem] text-[0.84rem] leading-6 text-muted">
-                {step.description}
+      <section
+        aria-labelledby="process-heading"
+        className="process-section depth-section w-full"
+      >
+        <div className="process-shell mx-auto w-full max-w-[1180px] px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-[5.25rem]">
+          <Reveal className="process-intro-panel grid gap-5 md:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)] md:items-end">
+            <div>
+              <p className="process-kicker text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
+                How It Works
               </p>
-            </Reveal>
-          ))}
+              <h2
+                id="process-heading"
+                className="process-heading mt-4 font-display text-[2.75rem] leading-[0.96] tracking-[-0.05em] text-foreground sm:text-[3.55rem]"
+              >
+                <span>From Move-In</span>
+                {" "}
+                <span>to Daily Operations</span>
+              </h2>
+            </div>
+            <div className="process-intro-meta md:justify-self-end">
+              <div className="process-proof-card">
+                <span className="font-display">04</span>
+                <p>steps from setup to support</p>
+              </div>
+              <div className="process-flow-labels">
+                <span>Move-In</span>
+                <span>Daily Operations</span>
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="process-rail mx-auto mt-8 xl:mt-10">
+            {processSteps.map((step) => (
+              <Reveal
+                as="article"
+                key={step.number}
+                delay={Number(step.number) * 50}
+                className={[
+                  "process-card process-rail-step group",
+                  step.number === "1" ? "process-rail-step-feature" : "",
+                ].join(" ")}
+              >
+                <div className="process-card-topline">
+                  <div className="process-rail-number flex h-10 w-10 items-center justify-center bg-foreground text-sm font-bold text-surface">
+                    {step.number}
+                  </div>
+                  <span className="process-step-label">Step</span>
+                </div>
+                <h3 className="process-step-title font-display text-[1.55rem] leading-none tracking-[-0.035em] text-foreground">
+                  {step.title}
+                </h3>
+                <p className="process-step-copy mt-3 max-w-[15rem] text-[0.84rem] leading-6 text-muted">
+                  {step.description}
+                </p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="depth-section border-t border-border-subtle bg-surface">
-        <div className="w-full px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-[5.5rem]">
-          <Reveal className="mx-auto max-w-4xl text-center">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
-              Stay Confidence
-            </p>
-            <h2 className="mt-4 font-display text-[2.45rem] leading-[0.98] tracking-[-0.035em] text-foreground sm:text-[3.3rem]">
-              Secure, Flexible, and Fully Managed
-            </h2>
-            <p className="mx-auto mt-6 max-w-3xl text-[1rem] leading-8 text-muted">
-              We create housing that feels organized, secure, and operationally
-              strong for every stage of a project, relocation, or team-based
-              stay.
-            </p>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-              {trustPillars.map((pillar) => (
-                <span
-                  key={pillar}
-                  className="text-[1rem] font-semibold text-foreground/34"
-                >
-                  {pillar}
-                </span>
-              ))}
+      <section
+        aria-labelledby="confidence-heading"
+        className="confidence-section depth-section border-t border-border-subtle bg-surface"
+      >
+        <div className="confidence-shell mx-auto w-full max-w-[1180px] px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-[5.25rem]">
+          <Reveal className="confidence-intro-panel grid gap-5 md:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)] md:items-end">
+            <div>
+              <p className="confidence-kicker text-[10px] font-semibold uppercase tracking-[0.34em] text-accent">
+                Stay Confidence
+              </p>
+              <h2
+                id="confidence-heading"
+                className="confidence-heading mt-4 font-display text-[2.45rem] leading-[0.98] tracking-[-0.035em] text-foreground sm:text-[3.3rem]"
+              >
+                <span>Secure, Flexible,</span>
+                {" "}
+                <span>and Fully Managed</span>
+              </h2>
+              <p className="confidence-lede mt-6 max-w-3xl text-[1rem] leading-8 text-muted">
+                We create housing that feels organized, secure, and operationally
+                strong for every stage of a project, relocation, or team-based
+                stay.
+              </p>
             </div>
+            <p className="confidence-side-note md:justify-self-end">
+              A clear operating standard for every stay, from access and terms
+              to management and support.
+            </p>
           </Reveal>
+
+          <div className="confidence-pillar-grid mt-5">
+            {trustPillars.map((pillar, index) => (
+              <Reveal
+                as="article"
+                key={pillar}
+                delay={index * 45}
+                className="confidence-pillar-card group"
+              >
+                <span className="confidence-pillar-number">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="font-display text-[1.75rem] leading-none tracking-[-0.035em]">
+                  {pillar}
+                </h3>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
