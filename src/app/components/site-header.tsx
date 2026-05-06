@@ -36,8 +36,8 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
             : 0;
 
         setScrollProgress(nextProgress);
+        setIsScrolled(window.scrollY > 14);
       });
-      setIsScrolled(window.scrollY > 10);
     };
 
     handleScrollState();
@@ -51,7 +51,7 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 860) {
         setIsMenuOpen(false);
       }
     };
@@ -74,14 +74,6 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
   }, [isMenuOpen]);
 
   useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
-      const currentHash = window.location.hash;
-
-      if (navigation.some((item) => item.href === currentHash)) {
-        setActiveHref(currentHash);
-      }
-    });
-
     const visibleSections = new Map<string, number>();
 
     const observer = new IntersectionObserver(
@@ -105,8 +97,8 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
         }
       },
       {
-        rootMargin: "-26% 0px -58% 0px",
-        threshold: [0.15, 0.3, 0.55, 0.75],
+        rootMargin: "-24% 0px -60% 0px",
+        threshold: [0.16, 0.34, 0.56, 0.78],
       },
     );
 
@@ -118,43 +110,30 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
       }
     }
 
-    return () => {
-      window.cancelAnimationFrame(frame);
-      observer.disconnect();
-    };
-  }, [navigation, sectionIds]);
+    return () => observer.disconnect();
+  }, [sectionIds]);
+
+  const closeMenu = (href: string) => {
+    setActiveHref(href);
+    setIsMenuOpen(false);
+  };
 
   return (
-    <header
-      className={[
-        "sticky top-0 z-50 border-b transition-[background-color,backdrop-filter,box-shadow,border-color] duration-300",
-        isScrolled
-          ? "border-border-strong/80 bg-surface/90 shadow-[0_12px_34px_rgba(17,12,9,0.07)] backdrop-blur-xl"
-          : "border-border-subtle bg-surface/95 backdrop-blur-md",
-      ].join(" ")}
-    >
-      <div className="flex w-full items-center justify-between gap-4 px-4 py-3 sm:px-5 sm:py-[0.95rem] lg:px-6">
-        <BrandLockup />
+    <header className="lux-nav-shell" data-scrolled={isScrolled}>
+      <div className="lux-nav">
+        <BrandLockup href="#" className="!text-white" />
 
-        <nav className="hidden items-center gap-7 text-[10px] font-semibold uppercase tracking-[0.32em] text-muted md:flex">
+        <nav className="lux-nav-links" aria-label="Primary navigation">
           {navigation.map((item) => {
             const isActive = activeHref === item.href;
 
             return (
               <a
-                key={item.label}
+                key={item.href}
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
-                onClick={() => {
-                  setActiveHref(item.href);
-                  setIsMenuOpen(false);
-                }}
-                className={[
-                  "site-nav-link relative pb-[0.35rem] transition-colors duration-200 [transition-timing-function:var(--ease-out)] hover:text-foreground",
-                  isActive
-                    ? "is-active text-foreground"
-                    : "text-muted",
-                ].join(" ")}
+                onClick={() => closeMenu(item.href)}
+                className={isActive ? "is-active" : ""}
               >
                 {item.label}
               </a>
@@ -162,114 +141,57 @@ export default function SiteHeader({ navigation }: SiteHeaderProps) {
           })}
         </nav>
 
-        <div className="flex items-center gap-2 md:hidden">
-          <button
-            type="button"
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-navigation"
-            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            onClick={() => setIsMenuOpen((open) => !open)}
-            className="inline-flex h-[2.625rem] w-[2.625rem] items-center justify-center rounded-full border border-border-subtle bg-surface text-foreground transition-[transform,border-color,background-color] duration-200 ease-out active:scale-[0.97]"
-          >
-            <span className="relative block h-3.5 w-4">
-              <span
-                className={[
-                  "absolute left-0 top-0 h-px w-4 bg-current transition-[transform,opacity] duration-200 ease-out",
-                  isMenuOpen ? "translate-y-[6px] rotate-45" : "",
-                ].join(" ")}
-              />
-              <span
-                className={[
-                  "absolute left-0 top-[6px] h-px w-4 bg-current transition-opacity duration-150 ease-out",
-                  isMenuOpen ? "opacity-0" : "opacity-100",
-                ].join(" ")}
-              />
-              <span
-                className={[
-                  "absolute left-0 top-3 h-px w-4 bg-current transition-[transform,opacity] duration-200 ease-out",
-                  isMenuOpen ? "-translate-y-[6px] -rotate-45" : "",
-                ].join(" ")}
-              />
-            </span>
-          </button>
-        </div>
-
-        <a
-          href="#contact"
-          onClick={() => setIsMenuOpen(false)}
-          className="button-sheen hidden h-10 min-w-[128px] items-center justify-center bg-[#17120f] px-[1.15rem] text-[10px] font-bold uppercase tracking-[0.28em] !text-white transition-transform duration-150 ease-out hover:bg-[#27211d] active:scale-[0.98] md:inline-flex"
-        >
-          Inquire Now
+        <a href="#contact" onClick={() => closeMenu("#contact")} className="lux-nav-cta">
+          Talk to Team
         </a>
+
+        <button
+          type="button"
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
+          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          onClick={() => setIsMenuOpen((open) => !open)}
+          className="lux-menu-button"
+        >
+          <span className="lux-menu-button-mark" aria-hidden="true">
+            <span className={isMenuOpen ? "is-top-open" : ""} />
+            <span className={isMenuOpen ? "is-bottom-open" : ""} />
+          </span>
+        </button>
+
+        <span
+          aria-hidden="true"
+          className="lux-nav-progress"
+          style={{ transform: `scaleX(${scrollProgress})` }}
+        />
       </div>
 
       <div
-        className={[
-          "fixed inset-0 top-[64px] bg-[rgba(17,12,9,0.14)] backdrop-blur-[2px] transition-opacity duration-200 ease-out sm:top-[70px] md:hidden",
-          isMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
-        ].join(" ")}
+        className={["lux-mobile-scrim", isMenuOpen ? "is-open" : ""].join(" ")}
         onClick={() => setIsMenuOpen(false)}
         aria-hidden="true"
       />
 
       <div
-        className={[
-          "absolute inset-x-0 top-full px-4 pt-3 transition-[opacity,transform] duration-200 ease-out md:hidden",
-          isMenuOpen
-            ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
-            : "pointer-events-none -translate-y-2 scale-[0.985] opacity-0",
-        ].join(" ")}
+        id="mobile-navigation"
+        className={["lux-mobile-panel", isMenuOpen ? "is-open" : ""].join(" ")}
       >
-        <div
-          id="mobile-navigation"
-          className="overflow-hidden rounded-[1.5rem] border border-border-strong/70 bg-surface/96 p-3 shadow-[0_20px_50px_rgba(17,12,9,0.14)] backdrop-blur-xl"
-        >
-          <div className="space-y-1">
-            {navigation.map((item) => {
-              const isActive = activeHref === item.href;
-
-              return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  aria-current={isActive ? "page" : undefined}
-                  onClick={() => {
-                    setActiveHref(item.href);
-                    setIsMenuOpen(false);
-                  }}
-                  className={[
-                    "block rounded-2xl border px-4 py-4 text-[11px] font-semibold uppercase tracking-[0.28em] transition-[transform,border-color,background-color,color,opacity] duration-200 ease-out active:scale-[0.98]",
-                    isActive
-                      ? "border-border-strong bg-background text-foreground"
-                      : "border-transparent bg-transparent text-muted",
-                  ].join(" ")}
-                >
-                  {item.label}
-                </a>
-              );
-            })}
-          </div>
-
-          <div className="mt-3 border-t border-border-subtle pt-3">
+        <nav aria-label="Mobile navigation">
+          {navigation.map((item, index) => (
             <a
-              href="#contact"
-              onClick={() => {
-                setActiveHref("#contact");
-                setIsMenuOpen(false);
-              }}
-              className="button-sheen inline-flex h-12 w-full items-center justify-center rounded-full bg-[#17120f] px-5 text-[10px] font-bold uppercase tracking-[0.28em] !text-white transition-transform duration-150 ease-out active:scale-[0.98]"
+              key={item.href}
+              href={item.href}
+              onClick={() => closeMenu(item.href)}
+              style={{ transitionDelay: isMenuOpen ? `${index * 42 + 60}ms` : "0ms" }}
             >
-              Inquire Now
+              {item.label}
             </a>
-          </div>
-        </div>
+          ))}
+        </nav>
+        <a href="#contact" onClick={() => closeMenu("#contact")} className="lux-mobile-cta">
+          Talk to Our Team
+        </a>
       </div>
-
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-[-1px] h-px origin-left bg-accent/70 transition-transform duration-150 [transition-timing-function:var(--ease-out)]"
-        style={{ transform: `scaleX(${scrollProgress})` }}
-      />
     </header>
   );
 }

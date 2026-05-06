@@ -207,7 +207,7 @@ export default function ContactForm() {
                 message: event.target.value,
               }))
             }
-            placeholder="Property owner, corporate client, or prospective partner..."
+            placeholder="Team size, city, move-in timing, stay length, and any must-haves..."
             className="min-h-[6.5rem] w-full resize-none bg-transparent text-sm leading-7 text-white/80 outline-none placeholder:text-white/24"
           />
         </label>
@@ -243,15 +243,19 @@ export default function ContactForm() {
           >
             {status.message}
           </p>
-        ) : null}
+        ) : (
+          <p className="text-xs leading-6 text-white/38">
+            We respond with fit, timing, and next steps for your housing request.
+          </p>
+        )}
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="button-sheen inline-flex h-[48px] w-full items-center justify-center bg-accent px-5 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition-transform duration-150 ease-out hover:bg-accent-strong active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+        className="button-sheen inline-flex h-[48px] w-full items-center justify-center bg-accent px-5 text-[10px] font-bold uppercase tracking-[0.3em] text-[#080504] transition-transform duration-150 ease-out hover:bg-accent-strong active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isSubmitting ? "Sending..." : "Contact Us"}
+        {isSubmitting ? "Sending..." : "Request Housing Plan"}
       </button>
     </form>
   );

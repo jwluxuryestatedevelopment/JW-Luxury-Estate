@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import {
   Cormorant_Garamond,
+  Geist,
   Geist_Mono,
-  Manrope,
 } from "next/font/google";
 import "./globals.css";
 
-const manrope = Manrope({
+const geist = Geist({
   variable: "--font-jw-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -27,22 +27,21 @@ const cormorant = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: {
     default:
-      "JW Luxury Estate | Premium Housing Solutions With Business-Level Execution",
+      "JW Luxury Estate | Premium Corporate Housing Beyond Hotels",
     template: "%s | JW Luxury Estate",
   },
   description:
-    "JW Luxury Estate delivers furnished stays, corporate housing, and rental management with the professionalism, structure, and care that modern property partners expect.",
+    "JW Luxury Estate delivers premium furnished housing for companies, project teams, and professionals who need more space, privacy, and support than hotels provide.",
   applicationName: "JW Luxury Estate",
   keywords: [
     "JW Luxury Estate",
-    "premium housing solutions",
     "corporate housing",
-    "short-term rental management",
     "mid-term rental stays",
-    "property partnership opportunities",
+    "premium furnished housing",
+    "team housing",
     "furnished stays",
-    "property operations",
-    "professionally managed living experiences",
+    "hotel alternative for corporate teams",
+    "professionally managed housing",
   ],
   authors: [{ name: "JW Luxury Estate" }],
   creator: "JW Luxury Estate",
@@ -51,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "JW Luxury Estate",
     description:
-      "Premium housing and property solutions for corporate stays, short-term rentals, and professionally managed living experiences.",
+      "Premium furnished housing for corporate teams, long-stay professionals, and project-based workforce needs.",
     siteName: "JW Luxury Estate",
     locale: "en_US",
     type: "website",
@@ -60,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "JW Luxury Estate",
     description:
-      "Premium housing solutions with business-level execution.",
+      "Premium corporate housing beyond hotels.",
   },
 };
 
@@ -72,7 +71,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${geist.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

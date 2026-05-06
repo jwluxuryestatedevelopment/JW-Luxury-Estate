@@ -1,11 +1,12 @@
 import Image from "next/image";
-import { siteImageUrls } from "../data/site-images";
 
 type BrandLockupProps = {
   href?: string;
   variant?: "header" | "footer";
   className?: string;
 };
+
+const logoSrc = "/logo-jw-transparent-clean-v2.png";
 
 export default function BrandLockup({
   href = "#",
@@ -30,7 +31,7 @@ export default function BrandLockup({
         <>
           <span className="brand-plaque relative h-[3.2rem] w-[3.2rem] shrink-0 sm:h-[3.75rem] sm:w-[3.75rem]">
             <Image
-              src={siteImageUrls.logos.primary}
+              src={logoSrc}
               alt=""
               fill
               sizes="(max-width: 640px) 52px, 60px"
@@ -46,7 +47,7 @@ export default function BrandLockup({
         <>
           <span className="brand-plaque relative h-[5.7rem] w-[5.7rem] shrink-0 sm:h-[7rem] sm:w-[7rem]">
             <Image
-              src={siteImageUrls.logos.primary}
+              src={logoSrc}
               alt=""
               fill
               sizes="(max-width: 640px) 92px, 112px"
