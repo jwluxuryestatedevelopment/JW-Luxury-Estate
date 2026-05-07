@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 type HeroVisualSlide = {
   alt: string;
+  position?: string;
   src: string;
 };
 
@@ -51,7 +52,7 @@ export default function HeroVisualCarousel({
       <div className="lux-hero-carousel-stage">
         {slides.map((slide, index) => (
           <Image
-            key={slide.src}
+            key={`${slide.src}-${index}`}
             src={slide.src}
             alt={slide.alt}
             fill
@@ -61,6 +62,13 @@ export default function HeroVisualCarousel({
               "object-cover lux-hero-carousel-image",
               index === activeIndex ? "is-active" : "",
             ].join(" ")}
+            style={
+              slide.position
+                ? {
+                    objectPosition: slide.position,
+                  }
+                : undefined
+            }
           />
         ))}
       </div>

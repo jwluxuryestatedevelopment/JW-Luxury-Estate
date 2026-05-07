@@ -8,6 +8,9 @@ type ContactPayload = {
   phone?: string;
   emailAddress?: string;
   email?: string;
+  listingCollection?: string;
+  listingSlug?: string;
+  listingTitle?: string;
   message?: string;
   website?: string;
 };
@@ -134,6 +137,9 @@ export async function POST(request: Request) {
   const companyName = normalizeValue(payload.companyName);
   const phone = normalizeValue(payload.phone);
   const emailAddress = normalizeValue(payload.emailAddress ?? payload.email);
+  const listingCollection = normalizeValue(payload.listingCollection);
+  const listingSlug = normalizeValue(payload.listingSlug);
+  const listingTitle = normalizeValue(payload.listingTitle);
   const message = normalizeValue(payload.message);
   const website = normalizeValue(payload.website);
 
@@ -142,6 +148,7 @@ export async function POST(request: Request) {
     hasCompanyName: Boolean(companyName),
     hasPhone: Boolean(phone),
     hasEmailAddress: Boolean(emailAddress),
+    hasListingInterest: Boolean(listingTitle),
     hasMessage: Boolean(message),
     hasWebsite: Boolean(website),
   });
@@ -185,6 +192,24 @@ export async function POST(request: Request) {
   }
 
   const resend = new Resend(resendApiKey);
+  const listingLines = listingTitle
+    ? [
+        "",
+        "Selected listing:",
+        `Listing: ${listingTitle}`,
+        `Collection: ${listingCollection || "Not provided"}`,
+        `Slug: ${listingSlug || "Not provided"}`,
+      ]
+    : [];
+  const listingHtml = listingTitle
+    ? `
+          <div style="margin-top: 20px; padding: 16px; background: #f6efe3; border: 1px solid #e3d4bc;">
+            <p style="margin: 0 0 8px;"><strong>Selected listing:</strong> ${escapeHtml(listingTitle)}</p>
+            <p style="margin: 0 0 8px;"><strong>Collection:</strong> ${escapeHtml(listingCollection || "Not provided")}</p>
+            <p style="margin: 0;"><strong>Slug:</strong> ${escapeHtml(listingSlug || "Not provided")}</p>
+          </div>
+        `
+    : "";
 
   try {
     const { data, error } = await resend.emails.send({
@@ -199,6 +224,7 @@ export async function POST(request: Request) {
         `Company name: ${companyName || "Not provided"}`,
         `Phone: ${phone || "Not provided"}`,
         `Email address: ${emailAddress}`,
+        ...listingLines,
         "",
         "Inquiry details:",
         message,
@@ -210,6 +236,7 @@ export async function POST(request: Request) {
           <p style="margin: 0 0 12px;"><strong>Company name:</strong> ${escapeHtml(companyName || "Not provided")}</p>
           <p style="margin: 0 0 12px;"><strong>Phone:</strong> ${escapeHtml(phone || "Not provided")}</p>
           <p style="margin: 0 0 12px;"><strong>Email address:</strong> ${escapeHtml(emailAddress)}</p>
+          ${listingHtml}
           <div style="margin-top: 20px;">
             <p style="margin: 0 0 8px;"><strong>Inquiry details:</strong></p>
             <p style="margin: 0; line-height: 1.7;">${escapeHtml(message).replaceAll("\n", "<br />")}</p>

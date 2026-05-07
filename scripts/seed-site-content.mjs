@@ -91,25 +91,39 @@ async function uploadImage(supabase, localPath, storagePath) {
 
 const heroSlides = [
   {
-    imagePath: "hero/hero-featured-property.jpg",
-    localPath: "public/hero-featured-property.jpg",
-    alt: "JW Luxury Estate furnished residence prepared for long-stay professionals",
+    imagePath: "hero/jw-hero-exterior.png",
+    localPath: "public/generated/luxury-estate/jw-hero-exterior.png",
+    alt: "Luxury estate exterior with warm evening hospitality lighting",
     objectPosition: null,
     sortOrder: 0,
   },
   {
-    imagePath: "hero/herojwlux1.png",
-    localPath: "public/herojwlux1.png",
-    alt: "Luxury home exterior used by JW Luxury Estate",
+    imagePath: "hero/jw-lounge.png",
+    localPath: "public/generated/luxury-estate/jw-lounge.png",
+    alt: "Premium lounge and work-ready living environment for long-stay teams",
     objectPosition: null,
     sortOrder: 1,
   },
   {
-    imagePath: "hero/herojwlux.png",
-    localPath: "public/herojwlux.png",
-    alt: "Premium residential property for JW Luxury Estate housing",
+    imagePath: "hero/jw-kitchen-dining.png",
+    localPath: "public/generated/luxury-estate/jw-kitchen-dining.png",
+    alt: "Luxury kitchen and dining space prepared for corporate team housing",
     objectPosition: null,
     sortOrder: 2,
+  },
+  {
+    imagePath: "hero/jw-bedroom-suite.png",
+    localPath: "public/generated/luxury-estate/jw-bedroom-suite.png",
+    alt: "Private luxury bedroom suite prepared for a longer professional stay",
+    objectPosition: null,
+    sortOrder: 3,
+  },
+  {
+    imagePath: "hero/jw-arrival-foyer.png",
+    localPath: "public/generated/luxury-estate/jw-arrival-foyer.png",
+    alt: "Hotel-inspired private residence arrival foyer and lounge",
+    objectPosition: null,
+    sortOrder: 4,
   },
 ];
 
@@ -234,6 +248,99 @@ const propertyGroups = [
         localPath:
           "public/properties/daily-living/daily-living-outdoor-dining-optimized.jpg",
         alt: "Outdoor dining setup that supports everyday shared routines",
+      },
+    ],
+  },
+];
+
+const propertyListingCollections = [
+  {
+    slug: "featured-stays",
+    title: "Featured JW stay formats",
+    subtitle:
+      "Swipe through housing setups shaped for teams, professionals, and longer assignments.",
+    sortOrder: 0,
+    cards: [
+      {
+        slug: "team-ready-residence",
+        title: "Team-Ready Residence",
+        locationLabel: "Carrollton, GA",
+        shortDescription:
+          "A furnished home base for coworkers who need shared living areas and private sleeping space.",
+        badge: "Team favorite",
+        highlights: ["Shared home", "Team stay", "Parking"],
+        imagePath: "gallery/shared-home-woodlawn-exterior-optimized.jpg",
+        imageAlt:
+          "Exterior view of a furnished residence prepared for team housing",
+        interestMessage:
+          "Hi, I'm interested in Team-Ready Residence. Please share availability, fit, and next steps.",
+      },
+      {
+        slug: "private-professional-suite",
+        title: "Private Professional Suite",
+        locationLabel: "U.S. markets",
+        shortDescription:
+          "A calmer private-room setup for professionals who need consistency during longer assignments.",
+        badge: "Private room",
+        highlights: ["Private room", "Furnished", "30+ days"],
+        imagePath: "gallery/private-bedroom-omaha-primary.jpg",
+        imageAlt:
+          "Large private bedroom with lounge seating for a longer professional stay",
+        interestMessage:
+          "Hi, I'm interested in Private Professional Suite. Please share availability, fit, and next steps.",
+      },
+      {
+        slug: "daily-living-home",
+        title: "Daily Living Home",
+        locationLabel: "Team housing",
+        shortDescription:
+          "A practical stay format with kitchen access, laundry flow, and room for a weekly routine.",
+        badge: "Daily living",
+        highlights: ["Kitchen", "Laundry", "Long stay"],
+        imagePath: "gallery/daily-living-omaha-kitchen-island.jpg",
+        imageAlt: "Bright kitchen with an island prepared for everyday cooking",
+        interestMessage:
+          "Hi, I'm interested in Daily Living Home. Please share availability, fit, and next steps.",
+      },
+      {
+        slug: "crew-bedroom-setup",
+        title: "Crew Bedroom Setup",
+        locationLabel: "Project crews",
+        shortDescription:
+          "A coordinated bedroom mix for crews that need predictable arrival and sleeping arrangements.",
+        badge: "Crew-ready",
+        highlights: ["Crew fit", "Smart access", "Flexible"],
+        imagePath: "gallery/private-bedroom-woodlawn-team-room-optimized.jpg",
+        imageAlt: "Team room with multiple beds for coordinated workforce stays",
+        interestMessage:
+          "Hi, I'm interested in Crew Bedroom Setup. Please share availability, fit, and next steps.",
+      },
+      {
+        slug: "shared-lounge-residence",
+        title: "Shared Lounge Residence",
+        locationLabel: "Corporate stays",
+        shortDescription:
+          "A lounge-forward residence where teams can reset, coordinate, and live beyond a hotel room.",
+        badge: "Shared lounge",
+        highlights: ["Lounge", "WiFi", "Managed"],
+        imagePath: "gallery/shared-home-omaha-living-room.jpg",
+        imageAlt:
+          "Shared living room with multiple seating areas in a furnished home",
+        interestMessage:
+          "Hi, I'm interested in Shared Lounge Residence. Please share availability, fit, and next steps.",
+      },
+      {
+        slug: "outdoor-living-base",
+        title: "Outdoor Living Base",
+        locationLabel: "Extended stays",
+        shortDescription:
+          "A furnished home option with outdoor space that supports a more comfortable long-stay rhythm.",
+        badge: "Outdoor reset",
+        highlights: ["Outdoor area", "Furnished", "Support"],
+        imagePath: "gallery/shared-home-woodlawn-deck-lounge-optimized.jpg",
+        imageAlt: "Outdoor deck lounge that extends the shared living space",
+        interestMessage:
+          "Hi, I'm interested in Outdoor Living Base. Please share availability, fit, and next steps.",
       },
     ],
   },
@@ -378,6 +485,60 @@ async function main() {
 
   if (imagesError) {
     throw imagesError;
+  }
+
+  const { data: listingCollections, error: listingCollectionsError } =
+    await supabase
+      .from("property_listing_collections")
+      .upsert(
+        propertyListingCollections.map((collection) => ({
+          slug: collection.slug,
+          title: collection.title,
+          subtitle: collection.subtitle,
+          sort_order: collection.sortOrder,
+          is_active: true,
+        })),
+        { onConflict: "slug" },
+      )
+      .select("id, slug");
+
+  if (listingCollectionsError) {
+    throw listingCollectionsError;
+  }
+
+  const listingCollectionIdBySlug = new Map(
+    listingCollections.map((collection) => [collection.slug, collection.id]),
+  );
+  const listingCards = propertyListingCollections.flatMap((collection) => {
+    const collectionId = listingCollectionIdBySlug.get(collection.slug);
+
+    if (!collectionId) {
+      return [];
+    }
+
+    return collection.cards.map((card, index) => ({
+      collection_id: collectionId,
+      slug: card.slug,
+      title: card.title,
+      location_label: card.locationLabel,
+      short_description: card.shortDescription,
+      badge: card.badge,
+      highlights: card.highlights,
+      image_path: card.imagePath,
+      image_alt: card.imageAlt,
+      object_position: null,
+      interest_message: card.interestMessage,
+      sort_order: index,
+      is_active: true,
+    }));
+  });
+
+  const { error: listingCardsError } = await supabase
+    .from("property_listing_cards")
+    .upsert(listingCards, { onConflict: "collection_id,slug" });
+
+  if (listingCardsError) {
+    throw listingCardsError;
   }
 
   console.log("Seed complete.");

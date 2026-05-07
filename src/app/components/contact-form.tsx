@@ -1,14 +1,25 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 type FormState = {
   fullName: string;
   companyName: string;
   emailAddress: string;
+  listingCollection: string;
+  listingSlug: string;
+  listingTitle: string;
   phone: string;
   message: string;
   website: string;
+};
+
+type ListingInterest = {
+  collectionSlug: string;
+  collectionTitle: string;
+  message: string;
+  slug: string;
+  title: string;
 };
 
 type ContactApiResponse =
@@ -28,13 +39,44 @@ const initialFormState: FormState = {
   fullName: "",
   companyName: "",
   emailAddress: "",
+  listingCollection: "",
+  listingSlug: "",
+  listingTitle: "",
   phone: "",
   message: "",
   website: "",
 };
 
+const LISTING_INTEREST_EVENT = "jw:listing-interest";
+const LISTING_INTEREST_STORAGE_KEY = "jw:listing-interest";
+
+function parseListingInterest(value: string | null) {
+  if (!value) {
+    return null;
+  }
+
+  try {
+    const parsed = JSON.parse(value) as Partial<ListingInterest>;
+
+    if (!parsed.title || !parsed.message) {
+      return null;
+    }
+
+    return {
+      collectionSlug: parsed.collectionSlug ?? "",
+      collectionTitle: parsed.collectionTitle ?? "",
+      message: parsed.message,
+      slug: parsed.slug ?? "",
+      title: parsed.title,
+    } satisfies ListingInterest;
+  } catch {
+    return null;
+  }
+}
+
 export default function ContactForm() {
   const [formState, setFormState] = useState<FormState>(initialFormState);
+  const autoListingMessageRef = useRef("");
   const [status, setStatus] = useState<{
     type: "idle" | "success" | "error";
     message: string;
@@ -43,6 +85,62 @@ export default function ContactForm() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const applyListingInterest = (interest: ListingInterest) => {
+      const nextMessage =
+        interest.message.trim() ||
+        `Hi, I'm interested in ${interest.title}. Please share availability, fit, and next steps.`;
+
+      setFormState((current) => {
+        autoListingMessageRef.current = nextMessage;
+
+        return {
+          ...current,
+          listingCollection: interest.collectionTitle,
+          listingSlug: interest.slug,
+          listingTitle: interest.title,
+          message: nextMessage,
+        };
+      });
+    };
+
+    const storedInterest = parseListingInterest(
+      window.sessionStorage.getItem(LISTING_INTEREST_STORAGE_KEY),
+    );
+
+    if (storedInterest) {
+      applyListingInterest(storedInterest);
+    }
+
+    const handleListingInterest = (event: Event) => {
+      const detail = (event as CustomEvent<ListingInterest>).detail;
+
+      if (detail?.title) {
+        applyListingInterest(detail);
+      }
+    };
+
+    window.addEventListener(LISTING_INTEREST_EVENT, handleListingInterest);
+
+    return () => {
+      window.removeEventListener(LISTING_INTEREST_EVENT, handleListingInterest);
+    };
+  }, []);
+
+  const clearListingInterest = () => {
+    const autoMessage = autoListingMessageRef.current;
+
+    window.sessionStorage.removeItem(LISTING_INTEREST_STORAGE_KEY);
+    autoListingMessageRef.current = "";
+    setFormState((current) => ({
+      ...current,
+      listingCollection: "",
+      listingSlug: "",
+      listingTitle: "",
+      message: current.message === autoMessage ? "" : current.message,
+    }));
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -88,6 +186,8 @@ export default function ContactForm() {
 
       console.info("[contact-form] inquiry sent", result.data);
       setFormState(initialFormState);
+      window.sessionStorage.removeItem(LISTING_INTEREST_STORAGE_KEY);
+      autoListingMessageRef.current = "";
       setStatus({
         type: "success",
         message: "Your inquiry was sent successfully. We'll be in touch shortly.",
@@ -108,6 +208,17 @@ export default function ContactForm() {
 
   return (
     <form className="space-y-8" onSubmit={handleSubmit} aria-busy={isSubmitting}>
+      {formState.listingTitle ? (
+        <div className="lux-interest-chip">
+          <span>
+            Interested in <strong>{formState.listingTitle}</strong>
+          </span>
+          <button type="button" onClick={clearListingInterest}>
+            Clear
+          </button>
+        </div>
+      ) : null}
+
       <div className="grid gap-x-7 gap-y-6 sm:grid-cols-2">
         <label className="form-field block border-b border-white/12 pb-3">
           <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.26em] text-white/26">

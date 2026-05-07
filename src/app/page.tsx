@@ -1,9 +1,11 @@
 import Image from "next/image";
 import BrandLockup from "./components/brand-lockup";
 import ContactForm from "./components/contact-form";
+import FloatingWhatsappChat from "./components/floating-whatsapp-chat";
 import HeroVisualCarousel from "./components/hero-visual-carousel";
 import LuxuryScrollEffects from "./components/luxury-scroll-effects";
 import PropertyImageCarousel from "./components/property-image-carousel";
+import PropertyListingRails from "./components/property-listing-rails";
 import Reveal from "./components/reveal";
 import SiteHeader from "./components/site-header";
 import { editorialImages } from "./data/editorial-images";
@@ -13,6 +15,7 @@ export const dynamic = "force-dynamic";
 
 const navigation = [
   { label: "Properties", href: "#properties" },
+  { label: "Listings", href: "#listings" },
   { label: "Comparison", href: "#comparison" },
   { label: "Standards", href: "#standards" },
   { label: "Nationwide", href: "#nationwide" },
@@ -104,14 +107,6 @@ const propertyEditorialFallbacks = [
   editorialImages.arrival,
   editorialImages.room,
   editorialImages.dining,
-];
-
-const heroCarouselSlides = [
-  editorialImages.hero,
-  editorialImages.lounge,
-  editorialImages.dining,
-  editorialImages.room,
-  editorialImages.arrival,
 ];
 
 const processSteps = [
@@ -244,6 +239,8 @@ function CTAButton({
 
 export default async function Home() {
   const {
+    heroSlides,
+    propertyListings,
     propertyShowcase,
     propertyShowcaseUsesRemoteMedia,
   } = await getHomepageContent();
@@ -280,7 +277,7 @@ export default async function Home() {
           </Reveal>
 
           <Reveal delay={120} className="lux-hero-visual-reveal lux-reveal-media">
-            <HeroVisualCarousel slides={heroCarouselSlides} />
+            <HeroVisualCarousel slides={heroSlides} />
           </Reveal>
         </div>
       </section>
@@ -384,6 +381,8 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <PropertyListingRails collections={propertyListings} />
 
       <section
         id="comparison"
@@ -700,6 +699,7 @@ export default async function Home() {
             <a href="mailto:camilasolano@jwluxuryestate.com">
               camilasolano@jwluxuryestate.com
             </a>
+            <a href="tel:+17708787224">Phone Number +1 (770) 878-7224</a>
             <span>Carrollton, GA</span>
           </div>
         </div>
@@ -708,6 +708,7 @@ export default async function Home() {
           <span>Secure, flexible living for professionals and companies.</span>
         </div>
       </footer>
+      <FloatingWhatsappChat />
     </main>
   );
 }

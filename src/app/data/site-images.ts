@@ -4,7 +4,7 @@ const SITE_IMAGES_BUCKET = "site-images";
 
 export const siteImagePaths = {
   hero: {
-    featuredProperty: "hero/hero-featured-property.jpg",
+    featuredProperty: "hero/jw-hero-exterior.png",
   },
   gallery: {
     sharedHomes: [
