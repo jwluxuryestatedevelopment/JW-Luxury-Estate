@@ -4107,9 +4107,9 @@ body:has(.luxury-page) {
   display: inline-flex;
   min-height: 3.3rem;
   align-items: center;
-  gap: 0.85rem;
+  justify-content: center;
   border-radius: 999px;
-  padding: 0.38rem 0.42rem 0.38rem 1.25rem;
+  padding: 0.38rem 1.55rem;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -4130,27 +4130,6 @@ body:has(.luxury-page) {
   border: 1px solid rgba(247, 239, 226, 0.18);
   background: rgba(247, 239, 226, 0.06);
   color: var(--lux-ink);
-}
-
-.lux-cta-icon {
-  display: inline-flex;
-  height: 2.42rem;
-  width: 2.42rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: rgba(5, 4, 3, 0.12);
-  transition:
-    transform 180ms var(--lux-ease-out),
-    background-color 180ms var(--lux-ease-out);
-}
-
-.lux-cta-secondary .lux-cta-icon {
-  background: rgba(247, 239, 226, 0.12);
-}
-
-.lux-cta:hover .lux-cta-icon {
-  transform: translateX(0.18rem) translateY(-0.06rem);
 }
 
 .lux-hero-visual-reveal {
@@ -6037,7 +6016,7 @@ body:has(.luxury-page) {
   }
 
   .lux-cta {
-    justify-content: space-between;
+    justify-content: center;
   }
 
   .lux-table-header {

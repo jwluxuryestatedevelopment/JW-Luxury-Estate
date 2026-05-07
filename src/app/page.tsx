@@ -199,19 +199,6 @@ const trustPoints = [
   "Nationwide coordination",
 ];
 
-function ArrowIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 20 20"
-      className="h-4 w-4 fill-none stroke-current stroke-[1.4]"
-    >
-      <path d="M6 14 14 6" />
-      <path d="M8 6h6v6" />
-    </svg>
-  );
-}
-
 function CTAButton({
   children,
   href,
@@ -230,9 +217,6 @@ function CTAButton({
       ].join(" ")}
     >
       <span>{children}</span>
-      <span className="lux-cta-icon">
-        <ArrowIcon />
-      </span>
     </a>
   );
 }
@@ -269,7 +253,7 @@ export default async function Home() {
               </p>
               <div className="lux-hero-actions">
                 <CTAButton href="#contact">Talk to Our Team</CTAButton>
-                <CTAButton href="#properties" tone="secondary">
+                <CTAButton href="#marketing-cards" tone="secondary">
                   Explore Properties
                 </CTAButton>
               </div>
@@ -322,7 +306,7 @@ export default async function Home() {
             </div>
           </Reveal>
 
-          <div className="lux-property-grid">
+          <div id="marketing-cards" className="lux-property-grid">
             {propertyShowcase.map((property, index) => {
               const usesDummyMedia =
                 propertyShowcaseUsesRemoteMedia &&
